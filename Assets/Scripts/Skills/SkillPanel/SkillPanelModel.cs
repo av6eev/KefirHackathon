@@ -1,4 +1,5 @@
-﻿using Skills.Deck;
+﻿using Entities.Player;
+using Skills.Deck;
 using Skills.SkillPanel.Slot;
 using Utilities.ModelCollection;
 
@@ -6,11 +7,11 @@ namespace Skills.SkillPanel
 {
     public class SkillPanelModel : ModelCollection<SkillSlotModel>
     {
-        public SkillPanelModel(SkillDeckSpecification deckSpecification)
+        public SkillPanelModel(SkillDeckSpecification deckSpecification, PlayerModel owner)
         {
             foreach (var meleeSkillSpecification in deckSpecification.MeleeSkills)
             {
-                Add(new SkillSlotModel(new Skill(meleeSkillSpecification)));
+                Add(new SkillSlotModel(new Skill(meleeSkillSpecification, owner)));
             }
         }
     }

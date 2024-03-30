@@ -11,6 +11,7 @@ namespace Input
         public event Action OnEscaped;
         public event Action<int, bool> OnSlotStateChanged;
         public event Action OnAttack;
+        public event Action OnDash;
         public event Action<int> OnSkillUse;
 
         public ReactiveField<bool> IsRun { get; } = new();
@@ -59,6 +60,11 @@ namespace Input
         public void Escape()
         {
             OnEscaped?.Invoke();
+        }
+
+        public void Dash()
+        {
+            OnDash?.Invoke();
         }
     }
 }

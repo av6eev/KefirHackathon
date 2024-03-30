@@ -10,6 +10,7 @@ namespace Input
         event Action OnEscaped;
         event Action<int, bool> OnSlotStateChanged;
         event Action OnAttack;
+        event Action OnDash;
         event Action<int> OnSkillUse;
         
         ReactiveField<bool> IsRun { get; }

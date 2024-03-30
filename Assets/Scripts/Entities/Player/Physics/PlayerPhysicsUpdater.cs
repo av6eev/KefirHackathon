@@ -24,12 +24,12 @@ namespace Entities.Player.Physics
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
-            if (input == Vector3.zero || _playerView == null)
+            if (_playerModel.IsDashing.Value)
             {
-                _playerModel.CurrentSpeed.Value = 0f;
+                MoveUpdate(Vector3.forward, deltaTime);
                 return;
             }
-
+            
             MoveUpdate(input, deltaTime);
         }
 
@@ -37,24 +37,44 @@ namespace Entities.Player.Physics
         {
             var newPosition = _playerView.Position;
             var specification = _playerModel.Specification;
-            var constSpeed = _playerModel.IsRunning ? specification.RunSpeed : specification.WalkSpeed;
+            float constSpeed;
             
-            _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
-
-            var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
-            var movementDirection = movementInput.normalized;
-
-            if (!input.z.Equals(-1) && movementDirection != Vector3.zero)
+            if (_playerModel.IsDashing.Value)
             {
-                var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-                var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
-                
-                _playerView.Rotate(smoothedRotation);
+                constSpeed = specification.DashSpeed;
+            }
+            else if (_playerModel.IsRunning)
+            {
+                constSpeed = specification.RunSpeed;
+            }
+            else
+            {
+                constSpeed = specification.WalkSpeed;
             }
             
-            newPosition += movementDirection * (_playerModel.CurrentSpeed.Value * deltaTime);
+            if (input == Vector3.zero)
+            {
+                _playerModel.CurrentSpeed.Value = 0;
+            }
+            else
+            {
+                _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
+                
+                var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
+                var movementDirection = movementInput.normalized;
+
+                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.IsDashing.Value)
+                {
+                    var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+                    var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
+                
+                    _playerView.Rotate(smoothedRotation);
+                }
             
-            _playerView.Move(newPosition);
+                newPosition += movementDirection * (_playerModel.CurrentSpeed.Value * deltaTime);
+            
+                _playerView.Move(newPosition);
+            }
         }
     }
 }
