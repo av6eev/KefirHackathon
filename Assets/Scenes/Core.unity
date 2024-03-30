@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &487009936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 487009938}
+  - component: {fileID: 487009937}
+  m_Layer: 0
+  m_Name: InputView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &487009937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487009936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2ab487abce417fb3f517a3d7cbe9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerInputAsset: {fileID: -944628639613478452, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
+    type: 3}
+--- !u!4 &487009938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487009936}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &586756099
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026917ca1963b1b4480a3b11e653132c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputView: {fileID: 487009937}
 --- !u!1 &1671208269
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,27 +248,27 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_PointAction: {fileID: -5134692262752142707, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MoveAction: {fileID: -6841527313789163270, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_SubmitAction: {fileID: -9108674399853511941, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_CancelAction: {fileID: 5700741462906061673, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_LeftClickAction: {fileID: -5998875510206362267, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MiddleClickAction: {fileID: 8658313779566983613, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_RightClickAction: {fileID: 120416999000023225, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ScrollWheelAction: {fileID: 6381343697304315781, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDevicePositionAction: {fileID: -7572107053377098406, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_TrackedDeviceOrientationAction: {fileID: 7437673110737328245, guid: 2c5c24f20e7d5d446aff4d30a97f70ff,
     type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
@@ -262,3 +309,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 586756100}
   - {fileID: 1671208272}
+  - {fileID: 487009938}

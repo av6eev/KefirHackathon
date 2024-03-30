@@ -1,3 +1,4 @@
+using Input;
 using Loader.Object;
 using Loader.Scene;
 using Presenter;
@@ -12,6 +13,8 @@ using Utilities.Loader.Addressable.Scene;
 
 public class Startup : MonoBehaviour
 {
+    [SerializeField] private InputView _inputView;
+    
     private readonly PresentersList _presenters = new();
     private readonly UpdatersList _updatersList = new();
     private readonly UpdatersList _fixedUpdatersList = new();
@@ -33,11 +36,13 @@ public class Startup : MonoBehaviour
             Specifications = specifications,
             SaveSingleModelCollection = new SaveSingleModelCollection(),
             SceneManagementModelsCollection = new SceneManagementModelsCollection(),
+            InputModel = new InputModel()
         };
 
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
         _presenters.Add(new SceneManagementModelsCollectionPresenter(_gameModel, (SceneManagementModelsCollection)_gameModel.SceneManagementModelsCollection));
+        _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, _inputView));
         _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection) _gameModel.SaveSingleModelCollection));
         _presenters.Init();
 
