@@ -16,6 +16,11 @@ namespace Entities.Player
         
         public void Update(float deltaTime)
         {
+            if (_playerView == null)
+            {
+                return;
+            }
+            
             _playerModel.Position = _playerView.Position;
 
             if (_playerModel.Target.Value == null) return;

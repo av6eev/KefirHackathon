@@ -31,9 +31,9 @@ namespace GameScenes
 
         public void Dispose()
         {
-            AfterDispose();
-            
             Presenters.Dispose();
+            
+            AfterDispose();
         }
 
         protected abstract void AfterInit();

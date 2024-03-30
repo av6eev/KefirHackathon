@@ -13,7 +13,7 @@ namespace Cameras
         public CameraSpecification Specification { get; set; }
 
         public Transform CurrentTarget { get; set; }
-        public Transform NextTarget { get; private set; }
+        public Transform NextTarget { get; set; }
 
         public ReactiveField<bool> IsCompleted { get; } = new();
         public CameraStateType NextState { get; set; }

@@ -112,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4362290672926006946}
   - component: {fileID: 9216995783952382689}
+  - component: {fileID: 8372119508270121679}
   m_Layer: 0
   m_Name: Interact
   m_TagString: Untagged
@@ -155,6 +156,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.1168222, y: 11.743537, z: 3.1614425}
   m_Center: {x: 0, y: -0.31867567, z: 0.987039}
+--- !u!114 &8372119508270121679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3542242929919692917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99e8e92efd243a09ef23489aebc41d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInRange: 0
+  Tooltip: {fileID: 3639895364336158890}
 --- !u!1 &3639895364336158890
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +257,7 @@ GameObject:
   - component: {fileID: 2556200478754990554}
   - component: {fileID: 4874514258540052599}
   - component: {fileID: 4097298764177619068}
+  - component: {fileID: 569068131987425891}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -338,3 +354,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &569068131987425891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043156990612915363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfba1cce4ca4271a168d3cddbaef612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractiveObject: {fileID: 8372119508270121679}
+  NextSceneId: arena_scene
+  FromSceneId: 

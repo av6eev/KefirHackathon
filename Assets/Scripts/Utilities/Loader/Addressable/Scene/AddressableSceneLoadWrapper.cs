@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Loader.Scene;
 using Presenter;
+using UnityEngine;
 
 namespace Utilities.Loader.Addressable.Scene
 {
@@ -16,6 +17,7 @@ namespace Utilities.Loader.Addressable.Scene
         public override void Load(LoadSceneModel model)
         {
             var wrapperModel = new AddressableSceneLoadWrapperModel(model);
+            
             _wrapperModels.Add(model, wrapperModel);
             var presenter = new AddressableSceneLoadWrapperPresenter(GameModel, wrapperModel);
             

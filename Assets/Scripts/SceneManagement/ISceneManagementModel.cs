@@ -5,6 +5,6 @@ namespace SceneManagement
 {
     public interface ISceneManagementModel : ILoadSceneModel, IModel
     {
-        string SceneId { get; }
+        string SceneId { get; } 
     }
 }

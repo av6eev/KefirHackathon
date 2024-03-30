@@ -29,6 +29,11 @@ namespace Entities.Player.Animator
 
         private void ChangeCurrentAnimation(float newSpeed, float oldSpeed)
         {
+            if (_view == null)
+            {
+                return;
+            }
+            
             if (newSpeed == 0)
             {
                 _view.SetAnimationMovementSpeed(0);

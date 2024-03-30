@@ -2,22 +2,16 @@
 
 namespace SceneManagement.Collection
 {
-    public class SceneManagementModelsCollection : ModelCollection<SceneManagementModel>, ISceneManagementModelsCollection
+    public class SceneManagementModelsCollection : ModelCollection<string, SceneManagementModel>, ISceneManagementModelsCollection
     {
         public void Load(string id)
         {
-            Add(new SceneManagementModel(id));
+            Add(id, new SceneManagementModel(id));
         }
 
-        public void Unload(ISceneManagementModel model)
+        public void Unload(string id)
         {
-            Remove((SceneManagementModel)model);
+            Remove(id);
         }
-    }
-
-    public interface ISceneManagementModelsCollection : IModelCollection<SceneManagementModel>
-    {
-        void Load(string id);
-        void Unload(ISceneManagementModel model);
     }
 }
