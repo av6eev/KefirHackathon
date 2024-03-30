@@ -1,0 +1,23 @@
+﻿using System.Collections.Generic;
+
+namespace Utilities.ModelCollection
+{
+    public interface IModelCollection<T> : ICollection
+    {
+        int Count { get; }
+        bool IsEmpty { get; }
+        void Add(T model);
+        void Remove(T model);
+        T GetModel(int index);
+        IEnumerable<T> GetModels();
+    }
+    
+    public interface IModelCollection<in TKey, TValue> : ICollection
+    {
+        bool IsEmpty { get; }
+        void Add(TKey key, TValue model);
+        void Remove(TKey key);
+        TValue GetModel(TKey key);
+        IEnumerable<TValue> GetModels();
+    }
+}
