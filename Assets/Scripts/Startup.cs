@@ -1,3 +1,5 @@
+using Cameras;
+using Entities.Player;
 using Input;
 using Loader.Object;
 using Loader.Scene;
@@ -36,18 +38,21 @@ public class Startup : MonoBehaviour
             Specifications = specifications,
             SaveSingleModelCollection = new SaveSingleModelCollection(),
             SceneManagementModelsCollection = new SceneManagementModelsCollection(),
-            InputModel = new InputModel()
+            InputModel = new InputModel(),
+            CameraModel = new CameraModel(),
+            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id])
         };
 
+        _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
         _presenters.Add(new SceneManagementModelsCollectionPresenter(_gameModel, (SceneManagementModelsCollection)_gameModel.SceneManagementModelsCollection));
         _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, _inputView));
-        _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection) _gameModel.SaveSingleModelCollection));
+        _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection)_gameModel.SaveSingleModelCollection));
         _presenters.Init();
 
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
-        _gameModel.SceneManagementModelsCollection.Load(SceneConst.HubId);
+        _gameModel.SceneManagementModelsCollection.Load(SceneConst.ArenaId);
     }
 
     private void Update()

@@ -1,21 +1,23 @@
-﻿namespace GameScenes.GameUI
+﻿using Presenter;
+
+namespace GameScenes.GameUI
 {
-    public class GameUiScenePresenter : BaseGameScenePresenter
+    public class GameUiScenePresenter : IPresenter
     {
         private readonly GameModel _gameModel;
         private readonly GameUiSceneView _view;
 
-        public GameUiScenePresenter(GameModel gameModel, GameUiSceneView view) : base(gameModel, view)
+        public GameUiScenePresenter(GameModel gameModel, GameUiSceneView view)
         {
             _gameModel = gameModel;
             _view = view;
         }
-        
-        protected override void AfterInit()
+
+        public void Init()
         {
         }
 
-        protected override void AfterDispose()
+        public void Dispose()
         {
         }
     }

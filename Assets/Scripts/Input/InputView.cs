@@ -9,10 +9,8 @@ namespace Input
         public event Action<Vector2> OnMoved; 
         public event Action<Vector2> OnMouseMove;
         public event Action OnInteracted;
-        public event Action OnInventoryToggled;
         public event Action OnEscaped;
         public event Action<bool> OnRun; 
-        public event Action<bool> OnLook; 
         public event Action OnAttack; 
         public event Action OnSlot1Toggled; 
         public event Action OnSlot2Toggled; 
@@ -28,12 +26,9 @@ namespace Input
             PlayerInputAsset["Movement"].performed += OnMoveInput;
             PlayerInputAsset["MouseDelta"].performed += OnMouseMoveInput;
             PlayerInputAsset["Interact"].performed += OnInteractPerformedInput;
-            PlayerInputAsset["Inventory"].performed += OnInventoryInput;
             PlayerInputAsset["Escape"].performed += OnEscapeInput;
             PlayerInputAsset["Run"].performed += OnRunInputPerformed;
             PlayerInputAsset["Run"].canceled += OnRunInputCanceled;
-            PlayerInputAsset["Look"].performed += OnLookInputPerformed;
-            PlayerInputAsset["Look"].canceled += OnLookInputCanceled;
             PlayerInputAsset["Attack"].performed += OnAttackInput;
             
             PlayerInputAsset["Slot1"].performed += OnSlot1InputPerformed;
@@ -49,12 +44,9 @@ namespace Input
             PlayerInputAsset["Movement"].performed -= OnMoveInput;
             PlayerInputAsset["MouseDelta"].performed -= OnMouseMoveInput;
             PlayerInputAsset["Interact"].performed -= OnInteractPerformedInput;
-            PlayerInputAsset["Inventory"].performed -= OnInventoryInput;
             PlayerInputAsset["Escape"].performed -= OnEscapeInput;
             PlayerInputAsset["Run"].performed -= OnRunInputPerformed;
             PlayerInputAsset["Run"].canceled -= OnRunInputCanceled;
-            PlayerInputAsset["Look"].performed -= OnLookInputPerformed;
-            PlayerInputAsset["Look"].canceled -= OnLookInputCanceled;
             PlayerInputAsset["Attack"].performed -= OnAttackInput;
             
             PlayerInputAsset["Slot1"].performed -= OnSlot1InputPerformed;
@@ -64,12 +56,9 @@ namespace Input
         }
 
         private void OnAttackInput(InputAction.CallbackContext ctx) => OnAttack?.Invoke();
-        private void OnLookInputPerformed(InputAction.CallbackContext ctx) => OnLook?.Invoke(true);
-        private void OnLookInputCanceled(InputAction.CallbackContext ctx) => OnLook?.Invoke(false);
         private void OnRunInputPerformed(InputAction.CallbackContext ctx) => OnRun?.Invoke(true);
         private void OnRunInputCanceled(InputAction.CallbackContext ctx) => OnRun?.Invoke(false);
         private void OnEscapeInput(InputAction.CallbackContext ctx) => OnEscaped?.Invoke();
-        private void OnInventoryInput(InputAction.CallbackContext ctx) => OnInventoryToggled?.Invoke();
         private void OnInteractPerformedInput(InputAction.CallbackContext ctx) => OnInteracted?.Invoke();
         private void OnMoveInput(InputAction.CallbackContext ctx) => OnMoved?.Invoke(ctx.ReadValue<Vector2>());
         private void OnMouseMoveInput(InputAction.CallbackContext ctx) => OnMouseMove?.Invoke(ctx.ReadValue<Vector2>());
