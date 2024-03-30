@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b241e1bb96f45bb8b885110757464c9, type: 3}
+  m_Name: TestEnemySpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    _id: test_enemy
+    PrefabId: test_enemy
+    PatrolSpeed: 10
+    MoveTowardsTargetSpeed: 4
+    RotationSpeed: 350
+    AttackRange: 1
+    ObserveRange: 10
+    PatrolTime: 0
+    IdleTime: 1

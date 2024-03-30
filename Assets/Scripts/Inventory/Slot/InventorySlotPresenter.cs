@@ -26,6 +26,8 @@ namespace Inventory.Slot
             _view.EndDrag += EndDrag;
             _view.Drag += Drag;
             _view.BeginDrag += BeginDrag;
+
+            _gameModel.InputModel.CurrentActiveSlot.OnChanged += HandleActiveSlotChanged;
             
             if (!_model.IsEmpty)
             {
@@ -55,11 +57,21 @@ namespace Inventory.Slot
             _model.OnItemAmountChanged -= ChangeItemAmountView;
             _model.IsActive.OnChanged -= HandleStateChanged;
             
+            _gameModel.InputModel.CurrentActiveSlot.OnChanged -= HandleActiveSlotChanged;
+            
             _view.EndDrag -= EndDrag;
             _view.Drag -= Drag;
             _view.BeginDrag -= BeginDrag;
         }
-        
+
+        private void HandleActiveSlotChanged(int newValue, int oldValue)
+        {
+            if (_gameModel.InputModel.CurrentActiveSlot.Value == _model.Index && _model.IsActive.Value)
+            {
+                
+            }
+        }
+
         private void Drag(Vector2 position)
         {
             if (_model.IsEmpty) return;

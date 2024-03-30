@@ -40,6 +40,9 @@ namespace Entities.Player
 
         public void Dispose()
         {
+            _presenters.Dispose();
+            _presenters.Clear();
+            
             foreach (var updater in _updaters)
             {
                 _gameModel.UpdatersList.Remove(updater);

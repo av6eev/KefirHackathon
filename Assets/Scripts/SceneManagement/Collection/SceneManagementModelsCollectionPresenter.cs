@@ -35,7 +35,7 @@ namespace SceneManagement.Collection
 
         private void HandleRemove(SceneManagementModel model)
         {
-            _gameModel.LoadScenesModel.Unload(model);
+            _gameModel.LoadScenesModel.Unload(_currentScene);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cameras;
 using Dialogs.Collection;
+using Entities.Enemy.Collection;
 using Entities.Player;
 using Input;
 using Inventory.Collection;
@@ -27,4 +28,5 @@ public class GameModel : IGameModel
     public IInventoriesCollection InventoriesCollection { get; set; }
     public IDialogsCollection DialogsCollection { get; set; }
     public IItemPlaceholderModel ItemPlaceholderModel { get; set; }
+    public IEnemiesCollection EnemiesCollection { get; set; }
 }

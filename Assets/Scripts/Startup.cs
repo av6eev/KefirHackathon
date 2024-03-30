@@ -1,4 +1,5 @@
 using Cameras;
+using Entities.Enemy.Collection;
 using Entities.Player;
 using Input;
 using Inventory.Collection;
@@ -43,7 +44,8 @@ public class Startup : MonoBehaviour
             InputModel = new InputModel(),
             CameraModel = new CameraModel(),
             InventoriesCollection = new InventoriesCollection(specifications.InventorySpecifications.GetSpecifications(), specifications.ItemSpecifications.GetSpecifications()),
-            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id])
+            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id]),
+            EnemiesCollection = new EnemiesCollection()
         };
 
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
@@ -61,7 +63,7 @@ public class Startup : MonoBehaviour
         _presenters.Init();
 
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
-        _gameModel.SceneManagementModelsCollection.Load(_gameModel.PlayerModel.BaseLocationId);
+        _gameModel.SceneManagementModelsCollection.Load(_gameModel.PlayerModel.BaseLocationId); 
     }
 
     private void Update()

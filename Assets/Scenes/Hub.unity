@@ -131,6 +131,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6818215820307244464}
     m_Modifications:
+    - target: {fileID: 569068131987425891, guid: 147f522cb46d4da428ad1e35d5532a2f,
+        type: 3}
+      propertyPath: FromSceneId
+      value: hub_scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 569068131987425891, guid: 147f522cb46d4da428ad1e35d5532a2f,
+        type: 3}
+      propertyPath: NextSceneId
+      value: arena_scene
+      objectReference: {fileID: 0}
     - target: {fileID: 6043156990612915363, guid: 147f522cb46d4da428ad1e35d5532a2f,
         type: 3}
       propertyPath: m_Name
@@ -197,6 +207,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 555381019}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &555381021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 569068131987425891, guid: 147f522cb46d4da428ad1e35d5532a2f,
+    type: 3}
+  m_PrefabInstance: {fileID: 555381019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfba1cce4ca4271a168d3cddbaef612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &680425017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -313,6 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerView: {fileID: 1710042372}
   CameraView: {fileID: 680425018}
+  PortalView: {fileID: 555381021}
 --- !u!4 &1578854519
 Transform:
   m_ObjectHideFlags: 0

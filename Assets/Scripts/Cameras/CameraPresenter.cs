@@ -43,6 +43,11 @@ namespace Cameras
             {
                 _gameModel.LateUpdatersList.Remove(updater);
             }
+
+            _model.CurrentTarget = null;
+            _model.NextTarget = null;
+            _model.CurrentState = CameraStateType.None;
+            _model.NextState = CameraStateType.None;
                         
             _updaters.Clear();
             

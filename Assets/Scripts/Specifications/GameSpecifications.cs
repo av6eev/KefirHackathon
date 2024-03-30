@@ -1,5 +1,6 @@
 ﻿using Awaiter;
 using Cameras.Specification;
+using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
@@ -17,6 +18,7 @@ namespace Specifications
         public ISpecificationsCollection<EntitySpecification> EntitySpecifications { get; } = new SpecificationsCollection<EntitySpecification>();
         public ISpecificationsCollection<ItemSpecification> ItemSpecifications { get; } = new SpecificationsCollection<ItemSpecification>();
         public ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; } = new SpecificationsCollection<InventorySpecification>();
+        public ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; } = new SpecificationsCollection<EnemySpecification>();
 
         public readonly CustomAwaiter LoadAwaiter = new();
         
@@ -32,6 +34,7 @@ namespace Specifications
             await new LoadSpecificationsWrapper<EntitySpecification>(loadObjectsModel, "entities", EntitySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<ItemSpecification>(loadObjectsModel, "items", ItemSpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<InventorySpecification>(loadObjectsModel, "inventories", InventorySpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
             
             LoadAwaiter.Complete();
         }

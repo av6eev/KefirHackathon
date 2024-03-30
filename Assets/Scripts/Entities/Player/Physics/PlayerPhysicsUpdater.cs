@@ -24,7 +24,7 @@ namespace Entities.Player.Physics
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
-            if (input == Vector3.zero)
+            if (input == Vector3.zero || _playerView == null)
             {
                 _playerModel.CurrentSpeed.Value = 0f;
                 return;

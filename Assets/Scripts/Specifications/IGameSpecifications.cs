@@ -1,4 +1,5 @@
 ﻿using Cameras.Specification;
+using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
@@ -14,5 +15,6 @@ namespace Specifications
         ISpecificationsCollection<EntitySpecification> EntitySpecifications { get; }
         ISpecificationsCollection<ItemSpecification> ItemSpecifications { get; }
         ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; }
+        ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; }
     }
 }
