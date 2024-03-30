@@ -16,20 +16,20 @@ namespace Entities
         public Animator EntityAnimatorController;
         public LayerMask EnemyLayer;
 
-        public Vector3 Forward => Root.transform.forward;
-        public Vector3 Right => Root.transform.right;
-        public Vector3 Position => Root.transform.position;
-        public Quaternion Rotation => Root.transform.rotation;
-        public Vector3 LocalEulerAngles => Root.transform.localEulerAngles;
+        public Vector3 Forward => Root.forward;
+        public Vector3 Right => Root.right;
+        public Vector3 Position => Root.position;
+        public Quaternion Rotation => Root.rotation;
+        public Vector3 LocalEulerAngles => Root.localEulerAngles;
 
         public virtual void SetForward(Vector3 heading)
         {
-            Root.transform.forward = heading;
+            Root.forward = heading;
         }
 
         public Vector3 TransformPoint(Vector3 offset)
         {
-            return Root.transform.TransformPoint(offset);
+            return Root.TransformPoint(offset);
         }
 
         public virtual void Move(Vector3 newPosition)

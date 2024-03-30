@@ -2,7 +2,6 @@
 using Dialogs.Collection;
 using Entities.Player;
 using Item.ItemPlaceholder;
-using PlayerInventory.Hud;
 using Presenter;
 using Skills.SkillPanel;
 
@@ -25,7 +24,7 @@ namespace GameScenes.GameUI
         {
             _gameModel.ItemPlaceholderModel = new ItemPlaceholderModel();
             _gameModel.DialogsCollection = new DialogsCollection();
-            _gameModel.SkillPanelModel = new SkillPanelModel(_gameModel.Specifications.SkillDeckSpecifications["first_skill_deck"]);
+            _gameModel.SkillPanelModel = new SkillPanelModel(_gameModel.Specifications.SkillDeckSpecifications["first_skill_deck"], (PlayerModel)_gameModel.PlayerModel);
 
             _presenters.Add(new SkillPanelPresenter(_gameModel, _gameModel.SkillPanelModel, _view.SkillPanelView));
             _presenters.Add(new DialogsCollectionPresenter(_gameModel, (DialogsCollection)_gameModel.DialogsCollection, _view.DialogsCollectionView));

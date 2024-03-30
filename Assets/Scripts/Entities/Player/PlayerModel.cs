@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entities.Specification;
 using Reactive.Event;
+using Reactive.Field;
 using SceneManagement;
 using SimpleJson;
 
@@ -18,13 +19,7 @@ namespace Entities.Player
         public int BaseAmnesiaValue { get; private set; }
 
         public bool IsRunning;
-
-        public PlayerModel(EntitySpecification entitySpecification, IEntityModel entityModel) : base(entitySpecification, entityModel)
-        {
-            Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, entitySpecification.MaxHealth, ChangeEvent));
-        }
+        public ReactiveField<bool> IsDashing { get; } = new();
 
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {

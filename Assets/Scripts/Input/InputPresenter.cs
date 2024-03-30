@@ -26,6 +26,7 @@ namespace Input
             _view.OnInteracted += HandleInteractInput;
             _view.OnEscaped += HandleEscapeInput;
             _view.OnAttack += HandleAttackInput;
+            _view.OnDash += HandleDashInput;
 
             _view.OnSkill1Toggled += HandleSkill1Input;
             _view.OnSkill2Toggled += HandleSkill2Input;
@@ -44,12 +45,18 @@ namespace Input
             _view.OnInteracted -= HandleInteractInput;
             _view.OnEscaped -= HandleEscapeInput;
             _view.OnAttack -= HandleAttackInput;
+            _view.OnDash -= HandleDashInput;
 
             _view.OnSkill1Toggled -= HandleSkill1Input;
             _view.OnSkill2Toggled -= HandleSkill2Input;
             _view.OnSkill3Toggled -= HandleSkill3Input;
             _view.OnSkill4Toggled -= HandleSkill4Input;
             _view.OnSkill5Toggled -= HandleSkill5Input;
+        }
+
+        private void HandleDashInput()
+        {
+            _model.Dash();
         }
 
         private void HandleAttackInput()

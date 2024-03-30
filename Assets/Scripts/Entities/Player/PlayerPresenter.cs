@@ -26,6 +26,7 @@ namespace Entities.Player
         {
             _presenters.Add(new PlayerHealthPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerAnimatorPresenter(_gameModel, _model, _view));
+            _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));
             
             _updaters.Add(new PlayerPhysicsUpdater(_gameModel.InputModel, _model, _view, _gameModel.CameraModel));
             _updaters.Add(new PlayerInfoUpdater(_model, _view));

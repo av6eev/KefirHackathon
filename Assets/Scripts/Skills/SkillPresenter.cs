@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Entities.Enemy;
+using Entities;
 using Presenter;
 using UnityEngine;
 
@@ -40,7 +40,7 @@ namespace Skills
             }
         }
 
-        private bool IsNearToPlayer(EnemyModel enemy) => GetDistanceToPlayer(enemy) <= _model.Specification.Distance;
-        private float GetDistanceToPlayer(EnemyModel enemy) => Vector3.Distance(enemy.Position, _gameModel.PlayerModel.Position);
+        private bool IsNearToPlayer(EntityModel enemy) => GetDistanceToPlayer(enemy) <= _model.Specification.Distance;
+        private float GetDistanceToPlayer(EntityModel enemy) => Vector3.Distance(enemy.Position, _gameModel.PlayerModel.Position);
     }
 }

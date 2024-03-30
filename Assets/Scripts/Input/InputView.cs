@@ -12,6 +12,7 @@ namespace Input
         public event Action OnEscaped;
         public event Action<bool> OnRun; 
         public event Action OnAttack; 
+        public event Action OnDash; 
         public event Action OnSkill1Toggled; 
         public event Action OnSkill2Toggled; 
         public event Action OnSkill3Toggled; 
@@ -31,6 +32,7 @@ namespace Input
             PlayerInputAsset["Run"].performed += OnRunInputPerformed;
             PlayerInputAsset["Run"].canceled += OnRunInputCanceled;
             PlayerInputAsset["Attack"].performed += OnAttackInput;
+            PlayerInputAsset["Dash"].performed += OnDashInput;
             
             PlayerInputAsset["Skill1"].performed += OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed += OnSkill2InputPerformed;
@@ -50,6 +52,7 @@ namespace Input
             PlayerInputAsset["Run"].performed -= OnRunInputPerformed;
             PlayerInputAsset["Run"].canceled -= OnRunInputCanceled;
             PlayerInputAsset["Attack"].performed -= OnAttackInput;
+            PlayerInputAsset["Dash"].performed -= OnDashInput;
             
             PlayerInputAsset["Skill1"].performed -= OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed -= OnSkill2InputPerformed;
@@ -58,6 +61,7 @@ namespace Input
             PlayerInputAsset["Skill5"].performed -= OnSkill5InputPerformed;
         }
 
+        private void OnDashInput(InputAction.CallbackContext ctx) => OnDash?.Invoke();
         private void OnAttackInput(InputAction.CallbackContext ctx) => OnAttack?.Invoke();
         private void OnRunInputPerformed(InputAction.CallbackContext ctx) => OnRun?.Invoke(true);
         private void OnRunInputCanceled(InputAction.CallbackContext ctx) => OnRun?.Invoke(false);
