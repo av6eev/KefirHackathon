@@ -16,6 +16,6 @@ MonoBehaviour:
     _id: Player
     WalkSpeed: 4
     RunSpeed: 5.6
-    RotationSpeed: 5
+    RotationSpeed: 4
     AttackDistance: 0
     MaxHealth: 100
