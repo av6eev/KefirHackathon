@@ -39,6 +39,7 @@ public class Startup : MonoBehaviour
         _presenters.Init();
 
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
+        _gameModel.SceneManagementModelsCollection.Load(SceneConst.HubId);
     }
 
     private void Update()
