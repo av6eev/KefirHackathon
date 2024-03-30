@@ -1,6 +1,7 @@
 using Cameras;
 using Entities.Player;
 using Input;
+using Inventory.Collection;
 using Loader.Object;
 using Loader.Scene;
 using Presenter;
@@ -10,6 +11,7 @@ using SceneManagement.Collection;
 using Specifications;
 using UnityEngine;
 using Updater;
+using Utilities.Initializer;
 using Utilities.Loader.Addressable;
 using Utilities.Loader.Addressable.Scene;
 
@@ -40,19 +42,26 @@ public class Startup : MonoBehaviour
             SceneManagementModelsCollection = new SceneManagementModelsCollection(),
             InputModel = new InputModel(),
             CameraModel = new CameraModel(),
+            InventoriesCollection = new InventoriesCollection(specifications.InventorySpecifications.GetSpecifications(), specifications.ItemSpecifications.GetSpecifications()),
             PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id])
         };
 
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
+        if (PlayerPrefs.GetInt("first_init") == 0)
+        {
+            new FirstInitializer().Initialize(_gameModel);
+        }
+        
         _presenters.Add(new SceneManagementModelsCollectionPresenter(_gameModel, (SceneManagementModelsCollection)_gameModel.SceneManagementModelsCollection));
         _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, _inputView));
+        _presenters.Add(new InventoriesCollectionSavePresenter(_gameModel, (InventoriesCollection) _gameModel.InventoriesCollection));
         _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection)_gameModel.SaveSingleModelCollection));
         _presenters.Init();
 
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
-        _gameModel.SceneManagementModelsCollection.Load(SceneConst.ArenaId);
+        _gameModel.SceneManagementModelsCollection.Load(_gameModel.PlayerModel.BaseLocationId);
     }
 
     private void Update()

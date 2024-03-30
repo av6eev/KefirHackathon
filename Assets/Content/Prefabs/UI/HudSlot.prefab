@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 564166820447292308}
   - component: {fileID: 5808026722385259960}
   m_Layer: 5
-  m_Name: DefaullBorderImage
+  m_Name: DefaultBorderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 4532677766855742535}
   - component: {fileID: 2778858889150104856}
   - component: {fileID: 8186429939128807750}
+  - component: {fileID: 129495933890097032}
   m_Layer: 6
   m_Name: HudSlot
   m_TagString: ItemCell
@@ -363,6 +364,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &129495933890097032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678107534661112784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267c1f8570b14141af516186568ef566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameText: {fileID: 0}
+  AmountText: {fileID: 0}
+  IconImage: {fileID: 2981268067617656878}
+  DefaultBorderImage: {fileID: 5808026722385259960}
+  HighlightBorderImage: {fileID: 4385048188961023316}
 --- !u!1 &7753223133873464754
 GameObject:
   m_ObjectHideFlags: 0

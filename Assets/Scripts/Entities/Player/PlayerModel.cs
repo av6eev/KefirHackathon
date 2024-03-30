@@ -11,8 +11,7 @@ namespace Entities.Player
         public ReactiveEvent ChangeEvent { get; } = new();
 
         public const string Id = "Player";
-        public const string EquipmentId = "Player_equipment";
-        public const string HudId = "Player_hud";
+        public const string HudId = "player_hud_inventory";
         public string SaveId => Id;
         public string BaseLocationId { get; private set; } = SceneConst.HubId;
         
@@ -24,14 +23,14 @@ namespace Entities.Player
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0, ChangeEvent));
             Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, 100, ChangeEvent));
+            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, entitySpecification.MaxHealth, ChangeEvent));
         }
 
-        public PlayerModel(EntitySpecification specification) : base(specification)
+        public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0, ChangeEvent));
             Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, 100, ChangeEvent));
+            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, entitySpecification.MaxHealth, ChangeEvent));
         }
 
         public IDictionary<string, object> GetSaveData()

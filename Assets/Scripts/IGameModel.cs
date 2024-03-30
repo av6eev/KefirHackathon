@@ -1,6 +1,9 @@
 ﻿using Cameras;
+using Dialogs.Collection;
 using Entities.Player;
 using Input;
+using Inventory.Collection;
+using Item.ItemPlaceholder;
 using Loader.Object;
 using Loader.Scene;
 using Save.Single.Collection;
@@ -21,4 +24,7 @@ public interface IGameModel : IBaseGameModel
     IInputModel InputModel { get; }
     IPlayerModel PlayerModel { get; }
     ICameraModel CameraModel { get; }
+    IInventoriesCollection InventoriesCollection { get; }
+    IDialogsCollection DialogsCollection { get; }
+    IItemPlaceholderModel ItemPlaceholderModel { get; }
 }
