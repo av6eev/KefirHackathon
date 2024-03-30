@@ -27,10 +27,11 @@ namespace Input
             _view.OnEscaped += HandleEscapeInput;
             _view.OnAttack += HandleAttackInput;
 
-            _view.OnSlot1Toggled += HandleSlot1Input;
-            _view.OnSlot2Toggled += HandleSlot2Input;
-            _view.OnSlot3Toggled += HandleSlot3Input;
-            _view.OnSlot4Toggled += HandleSlot4Input;
+            _view.OnSkill1Toggled += HandleSkill1Input;
+            _view.OnSkill2Toggled += HandleSkill2Input;
+            _view.OnSkill3Toggled += HandleSkill3Input;
+            _view.OnSkill4Toggled += HandleSkill4Input;
+            _view.OnSkill5Toggled += HandleSkill5Input;
         }
 
         public void Dispose()
@@ -44,10 +45,11 @@ namespace Input
             _view.OnEscaped -= HandleEscapeInput;
             _view.OnAttack -= HandleAttackInput;
 
-            _view.OnSlot1Toggled -= HandleSlot1Input;
-            _view.OnSlot2Toggled -= HandleSlot2Input;
-            _view.OnSlot3Toggled -= HandleSlot3Input;
-            _view.OnSlot4Toggled -= HandleSlot4Input;
+            _view.OnSkill1Toggled -= HandleSkill1Input;
+            _view.OnSkill2Toggled -= HandleSkill2Input;
+            _view.OnSkill3Toggled -= HandleSkill3Input;
+            _view.OnSkill4Toggled -= HandleSkill4Input;
+            _view.OnSkill5Toggled -= HandleSkill5Input;
         }
 
         private void HandleAttackInput()
@@ -79,15 +81,20 @@ namespace Input
         {
             _model.MouseDelta = input;
         }
-        
-        private void HandleStateChange(int index)
+
+        private void HandleSkillInput(int index)
         {
-            _model.SetSlotState(index);
+            _model.UseSkill(index);
         }
-        
-        private void HandleSlot1Input() => HandleStateChange(0);
-        private void HandleSlot2Input() => HandleStateChange(1);
-        private void HandleSlot3Input() => HandleStateChange(2);
-        private void HandleSlot4Input() => HandleStateChange(3);
+
+        private void HandleSkill1Input() => HandleSkillInput(0);
+
+        private void HandleSkill2Input() => HandleSkillInput(1);
+
+        private void HandleSkill3Input() => HandleSkillInput(2);
+
+        private void HandleSkill4Input() => HandleSkillInput(3);
+
+        private void HandleSkill5Input() => HandleSkillInput(4);
     }
 }

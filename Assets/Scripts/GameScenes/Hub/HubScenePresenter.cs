@@ -1,5 +1,4 @@
-﻿using InteractiveObjects;
-using InteractiveObjects.Portal;
+﻿using InteractiveObjects.Portal;
 
 namespace GameScenes.Hub
 {
@@ -8,7 +7,6 @@ namespace GameScenes.Hub
         private readonly GameModel _gameModel;
         private readonly HubSceneView _view;
 
-        
         public HubScenePresenter(GameModel gameModel, HubSceneView view) : base(gameModel, view)
         {
             _gameModel = gameModel;

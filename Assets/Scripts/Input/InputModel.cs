@@ -11,6 +11,7 @@ namespace Input
         public event Action OnEscaped;
         public event Action<int, bool> OnSlotStateChanged;
         public event Action OnAttack;
+        public event Action<int> OnSkillUse;
 
         public ReactiveField<bool> IsRun { get; } = new();
         public ReactiveField<Vector2> Direction { get; } = new();
@@ -40,6 +41,11 @@ namespace Input
             OnSlotStateChanged?.Invoke(index, _slotStates[index]);
         }
 
+        public void UseSkill(int index)
+        {
+            OnSkillUse?.Invoke(index);
+        }
+        
         public void Attack()
         {
             OnAttack?.Invoke();;

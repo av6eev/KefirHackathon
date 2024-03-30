@@ -5,6 +5,7 @@ using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
 using Loader.Object;
+using Skills.Deck;
 using Specification.Scene;
 using Specifications.Collection;
 using Specifications.LoadWrapper;
@@ -19,6 +20,7 @@ namespace Specifications
         public ISpecificationsCollection<ItemSpecification> ItemSpecifications { get; } = new SpecificationsCollection<ItemSpecification>();
         public ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; } = new SpecificationsCollection<InventorySpecification>();
         public ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; } = new SpecificationsCollection<EnemySpecification>();
+        public ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; } = new SpecificationsCollection<SkillDeckSpecification>();
 
         public readonly CustomAwaiter LoadAwaiter = new();
         
@@ -35,6 +37,7 @@ namespace Specifications
             await new LoadSpecificationsWrapper<ItemSpecification>(loadObjectsModel, "items", ItemSpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<InventorySpecification>(loadObjectsModel, "inventories", InventorySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<SkillDeckSpecification>(loadObjectsModel, "skill_decks", SkillDeckSpecifications).LoadAwaiter;
             
             LoadAwaiter.Complete();
         }

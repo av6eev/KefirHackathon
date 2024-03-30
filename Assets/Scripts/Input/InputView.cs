@@ -12,10 +12,11 @@ namespace Input
         public event Action OnEscaped;
         public event Action<bool> OnRun; 
         public event Action OnAttack; 
-        public event Action OnSlot1Toggled; 
-        public event Action OnSlot2Toggled; 
-        public event Action OnSlot3Toggled; 
-        public event Action OnSlot4Toggled; 
+        public event Action OnSkill1Toggled; 
+        public event Action OnSkill2Toggled; 
+        public event Action OnSkill3Toggled; 
+        public event Action OnSkill4Toggled; 
+        public event Action OnSkill5Toggled; 
 
         public InputActionAsset PlayerInputAsset;
 
@@ -31,10 +32,11 @@ namespace Input
             PlayerInputAsset["Run"].canceled += OnRunInputCanceled;
             PlayerInputAsset["Attack"].performed += OnAttackInput;
             
-            PlayerInputAsset["Slot1"].performed += OnSlot1InputPerformed;
-            PlayerInputAsset["Slot2"].performed += OnSlot2InputPerformed;
-            PlayerInputAsset["Slot3"].performed += OnSlot3InputPerformed;
-            PlayerInputAsset["Slot4"].performed += OnSlot4InputPerformed;
+            PlayerInputAsset["Skill1"].performed += OnSkill1InputPerformed;
+            PlayerInputAsset["Skill2"].performed += OnSkill2InputPerformed;
+            PlayerInputAsset["Skill3"].performed += OnSkill3InputPerformed;
+            PlayerInputAsset["Skill4"].performed += OnSkill4InputPerformed;
+            PlayerInputAsset["Skill5"].performed += OnSkill5InputPerformed;
         }
 
         public void Dispose()
@@ -49,10 +51,11 @@ namespace Input
             PlayerInputAsset["Run"].canceled -= OnRunInputCanceled;
             PlayerInputAsset["Attack"].performed -= OnAttackInput;
             
-            PlayerInputAsset["Slot1"].performed -= OnSlot1InputPerformed;
-            PlayerInputAsset["Slot2"].performed -= OnSlot2InputPerformed;
-            PlayerInputAsset["Slot3"].performed -= OnSlot3InputPerformed;
-            PlayerInputAsset["Slot4"].performed -= OnSlot4InputPerformed;
+            PlayerInputAsset["Skill1"].performed -= OnSkill1InputPerformed;
+            PlayerInputAsset["Skill2"].performed -= OnSkill2InputPerformed;
+            PlayerInputAsset["Skill3"].performed -= OnSkill3InputPerformed;
+            PlayerInputAsset["Skill4"].performed -= OnSkill4InputPerformed;
+            PlayerInputAsset["Skill5"].performed -= OnSkill5InputPerformed;
         }
 
         private void OnAttackInput(InputAction.CallbackContext ctx) => OnAttack?.Invoke();
@@ -63,9 +66,10 @@ namespace Input
         private void OnMoveInput(InputAction.CallbackContext ctx) => OnMoved?.Invoke(ctx.ReadValue<Vector2>());
         private void OnMouseMoveInput(InputAction.CallbackContext ctx) => OnMouseMove?.Invoke(ctx.ReadValue<Vector2>());
 
-        private void OnSlot1InputPerformed(InputAction.CallbackContext ctx) => OnSlot1Toggled?.Invoke();
-        private void OnSlot2InputPerformed(InputAction.CallbackContext ctx) => OnSlot2Toggled?.Invoke();
-        private void OnSlot3InputPerformed(InputAction.CallbackContext ctx) => OnSlot3Toggled?.Invoke();
-        private void OnSlot4InputPerformed(InputAction.CallbackContext ctx) => OnSlot4Toggled?.Invoke();
+        private void OnSkill1InputPerformed(InputAction.CallbackContext ctx) => OnSkill1Toggled?.Invoke();
+        private void OnSkill2InputPerformed(InputAction.CallbackContext ctx) => OnSkill2Toggled?.Invoke();
+        private void OnSkill3InputPerformed(InputAction.CallbackContext ctx) => OnSkill3Toggled?.Invoke();
+        private void OnSkill4InputPerformed(InputAction.CallbackContext ctx) => OnSkill4Toggled?.Invoke();
+        private void OnSkill5InputPerformed(InputAction.CallbackContext ctx) => OnSkill5Toggled?.Invoke();
     }
 }

@@ -20,8 +20,8 @@ namespace GameScenes.Arena
             var entitySpecification = _gameModel.Specifications.EntitySpecifications["test_enemy"];
             
             _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
-            // _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
-            // _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
+            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
+            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
             
             Presenters.Add(new EnemiesCollectionPresenter(GameModel, (EnemiesCollection)_gameModel.EnemiesCollection, _view.EnemiesCollectionView));
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));

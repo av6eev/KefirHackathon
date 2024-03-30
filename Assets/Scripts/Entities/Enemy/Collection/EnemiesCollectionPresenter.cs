@@ -1,7 +1,8 @@
-﻿using Loader.Object;
+﻿using System.Collections.Generic;
+using Loader.Object;
 using Presenter;
 using UnityEngine;
-using UnityEngine.AI;
+using Utilities.Pull;
 
 namespace Entities.Enemy.Collection
 {
@@ -12,8 +13,8 @@ namespace Entities.Enemy.Collection
         private readonly EnemiesCollectionView _view;
 
         private readonly PresentersDictionary<EnemyModel> _presenters = new();
-        private ILoadObjectModel<GameObject> _loadObjectModel;
-
+        private List<ILoadObjectModel<GameObject>> _loadObjectModels = new();
+        
         public EnemiesCollectionPresenter(IGameModel gameModel, EnemiesCollection model, EnemiesCollectionView view)
         {
             _gameModel = gameModel;
@@ -21,8 +22,15 @@ namespace Entities.Enemy.Collection
             _view = view;
         }
         
-        public void Init()
+        public async void Init()
         {
+            var loadObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>(EnemyVariants.Wizard);
+            await loadObjectModel.LoadAwaiter;
+
+            _view.EnemyPull.Add(EnemyVariants.Wizard, new GameObjectPull(loadObjectModel.Result, _view.Root, 10));
+            
+            _loadObjectModels.Add(loadObjectModel);
+            
             foreach (var model in _model.GetModels())
             {
                 HandleAdd(model);
@@ -36,19 +44,24 @@ namespace Entities.Enemy.Collection
         {
             _presenters.Dispose();
             _presenters.Clear();
+
+            foreach (var pull in _view.EnemyPull.Values)
+            {
+                pull.Dispose();
+            }
+            
+            foreach (var loadObjectModel in _loadObjectModels)
+            {
+                _gameModel.LoadObjectsModel.Unload(loadObjectModel);
+            }
             
             _model.AddEvent.OnChanged -= HandleAdd;
             _model.RemoveEvent.OnChanged -= HandleRemove;
         }
 
-        private async void HandleAdd(EnemyModel model)
+        private void HandleAdd(EnemyModel model)
         {
-            _loadObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>(model.EnemySpecification.PrefabId);
-            await _loadObjectModel.LoadAwaiter;
-
-            var component = _loadObjectModel.Result.GetComponent<EnemyView>();
-            var view = Object.Instantiate(component, GetRandomNavMeshPosition(component), Quaternion.identity, _view.Root);
-            var presenter = new EnemyPresenter(_gameModel, model, _view, view);
+            var presenter = new EnemyPresenter(_gameModel, model, _view.EnemyPull[model.EnemySpecification.PrefabId]);
             
             presenter.Init();
             _presenters.Add(model, presenter);
@@ -56,25 +69,7 @@ namespace Entities.Enemy.Collection
 
         private void HandleRemove(EnemyModel model)
         {
-            _gameModel.LoadObjectsModel.Unload(_loadObjectModel);
-            
             _presenters.Remove(model);
-        }
-
-        private Vector3 GetRandomNavMeshPosition(EnemyView component)
-        {
-            while (true)
-            {
-                var randomPoint = _view.SpawnZoneCenter.position + Random.insideUnitSphere * 10;
-
-                if (NavMesh.SamplePosition(randomPoint, out var hit, 1.0f, NavMesh.AllAreas))
-                {
-                    var newPosition = hit.position;
-                    newPosition.y = component.Position.y;
-                    
-                    return newPosition;
-                }
-            }
         }
     }
 }

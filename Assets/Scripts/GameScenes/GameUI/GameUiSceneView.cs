@@ -1,7 +1,7 @@
 ﻿using Dialogs.Collection;
 using Item.ItemPlaceholder;
 using LocationBuilder;
-using PlayerInventory.Hud;
+using Skills.SkillPanel;
 
 namespace GameScenes.GameUI
 {
@@ -9,6 +9,6 @@ namespace GameScenes.GameUI
     {
         public DialogsCollectionView DialogsCollectionView;
         public ItemPlaceholderView ItemPlaceholderView;
-        public PlayerInventoryHudView PlayerInventoryHudView;
+        public SkillPanelView SkillPanelView;
     }
 }

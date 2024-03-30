@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Slot1",
+                    "name": "Skill1",
                     "type": "Button",
                     "id": "e67f4cf7-ef63-4d02-8a1f-0d656983a040",
                     "expectedControlType": "Button",
@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Slot2",
+                    "name": "Skill2",
                     "type": "Button",
                     "id": "1e9936d1-3ee4-4ffa-8694-dde3109db82f",
                     "expectedControlType": "Button",
@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Slot3",
+                    "name": "Skill3",
                     "type": "Button",
                     "id": "83360d70-8780-4e25-abc8-5e100d41430e",
                     "expectedControlType": "Button",
@@ -87,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Slot4",
+                    "name": "Skill4",
                     "type": "Button",
                     "id": "a6ac8ff7-0f12-4623-bbeb-ece93fd5ae45",
                     "expectedControlType": "Button",
@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Slot5",
+                    "name": "Skill5",
                     "type": "Button",
                     "id": "89a6b311-1300-49ad-b31c-9fa31041abf2",
                     "expectedControlType": "Button",
@@ -212,7 +212,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Slot1",
+                    "action": "Skill1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -223,7 +223,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Slot2",
+                    "action": "Skill2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -234,7 +234,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Slot3",
+                    "action": "Skill3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -245,7 +245,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Slot4",
+                    "action": "Skill4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -256,7 +256,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Slot5",
+                    "action": "Skill5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

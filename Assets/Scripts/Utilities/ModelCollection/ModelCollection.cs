@@ -44,6 +44,11 @@ namespace Utilities.ModelCollection
                 yield return element;
             }
         }
+
+        public void Clear()
+        {
+            Collection.Clear();
+        }
     }
     
     public class ModelCollection<TKey, TValue> : IModelCollection<TKey, TValue> where TValue : IModel
@@ -84,6 +89,11 @@ namespace Utilities.ModelCollection
             {
                 yield return element;
             }
+        }
+
+        public void Clear()
+        {
+            Collection.Clear();
         }
     }
 }

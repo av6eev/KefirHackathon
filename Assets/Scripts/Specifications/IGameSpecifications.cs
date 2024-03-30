@@ -3,6 +3,7 @@ using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
+using Skills.Deck;
 using Specification.Scene;
 using Specifications.Collection;
 
@@ -16,5 +17,6 @@ namespace Specifications
         ISpecificationsCollection<ItemSpecification> ItemSpecifications { get; }
         ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; }
         ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; }
+        ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; }
     }
 }

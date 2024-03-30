@@ -305,7 +305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogsCollectionView: {fileID: 1152379821}
   ItemPlaceholderView: {fileID: 932372143}
-  PlayerInventoryHudView: {fileID: 1358270728}
+  PlayerInventoryHudView: {fileID: 0}
+  SkillPanelView: {fileID: 1358270728}
 --- !u!1 &651482234
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,20 +640,20 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: d40ad53dc53976f43ad4ee226ecdd91d, type: 3}
 --- !u!224 &1358270727 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 929678583456846422, guid: d40ad53dc53976f43ad4ee226ecdd91d,
+  m_CorrespondingSourceObject: {fileID: 2249337900296262822, guid: d40ad53dc53976f43ad4ee226ecdd91d,
     type: 3}
   m_PrefabInstance: {fileID: 1358270726}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1358270728 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3798083005857809434, guid: d40ad53dc53976f43ad4ee226ecdd91d,
+  m_CorrespondingSourceObject: {fileID: 4796365855191306275, guid: d40ad53dc53976f43ad4ee226ecdd91d,
     type: 3}
   m_PrefabInstance: {fileID: 1358270726}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7e6376e0e742848cba011270095894, type: 3}
+  m_Script: {fileID: 11500000, guid: fb506f5416734e60bd6a160efc3bf401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
