@@ -1,4 +1,5 @@
-﻿using Loader.Object;
+﻿using Input;
+using Loader.Object;
 using Loader.Scene;
 using Save.Single.Collection;
 using SceneManagement.Collection;
@@ -15,4 +16,5 @@ public interface IGameModel : IBaseGameModel
     ILoadObjectsModel LoadObjectsModel { get; }
     ISaveSingleModelCollection SaveSingleModelCollection { get; }
     ISceneManagementModelsCollection SceneManagementModelsCollection { get; }
+    IInputModel InputModel { get; }
 }
