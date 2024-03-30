@@ -1,4 +1,6 @@
-﻿using Presenter;
+﻿using GameUI;
+using Presenter;
+using SceneManagement;
 using Specification.Scene;
 using UnityEngine;
 
@@ -23,6 +25,9 @@ namespace LocationBuilder
             
             switch (_specification.SceneId)
             {
+                case SceneConst.GameUiId:
+                    _presenters.Add(new GameUiPresenter(_gameModel, (GameUiSceneView)sceneView));
+                    break;
             }
         }
     }
