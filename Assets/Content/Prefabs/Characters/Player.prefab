@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9040663910086260578}
+  - component: {fileID: 1493002094585020918}
+  - component: {fileID: 3891622585925513472}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -32,6 +34,50 @@ Transform:
   - {fileID: 7722356982598232807}
   m_Father: {fileID: 4727193779313996989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1493002094585020918
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302305997292192848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.41
+  m_Height: 2.26
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.04, z: 0}
+--- !u!95 &3891622585925513472
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302305997292192848}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 038320a534bd8b444b43734860d1a211, type: 3}
+  m_Controller: {fileID: 9100000, guid: 765b2072feef9eb4aa42776b36056988, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3282899189175279594
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +337,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d9644640c84268a46ae9f5c3299de96c, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: 038320a534bd8b444b43734860d1a211, type: 3}
     m_RemovedGameObjects:
     - {fileID: 101030, guid: 038320a534bd8b444b43734860d1a211, type: 3}
     - {fileID: 101040, guid: 038320a534bd8b444b43734860d1a211, type: 3}
