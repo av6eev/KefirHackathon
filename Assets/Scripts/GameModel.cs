@@ -9,6 +9,7 @@ using Loader.Object;
 using Loader.Scene;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using Skills.SkillPanel;
 using Specifications;
 using Updater;
 
@@ -29,4 +30,5 @@ public class GameModel : IGameModel
     public IDialogsCollection DialogsCollection { get; set; }
     public IItemPlaceholderModel ItemPlaceholderModel { get; set; }
     public IEnemiesCollection EnemiesCollection { get; set; }
+    public SkillPanelModel SkillPanelModel { get; set; }
 }

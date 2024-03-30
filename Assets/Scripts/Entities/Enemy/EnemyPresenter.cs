@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using Entities.Enemy.Collection;
 using Entities.Enemy.State;
 using Entities.Enemy.State.Behaviours;
+using Loader.Object;
 using Presenter;
 using UnityEngine;
+using UnityEngine.AI;
 using Updater;
+using Utilities.Pull;
 
 namespace Entities.Enemy
 {
@@ -12,22 +14,27 @@ namespace Entities.Enemy
     {
         private readonly IGameModel _gameModel;
         private readonly EnemyModel _model;
-        private readonly EnemiesCollectionView _collectionView;
-        private readonly EnemyView _view;
+        
+        private GameObjectPull _pull;
+        private EnemyView _view;
 
         private readonly PresentersList _presenters = new();
         private readonly List<IUpdater> _updaters = new();
 
-        public EnemyPresenter(IGameModel gameModel, EnemyModel model, EnemiesCollectionView collectionView, EnemyView view)
+        private ILoadObjectModel<GameObject> _loadObjectModel;
+
+        public EnemyPresenter(IGameModel gameModel, EnemyModel model, GameObjectPull pull)
         {
             _gameModel = gameModel;
             _model = model;
-            _collectionView = collectionView;
-            _view = view;
+            _pull = pull;
         }
         
         public void Init()
         {
+            _view = _pull.Get().GetComponent<EnemyView>();
+            _view.transform.position = GetRandomNavMeshPosition();
+
             _view.NavMeshAgent.autoRepath = true;
             _view.NavMeshAgent.autoBraking = true;
             _view.NavMeshAgent.angularSpeed = _model.EnemySpecification.RotationSpeed;
@@ -52,8 +59,6 @@ namespace Entities.Enemy
             _presenters.Dispose();
             _presenters.Clear();
             
-            Object.Destroy(_view.gameObject);
-
             foreach (var updater in _updaters)
             {
                 _gameModel.UpdatersList.Remove(updater);
@@ -61,12 +66,34 @@ namespace Entities.Enemy
             
             _updaters.Clear();
             
+            _pull.Put(_view.gameObject);
+            
             _model.InTarget.OnChanged -= HandleInTarget;
         }
-
+        
         private void HandleInTarget(bool newState, bool oldState)
         {
             _view.InTargetCircle.SetActive(newState);
+        }
+        
+        private Vector3 GetRandomNavMeshPosition()
+        {
+            var center = _view.Position;
+            
+            for (var i = 0; i < 30; i++)
+            {
+                var randomPoint = center + Random.insideUnitSphere * 10;
+
+                if (NavMesh.SamplePosition(randomPoint, out var hit, 1.0f, NavMesh.AllAreas))
+                {
+                    var newPosition = hit.position;
+                    newPosition.y = _view.Position.y;
+                    
+                    return newPosition;
+                }
+            }
+
+            return center;
         }
     }
 }

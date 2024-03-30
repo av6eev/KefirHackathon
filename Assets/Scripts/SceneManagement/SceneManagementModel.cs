@@ -6,8 +6,10 @@ namespace SceneManagement
     {
         public CustomAwaiter LoadAwaiter { get; } = new();
         public CustomAwaiter UnloadAwaiter { get; } = new();
-        
+
         public string SceneId { get; }
+        public int Counter { get; set; }
+
 
         public SceneManagementModel(string sceneId)
         {

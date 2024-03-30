@@ -1,6 +1,7 @@
 ﻿using Cameras;
 using Entities.Player;
 using Presenter;
+using Skills.SkillPanel;
 
 namespace GameScenes
 {
@@ -21,7 +22,7 @@ namespace GameScenes
         {
             Presenters.Add(new CameraPresenter(GameModel, (CameraModel)GameModel.CameraModel, _view.CameraView));
             Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, _view.PlayerView));
-            
+
             AfterInit();
             
             Presenters.Init();
@@ -34,6 +35,8 @@ namespace GameScenes
             Presenters.Dispose();
             
             AfterDispose();
+
+            GameModel.EnemiesCollection.Clear();
         }
 
         protected abstract void AfterInit();

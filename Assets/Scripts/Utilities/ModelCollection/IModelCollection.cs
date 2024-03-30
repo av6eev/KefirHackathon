@@ -10,6 +10,7 @@ namespace Utilities.ModelCollection
         void Remove(T model);
         T GetModel(int index);
         IEnumerable<T> GetModels();
+        void Clear();
     }
     
     public interface IModelCollection<in TKey, TValue> : ICollection
@@ -19,5 +20,6 @@ namespace Utilities.ModelCollection
         void Remove(TKey key);
         TValue GetModel(TKey key);
         IEnumerable<TValue> GetModels();
+        void Clear();
     }
 }
