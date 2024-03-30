@@ -1,4 +1,6 @@
-﻿using Input;
+﻿using Cameras;
+using Entities.Player;
+using Input;
 using Loader.Object;
 using Loader.Scene;
 using Save.Single.Collection;
@@ -17,4 +19,6 @@ public class GameModel : IGameModel
     public ISaveSingleModelCollection SaveSingleModelCollection { get; set; }
     public ISceneManagementModelsCollection SceneManagementModelsCollection { get; set; }
     public IInputModel InputModel { get; set; }
+    public IPlayerModel PlayerModel { get; set; }
+    public ICameraModel CameraModel { get; set; }
 }

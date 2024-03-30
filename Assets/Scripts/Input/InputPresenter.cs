@@ -24,9 +24,7 @@ namespace Input
             _view.OnMoved += HandleMoveInput;
             _view.OnRun += HandleRunInput;
             _view.OnInteracted += HandleInteractInput;
-            _view.OnInventoryToggled += HandleInventoryInput;
             _view.OnEscaped += HandleEscapeInput;
-            _view.OnLook += HandleLookInput;
             _view.OnAttack += HandleAttackInput;
 
             _view.OnSlot1Toggled += HandleSlot1Input;
@@ -43,9 +41,7 @@ namespace Input
             _view.OnMoved -= HandleMoveInput;
             _view.OnRun -= HandleRunInput;
             _view.OnInteracted -= HandleInteractInput;
-            _view.OnInventoryToggled -= HandleInventoryInput;
             _view.OnEscaped -= HandleEscapeInput;
-            _view.OnLook -= HandleLookInput;
             _view.OnAttack -= HandleAttackInput;
 
             _view.OnSlot1Toggled -= HandleSlot1Input;
@@ -59,19 +55,9 @@ namespace Input
             _model.Attack();
         }
 
-        private void HandleLookInput(bool state)
-        {
-            _model.IsLook = state;
-        }
-
         private void HandleRunInput(bool state)
         {
             _model.IsRun.Value = state;
-        }
-
-        private void HandleInventoryInput()
-        {
-            _model.OpenInventory();
         }
 
         private void HandleEscapeInput()

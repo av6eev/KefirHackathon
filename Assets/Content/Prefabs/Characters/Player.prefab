@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 9040663910086260578}
   - component: {fileID: 1493002094585020918}
   - component: {fileID: 3891622585925513472}
-  m_Layer: 0
+  - component: {fileID: 8359753452719233123}
+  m_Layer: 6
   m_Name: Root
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +79,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &8359753452719233123
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302305997292192848}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 2
 --- !u!1 &3282899189175279594
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4727193779313996989}
+  - component: {fileID: 623541293221701791}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -110,6 +139,27 @@ Transform:
   - {fileID: 9040663910086260578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623541293221701791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282899189175279594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef720d28734cecae966686522adba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 8359753452719233123}
+  Root: {fileID: 9040663910086260578}
+  Type: 0
+  HealthBar: {fileID: 0}
+  WeaponSlot: {fileID: 8689492755874154223}
+  EntityAnimatorController: {fileID: 3891622585925513472}
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8689492755874154223
 GameObject:
   m_ObjectHideFlags: 0

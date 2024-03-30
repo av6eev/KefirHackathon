@@ -7,25 +7,23 @@ namespace Input
 {
     public class InputModel : IInputModel
     {
-        public event Action OnInventoryOpened;
         public event Action OnInteracted;
         public event Action OnEscaped;
         public event Action<int, bool> OnSlotStateChanged;
         public event Action OnAttack;
 
-        public bool IsLook { get; set; }
         public ReactiveField<bool> IsRun { get; } = new();
         public ReactiveField<Vector2> Direction { get; } = new();
         public Vector2 MouseDelta { get; set; }
 
         private readonly Dictionary<int, bool> _slotStates = new();
-        private int _currentActiveSlot = -1;
+        public ReactiveField<int> CurrentActiveSlot { get; } = new (-1);
         
         public void SetSlotState(int index)
         {
-            if (_currentActiveSlot != -1)
+            if (CurrentActiveSlot.Value != -1)
             {
-                _slotStates[_currentActiveSlot] = false;
+                _slotStates[CurrentActiveSlot.Value] = false;
             }
             
             if (_slotStates.TryGetValue(index, out var oldState))
@@ -37,7 +35,7 @@ namespace Input
                 _slotStates.Add(index, true);
             }
 
-            _currentActiveSlot = index;
+            CurrentActiveSlot.Value = index;
             
             OnSlotStateChanged?.Invoke(index, _slotStates[index]);
         }
@@ -45,11 +43,6 @@ namespace Input
         public void Attack()
         {
             OnAttack?.Invoke();;
-        }
-        
-        public void OpenInventory()
-        {
-            OnInventoryOpened?.Invoke();
         }
         
         public void Interact()

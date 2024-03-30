@@ -1,6 +1,8 @@
-﻿namespace GameScenes.GameUI
+﻿using LocationBuilder;
+
+namespace GameScenes.GameUI
 {
-    public class GameUiSceneView : BaseGameSceneView
+    public class GameUiSceneView : LocationSceneView
     {
     }
 }

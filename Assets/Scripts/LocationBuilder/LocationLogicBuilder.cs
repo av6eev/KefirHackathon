@@ -1,4 +1,5 @@
-﻿using GameScenes.GameUI;
+﻿using GameScenes.Arena;
+using GameScenes.GameUI;
 using GameScenes.Hub;
 using Presenter;
 using SceneManagement;
@@ -31,6 +32,9 @@ namespace LocationBuilder
                     break;
                 case SceneConst.HubId:
                     _presenters.Add(new HubScenePresenter(_gameModel, (HubSceneView)sceneView));
+                    break;
+                case SceneConst.ArenaId:
+                    _presenters.Add(new ArenaScenePresenter(_gameModel, (ArenaSceneView)sceneView));
                     break;
             }
         }
