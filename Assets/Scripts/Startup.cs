@@ -1,6 +1,7 @@
 using Loader.Object;
 using Loader.Scene;
 using Presenter;
+using Save.Single.Collection;
 using SceneManagement;
 using SceneManagement.Collection;
 using Specifications;
@@ -30,12 +31,14 @@ public class Startup : MonoBehaviour
             LateUpdatersList = _lateUpdatersList,
             LoadObjectsModel = loadObjectsModel,
             Specifications = specifications,
+            SaveSingleModelCollection = new SaveSingleModelCollection(),
             SceneManagementModelsCollection = new SceneManagementModelsCollection(),
         };
 
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
         _presenters.Add(new SceneManagementModelsCollectionPresenter(_gameModel, (SceneManagementModelsCollection)_gameModel.SceneManagementModelsCollection));
+        _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection) _gameModel.SaveSingleModelCollection));
         _presenters.Init();
 
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
