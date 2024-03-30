@@ -18,8 +18,8 @@ MonoBehaviour:
     Offset: {x: 0, y: 5, z: -5}
     InitialRotation: {x: 30, y: 0, z: 0}
     HorizontalSensitivity: 0
-    PositionSmoothTime: 0.03
-    RotationSmoothTime: 0.02
+    PositionSmoothTime: 0.05
+    RotationSmoothTime: 0.05
     FreeLookPositionSmoothTime: 0
     FreeLookRotationSmoothTime: 0
     FieldOfView: 0
