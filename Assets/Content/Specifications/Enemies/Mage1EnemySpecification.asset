@@ -18,12 +18,14 @@ MonoBehaviour:
     RunSpeed: 3
     DashSpeed: 10
     RotationSpeed: 350
-    AttackDistance: 5
+    AttackDistance: 10
     MaxHealth: 100
     BaseDamage: 15
     PrefabId: mage_one
-    PatrolSpeed: 10
+    PatrolSpeed: 3
     MoveTowardsTargetSpeed: 4
-    AttackRange: 1
+    AttackRange: 7
     ObserveRange: 10
     IdleTime: 1
+    CastGameObjectPrefabId: {fileID: 7279716614378958525, guid: b7546a6be5df15f4a930aeb7e8545a2f,
+      type: 3}

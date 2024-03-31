@@ -47,6 +47,14 @@ namespace Entities.Player.Animator
             _gameModel.SceneManagementModelsCollection.Load("hub_scene");
 
             _gameModel.Rerun = true;
+            
+            var amnesiaResource = _model.Resources.GetModel(EntityResourceType.Amnesia);
+            amnesiaResource.Amount.Value = amnesiaResource.MinAmount;
+            
+            var healthResource = _model.Resources.GetModel(EntityResourceType.Amnesia);
+            healthResource.Amount.Value = amnesiaResource.MaxAmount;
+            
+            _model.InverseInput(false);
         }
 
         private void HandleDeath()

@@ -38,12 +38,12 @@ namespace Entities.Enemy.State.Behaviours
 
         public void Dispose()
         {
+            _updatersList.Remove(_updater);
+            
             _view.NavMeshAgent.speed = 0;
             _view.NavMeshAgent.ResetPath();
             
             _view.SetAnimationMovementSpeed(0);
-            
-            _updatersList.Remove(_updater);
             
             IsCompleted.Value = true;
             _completeAwaiter.Complete();

@@ -12,5 +12,6 @@ namespace Entities.Enemy.Specification
         public float AttackRange;
         public float ObserveRange;
         public float IdleTime;
+        public FireBallView CastGameObjectPrefabId;
     }
 }

@@ -3,6 +3,7 @@ using Entities.Animation;
 using Entities.Player;
 using Entities.Player.Dialog;
 using Presenter;
+using Quest.Collection;
 
 namespace GameScenes
 {

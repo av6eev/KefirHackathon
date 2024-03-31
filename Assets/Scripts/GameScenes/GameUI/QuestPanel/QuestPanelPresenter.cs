@@ -29,8 +29,6 @@ namespace GameScenes.GameUI.QuestPanel
             
             Resize();
             
-            _view.NoActiveQuests.SetActive(_model.IsEmpty);
-
             _model.AddEvent.OnChanged += HandleAdd;
             _model.RemoveEvent.OnChanged += HandleRemove;
         }
@@ -55,7 +53,6 @@ namespace GameScenes.GameUI.QuestPanel
 
         private void HandleRemove(QuestModel model)
         {
-            _view.NoActiveQuests.SetActive(_model.IsEmpty);
             Resize();
             
             _presenters.Remove(model);

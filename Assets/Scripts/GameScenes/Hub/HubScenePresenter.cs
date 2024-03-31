@@ -19,14 +19,14 @@ namespace GameScenes.Hub
         {
             _gameModel.SceneManagementModelsCollection.SetCurrentSceneId(SceneConst.HubId);
             
+            _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Amount.Value = 10;
+            _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Health).Amount.Value = _gameModel.PlayerModel.Specification.MaxHealth;
+            
             if (_gameModel.Rerun)
             {
-                _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Amount.Value = 10;
-                _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Health).Amount.Value = _gameModel.PlayerModel.Specification.MaxHealth;
-                
                 _gameModel.PlayerDialogModel.Add("И я снова здесь...");
                 _gameModel.PlayerDialogModel.Add("Так какова же моя цель...?");
-                _gameModel.PlayerDialogModel.Add("И кто я....................");
+                _gameModel.PlayerDialogModel.Add("И кто я........");
             }
             
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));

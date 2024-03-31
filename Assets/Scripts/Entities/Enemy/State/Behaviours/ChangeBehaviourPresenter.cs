@@ -39,9 +39,8 @@ namespace Entities.Enemy.State.Behaviours
 
         public void Dispose()
         {
-            _currentBehaviour.Dispose();
-            
             _model.CurrentState.OnChanged -= HandleStateChanged;
+            _currentBehaviour.Dispose();
         }
 
         private async void HandleStateChanged(EnemyStateType newState, EnemyStateType oldState)
@@ -69,7 +68,7 @@ namespace Entities.Enemy.State.Behaviours
                     _currentBehaviour = new EnemyAttackBehaviour(_model, _view, _completeAwaiter, _gameModel.UpdatersList);
                     break;
                 case EnemyStateType.Death:
-                    _currentBehaviour = new EnemyDeathStateBehaviour(_gameModel, _model, _view, _completeAwaiter);
+                    _currentBehaviour = new EnemyDeathBehaviour(_gameModel, _model, _view, _completeAwaiter);
                     break;
             }
             

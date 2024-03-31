@@ -101,7 +101,7 @@ namespace Entities.Enemy.Collection
             {
                 var randomPoint = centerPosition + Random.insideUnitSphere * 10;
 
-                if (NavMesh.SamplePosition(randomPoint, out var hit, 1.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(randomPoint, out var hit, 5.0f, NavMesh.AllAreas))
                 {
                     var newPosition = hit.position;
                     

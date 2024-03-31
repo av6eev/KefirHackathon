@@ -1,5 +1,4 @@
 ﻿using Presenter;
-using UnityEngine;
 
 namespace Entities.Enemy
 {
@@ -31,6 +30,7 @@ namespace Entities.Enemy
         private void HandleHealthChanged(float newHealth, float oldHealth)
         {
             _view.HealthBar.fillAmount = CalculateHealth(newHealth);
+            _view.RotateBone();
         }
 
         private float CalculateHealth(float newHealth)

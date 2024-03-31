@@ -1,5 +1,6 @@
 ﻿using Awaiter;
 using Reactive.Field;
+using UnityEngine;
 using Updater;
 
 namespace Entities.Enemy.State.Behaviours
@@ -14,6 +15,7 @@ namespace Entities.Enemy.State.Behaviours
         private readonly CustomAwaiter _completeAwaiter;
         private readonly IUpdatersList _updatersList;
         private EnemyAttackStateUpdater _updater;
+        private FireBallView _castedGo;
 
         public EnemyAttackBehaviour(EnemyModel enemyModel, EnemyView view, CustomAwaiter completeAwaiter, IUpdatersList updatersList)
         {
@@ -25,15 +27,18 @@ namespace Entities.Enemy.State.Behaviours
 
         public void Init()
         {
-            _updater = new EnemyAttackStateUpdater(_enemyModel, _view);
-            _updatersList.Add(_updater);
+            _view.EntityAnimatorController.SetBool("IsMovement", false);
+            _view.EntityAnimatorController.SetTrigger("Attack");
+            
+            _castedGo = Object.Instantiate(_enemyModel.EnemySpecification.CastGameObjectPrefabId, _view.Position, Quaternion.identity);
+            _castedGo.Direction = _view.Forward;
         }
 
         public void Dispose()
         {
-            _updatersList.Remove(_updater);
-            
+            _enemyModel.IsAttack.Value = false;
             IsCompleted.Value = true;
+
             _completeAwaiter.Complete();
         }
     }

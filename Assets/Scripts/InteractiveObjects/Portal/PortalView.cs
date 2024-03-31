@@ -7,5 +7,7 @@ namespace InteractiveObjects.Portal
         public InteractiveObjectView InteractiveObject;
         public string NextSceneId;
         public string FromSceneId;
+        public MeshRenderer MeshRenderer;
+        public Collider MeshCollider;
     }
 }
