@@ -29,12 +29,12 @@ namespace Entities.Player.Animator
 
         private void HandleEndRoll()
         {
-            _model.IsDashing.Value = false;
+            _model.InDash.Value = false;
         }
 
         private void HandleDash()
         {
-            _model.IsDashing.Value = true;
+            _model.InDash.Value = true;
             _view.EntityAnimatorController.SetTrigger("IsRoll");
         }
     }

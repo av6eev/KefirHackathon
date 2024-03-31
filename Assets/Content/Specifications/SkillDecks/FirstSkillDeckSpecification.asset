@@ -32,12 +32,13 @@ MonoBehaviour:
       Effect: {fileID: 2850693007004515204, guid: 4684095041dfea6479bae58dd46f3864,
         type: 3}
     - _id: 
-      Cooldown: 5
+      Cooldown: 15
       Icon: {fileID: 21300014, guid: f947eb97ff993214f8fc30bff41221f9, type: 3}
       Angle: 70
       Distance: 7
-      Damage: 10
-      Effect: {fileID: 0}
+      Damage: 0
+      Effect: {fileID: 5833179566574657652, guid: 6c547452fc2604344964cb34364b6e31,
+        type: 3}
     - _id: 
       Cooldown: 5
       Icon: {fileID: 21300000, guid: b15ddea1d3b1668478dad0c1c3842f98, type: 3}

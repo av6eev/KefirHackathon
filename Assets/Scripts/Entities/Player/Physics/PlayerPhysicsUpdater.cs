@@ -24,7 +24,7 @@ namespace Entities.Player.Physics
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
-            if (_playerModel.IsDashing.Value)
+            if (_playerModel.InDash.Value)
             {
                 MoveUpdate(Vector3.forward, deltaTime);
                 return;
@@ -39,7 +39,7 @@ namespace Entities.Player.Physics
             var specification = _playerModel.Specification;
             float constSpeed;
             
-            if (_playerModel.IsDashing.Value)
+            if (_playerModel.InDash.Value)
             {
                 constSpeed = specification.DashSpeed;
             }
@@ -63,7 +63,7 @@ namespace Entities.Player.Physics
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
                 var movementDirection = movementInput.normalized;
 
-                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.IsDashing.Value)
+                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.InDash.Value)
                 {
                     var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
                     var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
