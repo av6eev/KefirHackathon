@@ -66,6 +66,9 @@ namespace Skills
             foreach (var entity in _gameModel.EnemiesCollection.GetModels().Where(IsNearToPlayer))
             {
                 entity.TakeDamage(_model.Specification.Damage);
+                
+                _gameModel.PlayerModel.IsAfk.Value = false;
+                _gameModel.PlayerModel.AfkTime.Value = 0;
             }
         }
 

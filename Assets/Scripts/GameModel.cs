@@ -3,6 +3,7 @@ using DeBuff.Collection;
 using Dialogs.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
+using Entities.Player.Dialog;
 using Input;
 using Inventory.Collection;
 using Item.ItemPlaceholder;
@@ -33,4 +34,5 @@ public class GameModel : IGameModel
     public IEnemiesCollection EnemiesCollection { get; set; }
     public SkillPanelModel SkillPanelModel { get; set; }
     public IDeBuffsCollection DeBuffsCollection { get; set; }
+    public PlayerDialogModel PlayerDialogModel { get; set; }
 }

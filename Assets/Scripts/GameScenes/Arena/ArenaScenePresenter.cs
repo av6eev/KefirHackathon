@@ -1,4 +1,5 @@
 ﻿using Entities.Enemy.Collection;
+using Entities.Player;
 using InteractiveObjects.Portal;
 
 namespace GameScenes.Arena
@@ -7,6 +8,8 @@ namespace GameScenes.Arena
     {
         private readonly GameModel _gameModel;
         private readonly ArenaSceneView _view;
+        
+        private PlayerAfkUpdater _playerAfkUpdater;
 
         public ArenaScenePresenter(GameModel gameModel, ArenaSceneView view) : base(gameModel, view)
         {
@@ -24,10 +27,14 @@ namespace GameScenes.Arena
             
             Presenters.Add(new EnemiesCollectionPresenter(GameModel, (EnemiesCollection)_gameModel.EnemiesCollection, _view.EnemiesCollectionView));
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
+
+            _playerAfkUpdater = new PlayerAfkUpdater((PlayerModel) _gameModel.PlayerModel); 
+            _gameModel.UpdatersList.Add(_playerAfkUpdater);            
         }
 
         protected override void AfterDispose()
         {
+            _gameModel.UpdatersList.Remove(_playerAfkUpdater);
         }
     }
 }

@@ -13,9 +13,11 @@ namespace Entities.Player
         public const string Id = "Player";
         public const string HudId = "player_hud_inventory";
         public string SaveId => Id;
-        public string BaseLocationId { get; private set; } = SceneConst.HubId;
+        public string BaseLocationId { get; } = SceneConst.HubId;
         
         public bool IsRunning;
+        public ReactiveField<bool> IsAfk { get; } = new(false);
+        public ReactiveField<float> AfkTime { get; } = new(0);
         public ReactiveField<bool> InDash { get; } = new();
 
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
