@@ -19,16 +19,59 @@ namespace Entities.Player.Animator
         {
             _model.CurrentSpeed.OnChanged += ChangeCurrentAnimation;
             _model.IsAttack.OnChanged += HandleAttackState;
-
+            _model.DeathEvent.OnChanged += HandleDeath;
+            
             _gameModel.InputModel.IsRun.OnChanged += HandleRun;
+            _gameModel.InputModel.OnAttack += HandleAttackInput;
+
+            _view.EntityAnimationEvents.OnEndSimpleAttack += HandleEndSimpleAttack;
+            _view.EntityAnimationEvents.OnDeath += HandleViewDeath;
         }
 
         public void Dispose()
         {
             _model.CurrentSpeed.OnChanged -= ChangeCurrentAnimation;
             _model.IsAttack.OnChanged -= HandleAttackState;
+            _model.DeathEvent.OnChanged -= HandleDeath;
             
             _gameModel.InputModel.IsRun.OnChanged -= HandleRun;
+            _gameModel.InputModel.OnAttack -= HandleAttackInput;
+            
+            _view.EntityAnimationEvents.OnEndSimpleAttack -= HandleEndSimpleAttack;
+            _view.EntityAnimationEvents.OnDeath -= HandleViewDeath;
+        }
+
+        private void HandleViewDeath()
+        {
+            _gameModel.SceneManagementModelsCollection.Unload("arena_scene");
+            _gameModel.SceneManagementModelsCollection.Load("hub_scene");
+
+            _gameModel.Rerun = true;
+        }
+
+        private void HandleDeath()
+        {
+            _view.EntityAnimatorController.SetBool("IsMovement", false);
+            _view.EntityAnimatorController.SetTrigger("IsDeath");
+        }
+
+        private void HandleAttackInput()
+        {
+            if (!_model.InDash.Value && !_gameModel.SkillPanelModel.IsCasting)
+            {
+                _model.IsSimpleAttack.Value = true;
+                _view.EntityAnimatorController.SetTrigger("SimpleAttack");
+            }
+        }
+
+        private void HandleEndSimpleAttack()
+        {
+            if (_model.Target.Value != null)
+            {
+                _model.Target.Value.TakeDamage(_model.Specification.BaseDamage);
+            }
+            
+            _model.IsSimpleAttack.Value = false;
         }
 
         private void HandleAttackState(bool newValue, bool oldValue)

@@ -2,6 +2,7 @@
 using Loader.Object;
 using Presenter;
 using UnityEngine;
+using UnityEngine.AI;
 using Utilities.Pull;
 
 namespace Entities.Enemy.Collection
@@ -14,6 +15,7 @@ namespace Entities.Enemy.Collection
 
         private readonly PresentersDictionary<EnemyModel> _presenters = new();
         private List<ILoadObjectModel<GameObject>> _loadObjectModels = new();
+        private readonly Dictionary<int, int> _enemiesAtPointsCounter = new();
         
         public EnemiesCollectionPresenter(IGameModel gameModel, EnemiesCollection model, EnemiesCollectionView view)
         {
@@ -24,12 +26,17 @@ namespace Entities.Enemy.Collection
         
         public async void Init()
         {
-            var loadObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>(EnemyVariants.Wizard);
-            await loadObjectModel.LoadAwaiter;
+            var mageOneObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>(EnemyVariants.MageOne);
+            await mageOneObjectModel.LoadAwaiter;
 
-            _view.EnemyPull.Add(EnemyVariants.Wizard, new GameObjectPull(loadObjectModel.Result, _view.Root, 10));
+            _view.EnemyPull.Add(EnemyVariants.MageOne, new GameObjectPull(mageOneObjectModel.Result, _view.Root, 10));
+            _loadObjectModels.Add(mageOneObjectModel);
             
-            _loadObjectModels.Add(loadObjectModel);
+            var mageTwoObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>(EnemyVariants.MageTwo);
+            await mageTwoObjectModel.LoadAwaiter;
+
+            _view.EnemyPull.Add(EnemyVariants.MageTwo, new GameObjectPull(mageTwoObjectModel.Result, _view.Root, 10));
+            _loadObjectModels.Add(mageTwoObjectModel);
             
             foreach (var model in _model.GetModels())
             {
@@ -61,7 +68,7 @@ namespace Entities.Enemy.Collection
 
         private void HandleAdd(EnemyModel model)
         {
-            var presenter = new EnemyPresenter(_gameModel, model, _view.EnemyPull[model.EnemySpecification.PrefabId]);
+            var presenter = new EnemyPresenter(_gameModel, model, _view.EnemyPull[model.EnemySpecification.PrefabId], GetRandomNavMeshPosition());
             
             presenter.Init();
             _presenters.Add(model, presenter);
@@ -70,6 +77,39 @@ namespace Entities.Enemy.Collection
         private void HandleRemove(EnemyModel model)
         {
             _presenters.Remove(model);
+        }
+        
+        private Vector3 GetRandomNavMeshPosition()
+        {
+            var randomIndex = Random.Range(0, _view.EnemySpawnPositions.Count);
+            var centerPosition = _view.EnemySpawnPositions[randomIndex].position;
+
+            if (_enemiesAtPointsCounter.TryGetValue(randomIndex, out var value))
+            {
+                if (value >= 3)
+                {
+                    GetRandomNavMeshPosition();
+                }
+            }
+            
+            if (!_enemiesAtPointsCounter.TryAdd(randomIndex, 1))
+            {
+                _enemiesAtPointsCounter[randomIndex]++;
+            }
+
+            for (var i = 0; i < 15; i++)
+            {
+                var randomPoint = centerPosition + Random.insideUnitSphere * 10;
+
+                if (NavMesh.SamplePosition(randomPoint, out var hit, 1.0f, NavMesh.AllAreas))
+                {
+                    var newPosition = hit.position;
+                    
+                    return newPosition;
+                }
+            }
+
+            return centerPosition;
         }
     }
 }

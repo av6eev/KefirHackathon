@@ -31,7 +31,7 @@ namespace DeBuff
             _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Amount.OnChanged -= HandleAmnesiaChanged;
         }
 
-        private void HandleAmnesiaChanged(int newAmnesia, int oldAmnesia)
+        private void HandleAmnesiaChanged(float newAmnesia, float oldAmnesia)
         {
             if (_model.Specification.ApplyValue <= newAmnesia)
             {

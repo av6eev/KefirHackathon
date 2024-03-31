@@ -14,12 +14,13 @@ namespace Entities
         public EntityAnimationEvents AnimationEvents { get; } = new();
         public ReactiveField<bool> IsCanAttack { get; } = new();
         public ReactiveField<bool> IsAttack { get; } = new();
+        public ReactiveField<bool> IsSimpleAttack { get; } = new();
         public ReactiveField<bool> InTarget { get; } = new();
         public ReactiveField<float> CurrentSpeed { get; } = new();
         public ReactiveField<IEntityModel> Target { get; } = new(null);
         public ReactiveField<Quaternion> NextRotation { get; } = new();
 
-        public ReactiveEvent DieEvent { get; } = new();
+        public ReactiveField<bool> IsDied { get; } = new();
         
         public ModelCollection<EntityResourceType, EntityResource> Resources { get; } = new();
         
@@ -46,7 +47,7 @@ namespace Entities
             if (currentHealth.Amount.Value <= 0)
             {
                 currentHealth.Amount.Value = 0;
-                DieEvent.Invoke();
+                IsDied.Value = true;
             }
         }
     }

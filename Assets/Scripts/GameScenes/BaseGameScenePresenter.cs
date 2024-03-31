@@ -25,7 +25,7 @@ namespace GameScenes
             Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, _view.PlayerView));
             Presenters.Add(new PlayerDialogPresenter(GameModel, GameModel.PlayerDialogModel, _view.PlayerView.DialogView));
             Presenters.Add(new EntityAnimationPresenter(_view.PlayerView.EntityAnimationEvents, GameModel.PlayerModel.AnimationEvents));
-
+            
             AfterInit();
             
             Presenters.Init();
@@ -40,6 +40,7 @@ namespace GameScenes
             AfterDispose();
 
             GameModel.EnemiesCollection.Clear();
+            GameModel.QuestsCollection.Clear();
         }
 
         protected abstract void AfterInit();

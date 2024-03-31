@@ -1,5 +1,4 @@
 ﻿using Entities.Enemy.Specification;
-using Entities.Specification;
 using Utilities.ModelCollection;
 
 namespace Entities.Enemy.Collection

@@ -8,25 +8,38 @@ namespace Entities.Player.Physics
     public class PlayerPhysicsUpdater : IUpdater
     {
         private readonly IInputModel _inputModel;
+        private readonly IGameModel _gameModel;
         private readonly PlayerModel _playerModel;
         private readonly PlayerView _playerView;
         private readonly ICameraModel _cameraModel;
 
-        public PlayerPhysicsUpdater(IInputModel inputModel, PlayerModel playerModel, PlayerView playerView, ICameraModel cameraModel)
+        public PlayerPhysicsUpdater(IGameModel gameModel, PlayerModel playerModel, PlayerView playerView)
         {
-            _inputModel = inputModel;
+            _gameModel = gameModel;
             _playerModel = playerModel;
             _playerView = playerView;
-            _cameraModel = cameraModel;
+            
+            _inputModel = gameModel.InputModel;
+            _cameraModel = gameModel.CameraModel;
         }
         
         public void Update(float deltaTime)
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
+            if (_gameModel.SkillPanelModel.IsCasting)
+            {
+                return;
+            }
+            
             if (_playerModel.InDash.Value)
             {
                 MoveUpdate(Vector3.forward, deltaTime);
+                return;
+            }
+            else if (_playerModel.IsInputInverse)
+            {
+                MoveUpdate(-input, deltaTime);
                 return;
             }
             

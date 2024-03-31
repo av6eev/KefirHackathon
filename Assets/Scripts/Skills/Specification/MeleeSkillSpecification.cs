@@ -13,5 +13,6 @@ namespace Skills.Specification
         public float Distance;
         public int Damage;
         public GameObject Effect;
+        public int PenaltyForUsage;
     }
 }

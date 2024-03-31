@@ -6,6 +6,9 @@ using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
 using Loader.Object;
+using Quest.Demands.Specification;
+using Quest.Rewards.Specification;
+using Quest.Specification;
 using Skills.Deck;
 using Specification.Scene;
 using Specifications.Collection;
@@ -23,6 +26,9 @@ namespace Specifications
         public ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; } = new SpecificationsCollection<EnemySpecification>();
         public ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; } = new SpecificationsCollection<SkillDeckSpecification>();
         public ISpecificationsCollection<DeBuffSpecification> DeBuffSpecifications { get; } = new SpecificationsCollection<DeBuffSpecification>();
+        public ISpecificationsCollection<BaseDemandSpecification> DemandSpecifications { get; } = new SpecificationsCollection<BaseDemandSpecification>();
+        public ISpecificationsCollection<BaseRewardSpecification> RewardSpecifications { get; } = new SpecificationsCollection<BaseRewardSpecification>();
+        public ISpecificationsCollection<QuestSpecification> QuestSpecifications { get; } = new SpecificationsCollection<QuestSpecification>();
 
         public readonly CustomAwaiter LoadAwaiter = new();
         
@@ -41,6 +47,9 @@ namespace Specifications
             await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<SkillDeckSpecification>(loadObjectsModel, "skill_decks", SkillDeckSpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<DeBuffSpecification>(loadObjectsModel, "de_buffs", DeBuffSpecifications).LoadAwaiter;
+            await new LoadAssetsSpecificationsWrapper<BaseDemandSpecification>(loadObjectsModel, "demands", DemandSpecifications).LoadAwaiter;
+            await new LoadAssetsSpecificationsWrapper<BaseRewardSpecification>(loadObjectsModel, "rewards", RewardSpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<QuestSpecification>(loadObjectsModel, "quests", QuestSpecifications).LoadAwaiter;
             
             LoadAwaiter.Complete();
         }

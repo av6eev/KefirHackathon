@@ -19,6 +19,7 @@ namespace Entities.Enemy.State.Behaviours
             { EnemyStateType.Patrol, true },
             { EnemyStateType.MoveTowardsTarget, true },
             { EnemyStateType.Attack, true },
+            { EnemyStateType.Death, true },
         };
         
         public ChangeBehaviourPresenter(IGameModel gameModel, EnemyModel model, EnemyView view)
@@ -66,6 +67,9 @@ namespace Entities.Enemy.State.Behaviours
                     break;
                 case EnemyStateType.Attack:
                     _currentBehaviour = new EnemyAttackBehaviour(_model, _view, _completeAwaiter, _gameModel.UpdatersList);
+                    break;
+                case EnemyStateType.Death:
+                    _currentBehaviour = new EnemyDeathStateBehaviour(_gameModel, _model, _view, _completeAwaiter);
                     break;
             }
             

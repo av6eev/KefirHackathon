@@ -12,5 +12,6 @@ namespace Entities.Specification
         public float RotationSpeed = 6f;
         public float AttackDistance;
         public int MaxHealth;
+        public int BaseDamage;
     }
 }

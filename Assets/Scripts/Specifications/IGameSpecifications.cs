@@ -4,6 +4,9 @@ using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
 using Item.Specification;
+using Quest.Demands.Specification;
+using Quest.Rewards.Specification;
+using Quest.Specification;
 using Skills.Deck;
 using Specification.Scene;
 using Specifications.Collection;
@@ -20,5 +23,8 @@ namespace Specifications
         ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; }
         ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; }
         ISpecificationsCollection<DeBuffSpecification> DeBuffSpecifications { get; }
+        ISpecificationsCollection<BaseDemandSpecification> DemandSpecifications { get; }
+        ISpecificationsCollection<BaseRewardSpecification> RewardSpecifications { get; }
+        ISpecificationsCollection<QuestSpecification> QuestSpecifications { get; }
     }
 }

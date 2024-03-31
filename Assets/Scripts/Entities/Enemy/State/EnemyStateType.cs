@@ -5,6 +5,7 @@
         Idle,
         Patrol,
         MoveTowardsTarget,
-        Attack
+        Attack,
+        Death
     }
 }

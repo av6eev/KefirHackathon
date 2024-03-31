@@ -1,4 +1,6 @@
-﻿using InteractiveObjects.Portal;
+﻿using Entities;
+using InteractiveObjects.Portal;
+using SceneManagement;
 
 namespace GameScenes.Hub
 {
@@ -15,6 +17,18 @@ namespace GameScenes.Hub
         
         protected override void AfterInit()
         {
+            _gameModel.SceneManagementModelsCollection.SetCurrentSceneId(SceneConst.HubId);
+            
+            if (_gameModel.Rerun)
+            {
+                _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Amount.Value = 10;
+                _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Health).Amount.Value = _gameModel.PlayerModel.Specification.MaxHealth;
+                
+                _gameModel.PlayerDialogModel.Add("И я снова здесь...");
+                _gameModel.PlayerDialogModel.Add("Так какова же моя цель...?");
+                _gameModel.PlayerDialogModel.Add("И кто я....................");
+            }
+            
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
         }
 

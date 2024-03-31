@@ -1,6 +1,5 @@
 ﻿using Entities.Enemy.Specification;
 using Entities.Enemy.State;
-using Entities.Specification;
 using Reactive.Field;
 
 namespace Entities.Enemy

@@ -1,5 +1,6 @@
 ﻿using GameScenes.GameUI;
 using Presenter;
+using SceneManagement;
 
 namespace Entities.Player
 {
@@ -31,14 +32,15 @@ namespace Entities.Player
             _model.Resources.GetModel(EntityResourceType.Amnesia).Amount.OnChanged -= HandleAmnesiaChanged;
         }
 
-        private void HandleAmnesiaChanged(int newAmnesia, int oldAmnesia)
+        private void HandleAmnesiaChanged(float newAmnesia, float oldAmnesia)
         {
+            if (_gameModel.SceneManagementModelsCollection.CurrentSceneId == SceneConst.HubId) return;
+            
             _view.FillBar.fillAmount = CalculateAmnesia(newAmnesia);
             _view.PercentageText.text = $"{newAmnesia}%";
-
         }
 
-        private float CalculateAmnesia(int newAmnesia)
+        private float CalculateAmnesia(float newAmnesia)
         {
             return newAmnesia / 100f;
         }

@@ -19,8 +19,16 @@ namespace Entities.Enemy.State
         public void Update(float deltaTime)
         {
             var distanceToPlayer = Vector3.Distance(_view.Position, _model.Target.Value.Position);
-            
-            Debug.Log(_model.CurrentState.Value);
+
+            if (_model.IsDied.Value && _model.CurrentState.Value == EnemyStateType.Death)
+            {
+                return;
+            }
+            else if (_model.IsDied.Value)
+            {
+                _model.CurrentState.Value = EnemyStateType.Death;
+                return;
+            }
             
             if (distanceToPlayer < _model.EnemySpecification.AttackRange)
             {

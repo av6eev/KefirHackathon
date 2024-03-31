@@ -1,36 +1,50 @@
 ﻿using Reactive.Event;
 using Reactive.Field;
+using UnityEngine;
 using Utilities.Model;
 
 namespace Entities
 {
     public class EntityResource : IModel
     {
-        public readonly EntityResourceType Type;
-        
-        public ReactiveField<int> Amount { get; } = new();
         private readonly ReactiveEvent _saveEvent = new();
+        
+        public int MaxAmount { get; }
+        public int MinAmount { get; }
+        public ReactiveField<float> Amount { get; } = new();
+        public readonly EntityResourceType Type;
 
-        public EntityResource(EntityResourceType type, int amount)
+        public EntityResource(EntityResourceType type, int amount, int maxAmount = -1, int minAmount = -1)
         {
             Type = type;
             Amount.Value = amount;
+            MaxAmount = maxAmount;
+            MinAmount = minAmount;
         }
 
-        public void Increase(int amount)
+        public void Increase(float amount)
         {
-            Amount.Value += amount;
+            if (MaxAmount != -1 && Amount.Value + amount > MaxAmount)
+            {
+                Amount.Value = MaxAmount;
+            }
+            else
+            {
+                Amount.Value += amount;
+            }
             
             _saveEvent.Invoke();
         }
         
-        public void Decrease(int amount)
+        public void Decrease(float amount)
         {
-            Amount.Value -= amount;
-
-            if (Amount.Value < 0)
+            if (MinAmount != -1 && Amount.Value - amount < MinAmount)
             {
-                Amount.Value = 0;
+                Amount.Value = MinAmount;
+            }
+            else
+            {
+                Amount.Value -= amount;
             }
             
             _saveEvent.Invoke();
