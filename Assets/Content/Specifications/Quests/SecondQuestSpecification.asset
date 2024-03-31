@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ae40ae37644f6090af8cde690393ac, type: 3}
-  m_Name: DemandCollectionSpecification
+  m_Script: {fileID: 11500000, guid: d758f8dd14b444418d9a1ffb806bfddc, type: 3}
+  m_Name: SecondQuestSpecification
   m_EditorClassIdentifier: 
-  Collection:
-  - {fileID: 11400000, guid: d361d2d53a3c5d44dba8464af42cb298, type: 2}
-  - {fileID: 11400000, guid: d28e2ba634c4d0d4ab9387bcd53a696e, type: 2}
+  Specification:
+    _id: second_quest
+    Title: First quest
+    Description: 
+    DemandId: 5_kill
+    RewardIds:
+    - first_dialog

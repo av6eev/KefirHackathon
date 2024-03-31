@@ -18,4 +18,5 @@ MonoBehaviour:
     Description: 
     DemandId: 1_kill
     RewardIds:
-    - first_dialog
+    - first_dialog_reward
+    - second_quest_reward

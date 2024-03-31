@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SecondQuestRewardSpecification
   m_EditorClassIdentifier: 
   Specification:
-    _id: 
-    QuestId: 
+    _id: second_quest_reward
+    QuestId: second_quest
