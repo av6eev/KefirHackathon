@@ -1,4 +1,5 @@
 ﻿using Cameras.Specification;
+using DeBuff.Specification;
 using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
@@ -18,5 +19,6 @@ namespace Specifications
         ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; }
         ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; }
         ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; }
+        ISpecificationsCollection<DeBuffSpecification> DeBuffSpecifications { get; }
     }
 }

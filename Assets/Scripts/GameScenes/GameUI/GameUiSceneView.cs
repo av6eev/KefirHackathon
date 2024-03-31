@@ -1,8 +1,8 @@
 ﻿using Dialogs.Collection;
+using GameScenes.GameUI.DeBuffPanel;
 using Item.ItemPlaceholder;
 using LocationBuilder;
 using Skills.SkillPanel;
-using UnityEngine.UI;
 
 namespace GameScenes.GameUI
 {
@@ -13,5 +13,6 @@ namespace GameScenes.GameUI
         public SkillPanelView SkillPanelView;
         public PlayerMainResourceView AmnesiaResourceView;
         public PlayerMainResourceView HealthResourceView;
+        public DeBuffPanelView DeBuffPanelView;
     }
 }

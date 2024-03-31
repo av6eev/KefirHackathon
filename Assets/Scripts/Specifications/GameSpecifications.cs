@@ -1,5 +1,6 @@
 ﻿using Awaiter;
 using Cameras.Specification;
+using DeBuff.Specification;
 using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
@@ -21,6 +22,7 @@ namespace Specifications
         public ISpecificationsCollection<InventorySpecification> InventorySpecifications { get; } = new SpecificationsCollection<InventorySpecification>();
         public ISpecificationsCollection<EnemySpecification> EnemySpecifications { get; } = new SpecificationsCollection<EnemySpecification>();
         public ISpecificationsCollection<SkillDeckSpecification> SkillDeckSpecifications { get; } = new SpecificationsCollection<SkillDeckSpecification>();
+        public ISpecificationsCollection<DeBuffSpecification> DeBuffSpecifications { get; } = new SpecificationsCollection<DeBuffSpecification>();
 
         public readonly CustomAwaiter LoadAwaiter = new();
         
@@ -38,6 +40,7 @@ namespace Specifications
             await new LoadSpecificationsWrapper<InventorySpecification>(loadObjectsModel, "inventories", InventorySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<SkillDeckSpecification>(loadObjectsModel, "skill_decks", SkillDeckSpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<DeBuffSpecification>(loadObjectsModel, "de_buffs", DeBuffSpecifications).LoadAwaiter;
             
             LoadAwaiter.Complete();
         }
