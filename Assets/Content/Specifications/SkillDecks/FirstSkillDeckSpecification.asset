@@ -23,7 +23,7 @@ MonoBehaviour:
       Damage: 10
       Effect: {fileID: 6234818455853893159, guid: 96c30f207bdbb3243abb88e8d5255d1e,
         type: 3}
-      PenaltyForUsage: 7
+      PenaltyForUsage: 100
     - _id: 
       Cooldown: 5
       Icon: {fileID: 21300000, guid: faec574242331f04d953226e394dd4c1, type: 3}
@@ -44,7 +44,7 @@ MonoBehaviour:
       PenaltyForUsage: 20
     - _id: 
       Cooldown: 5
-      Icon: {fileID: 21300000, guid: b15ddea1d3b1668478dad0c1c3842f98, type: 3}
+      Icon: {fileID: 21300010, guid: 91b0407feb7b9eb4c88570200e8bba92, type: 3}
       Angle: 70
       Distance: 7
       Damage: 10
@@ -52,7 +52,7 @@ MonoBehaviour:
       PenaltyForUsage: 0
     - _id: 
       Cooldown: 5
-      Icon: {fileID: 21300044, guid: 72f7ab1b0affe344cbe14e7f911ff651, type: 3}
+      Icon: {fileID: 21300010, guid: 91b0407feb7b9eb4c88570200e8bba92, type: 3}
       Angle: 70
       Distance: 7
       Damage: 10

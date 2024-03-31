@@ -8,5 +8,6 @@ namespace GameScenes.GameUI
     {
         public TextMeshProUGUI PercentageText;
         public Image FillBar;
+        public Material AmnesiaShader;
     }
 }

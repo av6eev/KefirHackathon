@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d758f8dd14b444418d9a1ffb806bfddc, type: 3}
-  m_Name: SecondQuestSpecification
+  m_Script: {fileID: 11500000, guid: 0f81c64a76394bbcaf98a82ce33b448d, type: 3}
+  m_Name: SecondDialogRewardSpecification
   m_EditorClassIdentifier: 
   Specification:
-    _id: second_quest
-    Title: Second quest
-    Description: 
-    DemandId: 3_kill
-    RewardIds:
-    - second_dialog_reward
-    - third_quest_reward
+    _id: second_dialog_reward
+    Texts:
+    - "\u0427\u0442\u043E \u044D\u0442\u043E \u0442\u043E\u043B\u044C\u043A\u043E
+      \u0447\u0442\u043E \u0431\u044B\u043B\u043E?"

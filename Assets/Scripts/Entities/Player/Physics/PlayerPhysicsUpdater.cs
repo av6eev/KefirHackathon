@@ -25,6 +25,8 @@ namespace Entities.Player.Physics
         
         public void Update(float deltaTime)
         {
+            _playerView.Rigidbody.angularVelocity = Vector3.zero;
+            
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
             if (_gameModel.SkillPanelModel.IsCasting)

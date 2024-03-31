@@ -2,6 +2,7 @@
 using DeBuff.Specification;
 using Entities;
 using Presenter;
+using SceneManagement;
 using Skills.SkillPanel.Slot;
 using UnityEngine;
 
@@ -72,6 +73,8 @@ namespace Skills.SkillPanel
             skill.StartCast();
             _model.IsCasting = true;
             
+            if (_gameModel.SceneManagementModelsCollection.CurrentSceneId == SceneConst.HubId) return;
+
             _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Increase(skill.Specification.PenaltyForUsage);
         }
     }

@@ -20,7 +20,7 @@ namespace Entities
         public ReactiveField<IEntityModel> Target { get; } = new(null);
         public ReactiveField<Quaternion> NextRotation { get; } = new();
 
-        public ReactiveField<bool> IsDied { get; } = new();
+        public ReactiveField<bool> IsDied { get; } = new(false);
         
         public ModelCollection<EntityResourceType, EntityResource> Resources { get; } = new();
         

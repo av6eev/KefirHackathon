@@ -47,6 +47,11 @@ namespace Utilities.ModelCollection
 
         public void Clear()
         {
+            foreach (var model in Collection)
+            {
+                RemoveEvent.Invoke(model);
+            }
+            
             Collection.Clear();
         }
     }

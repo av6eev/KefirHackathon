@@ -57,6 +57,7 @@ MonoBehaviour:
     m_Bits: 64
   NavMeshAgent: {fileID: 2358768023019254647}
   InTargetCircle: {fileID: 6319928915356464059}
+  RotateBoneGo: {fileID: 8192383990848814524}
 --- !u!1 &3819180625756234285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1592,12 @@ Transform:
 --- !u!4 &8192383990848814190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 401628, guid: 038320a534bd8b444b43734860d1a211,
+    type: 3}
+  m_PrefabInstance: {fileID: 8192383990848937138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8192383990848814524 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 401678, guid: 038320a534bd8b444b43734860d1a211,
     type: 3}
   m_PrefabInstance: {fileID: 8192383990848937138}
   m_PrefabAsset: {fileID: 0}

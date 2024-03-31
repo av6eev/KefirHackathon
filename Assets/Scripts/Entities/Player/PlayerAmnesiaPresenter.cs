@@ -1,6 +1,7 @@
 ﻿using GameScenes.GameUI;
 using Presenter;
 using SceneManagement;
+using UnityEngine;
 
 namespace Entities.Player
 {
@@ -9,6 +10,7 @@ namespace Entities.Player
         private readonly IGameModel _gameModel;
         private readonly IPlayerModel _model;
         private readonly PlayerMainResourceView _view;
+        private static readonly int Float = Shader.PropertyToID("_Float");
 
         public PlayerAmnesiaPresenter(IGameModel gameModel, IPlayerModel model, PlayerMainResourceView view)
         {
@@ -23,7 +25,8 @@ namespace Entities.Player
             
             _view.FillBar.fillAmount = CalculateAmnesia(amnesiaResource.Amount.Value);
             _view.PercentageText.text = $"{amnesiaResource.Amount.Value}%";
-
+            _view.AmnesiaShader.SetFloat(Float, CalculateAmnesia(amnesiaResource.Amount.Value));
+            
             amnesiaResource.Amount.OnChanged += HandleAmnesiaChanged;
         }
 
@@ -33,11 +36,10 @@ namespace Entities.Player
         }
 
         private void HandleAmnesiaChanged(float newAmnesia, float oldAmnesia)
-        {
-            if (_gameModel.SceneManagementModelsCollection.CurrentSceneId == SceneConst.HubId) return;
-            
+        { 
             _view.FillBar.fillAmount = CalculateAmnesia(newAmnesia);
             _view.PercentageText.text = $"{newAmnesia}%";
+            _view.AmnesiaShader.SetFloat(Float, CalculateAmnesia(newAmnesia));
         }
 
         private float CalculateAmnesia(float newAmnesia)

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eda91e2b514c7b96ab41898deb16af, type: 3}
-  m_Name: KillFifthDemandSpecification
+  m_Script: {fileID: 11500000, guid: 94320601b9314cd08de4578b465cbfc9, type: 3}
+  m_Name: OpenPortalRewardSpecification
   m_EditorClassIdentifier: 
   Specification:
-    _id: 5_kill
-    KillCount: 5
+    _id: open_portal_reward
+    Name: Portal

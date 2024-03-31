@@ -1,10 +1,9 @@
 ﻿using Awaiter;
-using Entities.Enemy.State.Behaviours;
 using Reactive.Field;
 
-namespace Entities.Enemy.State
+namespace Entities.Enemy.State.Behaviours
 {
-    public class EnemyDeathStateBehaviour : IBehaviour
+    public class EnemyDeathBehaviour : IBehaviour
     {
         private readonly IGameModel _gameModel;
         private readonly EnemyModel _model;
@@ -12,8 +11,7 @@ namespace Entities.Enemy.State
         private readonly CustomAwaiter _completeAwaiter;
         public ReactiveField<bool> IsCompleted { get; }
 
-
-        public EnemyDeathStateBehaviour(IGameModel gameModel, EnemyModel model, EnemyView view, CustomAwaiter completeAwaiter)
+        public EnemyDeathBehaviour(IGameModel gameModel, EnemyModel model, EnemyView view, CustomAwaiter completeAwaiter)
         {
             _gameModel = gameModel;
             _model = model;
