@@ -30,6 +30,8 @@ namespace GameScenes.GameUI
             _presenters.Add(new DialogsCollectionPresenter(_gameModel, (DialogsCollection)_gameModel.DialogsCollection, _view.DialogsCollectionView));
             _presenters.Add(new EscapeDialogPresenter(_gameModel, (DialogsCollection)_gameModel.DialogsCollection));
             _presenters.Add(new ItemPlaceholderPresenter(_gameModel, (ItemPlaceholderModel) _gameModel.ItemPlaceholderModel, _view.ItemPlaceholderView));
+            _presenters.Add(new PlayerHealthPresenter(_gameModel, _gameModel.PlayerModel, _view.HealthResourceView));
+            _presenters.Add(new PlayerAmnesiaPresenter(_gameModel, _gameModel.PlayerModel, _view.AmnesiaResourceView));
             
             _presenters.Init();
         }

@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using Entities.Animation;
-using Entities.Player.Animator;
 using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
 using SceneManagement;
-using SimpleJson;
 
 namespace Entities.Player
 {
@@ -18,15 +15,13 @@ namespace Entities.Player
         public string SaveId => Id;
         public string BaseLocationId { get; private set; } = SceneConst.HubId;
         
-        public int BaseAmnesiaValue { get; private set; }
-
         public bool IsRunning;
         public ReactiveField<bool> InDash { get; } = new();
 
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0));
-            Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0));
+            Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 10));
         }
 
         public IDictionary<string, object> GetSaveData()
@@ -39,7 +34,6 @@ namespace Entities.Player
             }
             
             saveData.Add("base_location", BaseLocationId);
-            saveData.Add("base_amnesia_value", BaseAmnesiaValue);
             
             return saveData;
         }

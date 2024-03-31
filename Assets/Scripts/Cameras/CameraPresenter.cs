@@ -71,9 +71,6 @@ namespace Cameras
             _model.NextState = CameraStateType.None;
             
             _model.IsCompleted.Value = false;
-
-            Debug.Log("New current state: " + _model.CurrentState);
-            Debug.Log("New next state: " + _model.NextState);
         }
 
         private void CheckComplete(bool newState, bool oldState)
