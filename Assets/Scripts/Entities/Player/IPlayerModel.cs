@@ -11,5 +11,9 @@ namespace Entities.Player
         ReactiveField<bool> InDash { get; }
         ReactiveField<bool> IsAfk { get; }
         ReactiveField<float> AfkTime { get; }
+        ReactiveField<int> KillCount { get; }
+        bool IsInputInverse { get; }
+        void Death();
+        void InverseInput(bool state);
     }
 }

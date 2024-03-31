@@ -18,5 +18,5 @@ MonoBehaviour:
     DialogText: "\u041A\u0430\u0436\u0435\u0442\u0441\u044F, \u044F \u0442\u0430\u043A\u043E\u0433\u043E
       \u043D\u0435 \u0438\u0437\u0443\u0447\u0430\u043B \u0440\u0430\u043D\u044C\u0448\u0435..."
     ApplyValue: 20
-    Chance: 90
+    Chance: 35
     Type: 0

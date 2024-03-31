@@ -1,5 +1,4 @@
 ﻿using Entities.Animation;
-using Entities.Player.Animator;
 using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
@@ -14,11 +13,12 @@ namespace Entities
         EntityAnimationEvents AnimationEvents { get; }
         ReactiveField<bool> IsCanAttack { get; } 
         ReactiveField<bool> IsAttack { get; } 
+        ReactiveField<bool> IsSimpleAttack { get; }
         ReactiveField<float> CurrentSpeed { get; }
         ReactiveField<IEntityModel> Target { get; }
         ReactiveField<bool> InTarget { get; }
         ReactiveField<Quaternion> NextRotation { get; }
-        ReactiveEvent DieEvent { get; }
+        ReactiveField<bool> IsDied { get; }
         void TakeDamage(int damage);
     }
 }

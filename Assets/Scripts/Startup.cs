@@ -8,6 +8,7 @@ using Inventory.Collection;
 using Loader.Object;
 using Loader.Scene;
 using Presenter;
+using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement;
 using SceneManagement.Collection;
@@ -49,7 +50,8 @@ public class Startup : MonoBehaviour
             PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id]),
             EnemiesCollection = new EnemiesCollection(),
             DeBuffsCollection = new DeBuffsCollection(specifications.DeBuffSpecifications.GetSpecifications()),
-            PlayerDialogModel = new PlayerDialogModel()
+            PlayerDialogModel = new PlayerDialogModel(),
+            QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications())
         };
 
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);

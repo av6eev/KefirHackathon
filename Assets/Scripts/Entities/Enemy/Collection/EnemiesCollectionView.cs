@@ -9,7 +9,7 @@ namespace Entities.Enemy.Collection
     {
         public Transform Root;
         public Transform SpawnZoneCenter;
-        public List<EnemyGroupView> EnemyGroups;
+        public List<Transform> EnemySpawnPositions;
         [NonSerialized] public Dictionary<string, GameObjectPull> EnemyPull = new();
     }
 }

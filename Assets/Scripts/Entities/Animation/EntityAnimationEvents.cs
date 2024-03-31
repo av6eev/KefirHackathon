@@ -7,6 +7,7 @@ namespace Entities.Animation
         public event Action OnEndRoll;
         public event Action OnEndAttack;
         public event Action OnNeedEffect;
+        public event Action OnDeath;
         
         public void EndRoll()
         {
@@ -21,6 +22,11 @@ namespace Entities.Animation
         public void NeedEffect()
         {
             OnNeedEffect?.Invoke();
+        }
+
+        public void Death()
+        {
+            OnDeath?.Invoke();
         }
     }
 }

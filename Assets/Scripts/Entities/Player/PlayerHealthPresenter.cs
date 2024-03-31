@@ -1,6 +1,5 @@
 ﻿using GameScenes.GameUI;
 using Presenter;
-using UnityEngine.UI;
 
 namespace Entities.Player
 {
@@ -32,13 +31,13 @@ namespace Entities.Player
             _model.Resources.GetModel(EntityResourceType.Health).Amount.OnChanged -= HandleHealthChanged;
         }
 
-        private void HandleHealthChanged(int newHealth, int oldHealth)
+        private void HandleHealthChanged(float newHealth, float oldHealth)
         {
             _view.FillBar.fillAmount = CalculateHealth(newHealth);
             _view.PercentageText.text = $"{newHealth}%";
         }
 
-        private float CalculateHealth(int newHealth)
+        private float CalculateHealth(float newHealth)
         {
             return newHealth / 100f;
         }

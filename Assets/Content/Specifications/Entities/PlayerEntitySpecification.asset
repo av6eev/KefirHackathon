@@ -20,3 +20,4 @@ MonoBehaviour:
     RotationSpeed: 4
     AttackDistance: 0
     MaxHealth: 100
+    BaseDamage: 50

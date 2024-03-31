@@ -18,6 +18,7 @@ namespace Entities.Animation
             _animationEventsView.OnEndRoll += HandleEndRoll;
             _animationEventsView.OnEndAttack += HandleEndAttack;
             _animationEventsView.OnNeedEffect += HandleNeedEffect;
+            _animationEventsView.OnDeath += HandleDeath;
         }
 
         public void Dispose()
@@ -25,6 +26,12 @@ namespace Entities.Animation
             _animationEventsView.OnEndRoll -= HandleEndRoll;
             _animationEventsView.OnEndAttack -= HandleEndAttack;
             _animationEventsView.OnNeedEffect -= HandleNeedEffect;
+            _animationEventsView.OnDeath -= HandleDeath;
+        }
+
+        private void HandleDeath()
+        {
+            _animationEvents.Death();
         }
 
         private void HandleEndRoll()

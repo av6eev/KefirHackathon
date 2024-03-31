@@ -1,4 +1,5 @@
 ﻿using Presenter;
+using UnityEngine;
 
 namespace Entities.Enemy
 {
@@ -27,12 +28,12 @@ namespace Entities.Enemy
             _model.Resources.GetModel(EntityResourceType.Health).Amount.OnChanged -= HandleHealthChanged;
         }
 
-        private void HandleHealthChanged(int newHealth, int oldHealth)
+        private void HandleHealthChanged(float newHealth, float oldHealth)
         {
             _view.HealthBar.fillAmount = CalculateHealth(newHealth);
         }
 
-        private int CalculateHealth(int newHealth)
+        private float CalculateHealth(float newHealth)
         {
             return newHealth / _model.Specification.MaxHealth;
         }

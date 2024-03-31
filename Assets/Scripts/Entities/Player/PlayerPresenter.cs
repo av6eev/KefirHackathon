@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entities.Player.Animator;
 using Entities.Player.Physics;
+using Entities.Player.Target;
 using Presenter;
 using Updater;
 
@@ -24,10 +25,13 @@ namespace Entities.Player
         
         public void Init()
         {
+            _presenters.Add(new PlayerTargetPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerAnimatorPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));
-            
-            _updaters.Add(new PlayerPhysicsUpdater(_gameModel.InputModel, _model, _view, _gameModel.CameraModel));
+            _presenters.Add(new EnemyChangePresenter(_model));
+            _presenters.Add(new PlayerKillCountChangePresenter(_model));
+
+            _updaters.Add(new PlayerPhysicsUpdater(_gameModel, _model, _view));
             _updaters.Add(new PlayerInfoUpdater(_model, _view));
             
             _presenters.Init();

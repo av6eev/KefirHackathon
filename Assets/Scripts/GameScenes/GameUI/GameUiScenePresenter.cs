@@ -3,6 +3,7 @@ using Dialogs;
 using Dialogs.Collection;
 using Entities.Player;
 using GameScenes.GameUI.DeBuffPanel;
+using GameScenes.GameUI.QuestPanel;
 using Item.ItemPlaceholder;
 using Presenter;
 using Skills.SkillPanel;
@@ -35,6 +36,7 @@ namespace GameScenes.GameUI
             _presenters.Add(new ItemPlaceholderPresenter(_gameModel, (ItemPlaceholderModel) _gameModel.ItemPlaceholderModel, _view.ItemPlaceholderView));
             _presenters.Add(new PlayerHealthPresenter(_gameModel, _gameModel.PlayerModel, _view.HealthResourceView));
             _presenters.Add(new PlayerAmnesiaPresenter(_gameModel, _gameModel.PlayerModel, _view.AmnesiaResourceView));
+            _presenters.Add(new QuestPanelPresenter(_gameModel, _gameModel.QuestsCollection, _view.QuestPanelView));
             
             _presenters.Init();
         }

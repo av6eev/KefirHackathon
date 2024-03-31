@@ -4,10 +4,11 @@ namespace Entities.Player
 {
     public class PlayerAfkUpdater : IUpdater
     {
+        private const float TickDuration = 1.7f;
+        
         private readonly PlayerModel _model;
 
-        private float _tickDuration = 1f;
-        private float _currentTickDuration = 0f;
+        private float _currentTickDuration;
         
         public PlayerAfkUpdater(PlayerModel model)
         {
@@ -29,9 +30,9 @@ namespace Entities.Player
             }
             else
             {
-                if (_currentTickDuration >= _tickDuration)
+                if (_currentTickDuration >= TickDuration)
                 {
-                    _model.Resources.GetModel(EntityResourceType.Amnesia).Amount.Value++;
+                    _model.Resources.GetModel(EntityResourceType.Amnesia).Increase(1);
                     _currentTickDuration = 0;
                 }
                 else

@@ -1,4 +1,6 @@
-﻿using DeBuff.Specification;
+﻿using DeBuff;
+using DeBuff.Specification;
+using Entities;
 using Presenter;
 using Skills.SkillPanel.Slot;
 using UnityEngine;
@@ -46,7 +48,7 @@ namespace Skills.SkillPanel
             var skill = _model.GetModel(index).Skill;
             var isCooldown = skill.IsCooldown.Value;
             
-            if (isCooldown || _model.IsCasting || _gameModel.PlayerModel.InDash.Value) return;
+            if (isCooldown || _model.IsCasting || _gameModel.PlayerModel.InDash.Value || _gameModel.PlayerModel.IsSimpleAttack.Value) return;
 
             var deBuffModel = _gameModel.DeBuffsCollection.GetModel(DeBuffType.ForgotChance);
             
@@ -69,6 +71,8 @@ namespace Skills.SkillPanel
 
             skill.StartCast();
             _model.IsCasting = true;
+            
+            _gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Amnesia).Increase(skill.Specification.PenaltyForUsage);
         }
     }
 }

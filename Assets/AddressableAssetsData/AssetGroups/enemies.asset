@@ -17,8 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c93b9cc89deaf6146940d0a8aee3b714
   m_SerializeEntries:
-  - m_GUID: 7110c583a9d5cab499559f76fef45bd3
-    m_Address: test_enemy
+  - m_GUID: d1245ea2c8f2079459d06ece6019d717
+    m_Address: mage_one
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc30982eec63a5947a3e52dc73f2551c
+    m_Address: mage_two
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

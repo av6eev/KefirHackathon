@@ -9,6 +9,7 @@ using Inventory.Collection;
 using Item.ItemPlaceholder;
 using Loader.Object;
 using Loader.Scene;
+using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
 using Skills.SkillPanel;
@@ -35,4 +36,6 @@ public class GameModel : IGameModel
     public SkillPanelModel SkillPanelModel { get; set; }
     public IDeBuffsCollection DeBuffsCollection { get; set; }
     public PlayerDialogModel PlayerDialogModel { get; set; }
+    public QuestsCollection QuestsCollection { get; set; }
+    public bool Rerun { get; set; }
 }

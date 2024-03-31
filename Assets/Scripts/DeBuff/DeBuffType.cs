@@ -1,7 +1,9 @@
-namespace DeBuff.Specification
+namespace DeBuff
 {
     public enum DeBuffType
     {
-        ForgotChance
+        ForgotChance,
+        InverseInput,
+        Breath
     }
 }
