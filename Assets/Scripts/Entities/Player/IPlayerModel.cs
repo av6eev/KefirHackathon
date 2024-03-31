@@ -9,5 +9,7 @@ namespace Entities.Player
         ModelCollection<EntityResourceType, EntityResource> Resources { get; }
         string BaseLocationId { get; }
         ReactiveField<bool> InDash { get; }
+        ReactiveField<bool> IsAfk { get; }
+        ReactiveField<float> AfkTime { get; }
     }
 }

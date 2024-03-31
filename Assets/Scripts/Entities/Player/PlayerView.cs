@@ -1,9 +1,10 @@
-﻿using UnityEngine.UI;
+﻿using Entities.Player.Dialog;
 
 namespace Entities.Player
 {
     public class PlayerView : EntityView, IPlayerView
     {
+        public PlayerDialogView DialogView;
         
         public void SetAnimationMovementSpeed(float normalizedSpeed)
         {
