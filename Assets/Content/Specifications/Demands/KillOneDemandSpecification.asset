@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ae40ae37644f6090af8cde690393ac, type: 3}
-  m_Name: DemandCollectionSpecification
+  m_Script: {fileID: 11500000, guid: 01eda91e2b514c7b96ab41898deb16af, type: 3}
+  m_Name: KillOneDemandSpecification
   m_EditorClassIdentifier: 
-  Collection:
-  - {fileID: 11400000, guid: d361d2d53a3c5d44dba8464af42cb298, type: 2}
-  - {fileID: 11400000, guid: d28e2ba634c4d0d4ab9387bcd53a696e, type: 2}
+  Specification:
+    _id: 1_kill
+    KillCount: 1

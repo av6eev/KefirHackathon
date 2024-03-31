@@ -1,6 +1,6 @@
 using System;
 
-namespace Quest.Rewards.Specification.Resource
+namespace Quest.Rewards.Specification.Dialog
 {
     [Serializable]
     public class DialogRewardSpecification : BaseRewardSpecification

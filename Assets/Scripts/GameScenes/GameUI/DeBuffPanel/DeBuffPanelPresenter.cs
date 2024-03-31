@@ -41,7 +41,7 @@ namespace GameScenes.GameUI.DeBuffPanel
 
         private void HandleAdd(DeBuffModel model)
         {
-            var view = GameObject.Instantiate(_view.DeBuffPrefab, _view.ContentRoot);
+            var view = Object.Instantiate(_view.DeBuffPrefab, _view.ContentRoot);
             var presenter = new DeBuffPresenter(_gameModel, model, view);
             
             Resize();
@@ -71,7 +71,7 @@ namespace GameScenes.GameUI.DeBuffPanel
             foreach (var model in _model.GetModels())
             {
                 index++;
-                height += 35;
+                height -= 35;
             }
 
             height += index * 10;
