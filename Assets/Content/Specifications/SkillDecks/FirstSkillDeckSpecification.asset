@@ -16,23 +16,23 @@ MonoBehaviour:
     _id: first_skill_deck
     MeleeSkills:
     - _id: 
-      Cooldown: 3
+      Cooldown: 4
       Icon: {fileID: 21300000, guid: 17b4f4cbfbe89d840a04829e28936d83, type: 3}
       Angle: 70
-      Distance: 5
-      Damage: 10
+      Distance: 4
+      Damage: 15
       Effect: {fileID: 6234818455853893159, guid: 96c30f207bdbb3243abb88e8d5255d1e,
         type: 3}
-      PenaltyForUsage: 100
+      PenaltyForUsage: 12
     - _id: 
-      Cooldown: 5
+      Cooldown: 6
       Icon: {fileID: 21300000, guid: faec574242331f04d953226e394dd4c1, type: 3}
       Angle: 360
       Distance: 10
       Damage: 50
       Effect: {fileID: 2850693007004515204, guid: 4684095041dfea6479bae58dd46f3864,
         type: 3}
-      PenaltyForUsage: 12
+      PenaltyForUsage: 25
     - _id: 
       Cooldown: 15
       Icon: {fileID: 21300000, guid: 916492ad1e7e7cb4c987f2747f2a9f6b, type: 3}

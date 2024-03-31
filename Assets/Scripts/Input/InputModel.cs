@@ -13,6 +13,7 @@ namespace Input
         public event Action OnAttack;
         public event Action OnDash;
         public event Action<int> OnSkillUse;
+        public event Action OnAnyKey;
 
         public ReactiveField<bool> IsRun { get; } = new();
         public ReactiveField<Vector2> Direction { get; } = new();
@@ -65,6 +66,11 @@ namespace Input
         public void Dash()
         {
             OnDash?.Invoke();
+        }
+
+        public void AnyKeyInput()
+        {
+            OnAnyKey?.Invoke();
         }
     }
 }

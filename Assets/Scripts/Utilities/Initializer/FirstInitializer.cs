@@ -17,6 +17,12 @@ namespace Utilities.Initializer
 
             gameModel.PlayerModel.Resources.GetModel(EntityResourceType.Essence).Increase(100);
             
+            gameModel.PlayerDialogModel.Add("Сколько же лет прошло?");
+            gameModel.PlayerDialogModel.Add("Похоже, долго я был в отключке...");
+            gameModel.PlayerDialogModel.Add("Главное, почему же я здесь?");
+            gameModel.PlayerDialogModel.Add("Единственное, что помню: WASD");
+            gameModel.PlayerDialogModel.Add("А, ну еще Ctrl и Shift...");
+            
             PlayerPrefs.SetInt("first_init", 1);    
         }
     }

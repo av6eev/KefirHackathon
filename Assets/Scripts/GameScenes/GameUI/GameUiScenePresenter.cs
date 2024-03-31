@@ -7,6 +7,8 @@ using GameScenes.GameUI.QuestPanel;
 using Item.ItemPlaceholder;
 using Presenter;
 using Skills.SkillPanel;
+using UnityEngine;
+using Utilities.Initializer;
 
 namespace GameScenes.GameUI
 {

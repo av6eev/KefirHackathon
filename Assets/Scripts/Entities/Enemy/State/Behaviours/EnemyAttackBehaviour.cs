@@ -30,7 +30,8 @@ namespace Entities.Enemy.State.Behaviours
             _view.EntityAnimatorController.SetBool("IsMovement", false);
             _view.EntityAnimatorController.SetTrigger("Attack");
             
-            _castedGo = Object.Instantiate(_enemyModel.EnemySpecification.CastGameObjectPrefabId, _view.Position, Quaternion.identity);
+            _castedGo = Object.Instantiate(_enemyModel.EnemySpecification.CastGameObjectPrefabId, _view.Position + _view.Forward, Quaternion.identity);
+            _castedGo.transform.SetParent(_view.transform);
             _castedGo.Direction = _view.Forward;
         }
 

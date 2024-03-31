@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PercentageText: {fileID: 5459426768459880420}
   FillBar: {fileID: 3463587073715090119}
+  AmnesiaShader: {fileID: 0}
 --- !u!1 &2165912457866096718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PercentageText: {fileID: 6251393678693393677}
   FillBar: {fileID: 1620735888166070351}
+  AmnesiaShader: {fileID: 0}
 --- !u!1 &8744524367500412506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +1752,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillSlot (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8072705760203782199, guid: 041ee2793b8072d4dbc0d6984f18c861,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2022,6 +2029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillSlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8072705760203782199, guid: 041ee2793b8072d4dbc0d6984f18c861,
+        type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2158,6 +2170,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkillSlot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8072705760203782199, guid: 041ee2793b8072d4dbc0d6984f18c861,
+        type: 3}
+      propertyPath: m_text
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2293,6 +2310,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SkillSlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072705760203782199, guid: 041ee2793b8072d4dbc0d6984f18c861,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

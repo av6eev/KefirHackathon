@@ -12,6 +12,7 @@ namespace Input
         event Action OnAttack;
         event Action OnDash;
         event Action<int> OnSkillUse;
+        event Action OnAnyKey;
         
         ReactiveField<bool> IsRun { get; }
         ReactiveField<Vector2> Direction { get; }

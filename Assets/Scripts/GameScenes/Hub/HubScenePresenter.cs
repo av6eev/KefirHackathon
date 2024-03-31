@@ -26,7 +26,7 @@ namespace GameScenes.Hub
             {
                 _gameModel.PlayerDialogModel.Add("И я снова здесь...");
                 _gameModel.PlayerDialogModel.Add("Так какова же моя цель...?");
-                _gameModel.PlayerDialogModel.Add("И кто я........");
+                _gameModel.PlayerDialogModel.Add("И кем я был...");
             }
             
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));

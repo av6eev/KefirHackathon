@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Specification:
     _id: 4_kill
-    KillCount: 1
+    KillCount: 4

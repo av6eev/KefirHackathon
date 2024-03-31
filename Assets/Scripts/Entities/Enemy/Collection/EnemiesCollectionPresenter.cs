@@ -77,6 +77,8 @@ namespace Entities.Enemy.Collection
         private void HandleRemove(EnemyModel model)
         {
             _presenters.Remove(model);
+            
+            Object.Instantiate(model.EnemySpecification.CastGameObjectPrefabId, model.Position, Quaternion.identity);
         }
         
         private Vector3 GetRandomNavMeshPosition()

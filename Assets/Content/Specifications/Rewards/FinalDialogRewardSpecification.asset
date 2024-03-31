@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eda91e2b514c7b96ab41898deb16af, type: 3}
-  m_Name: KillThreeDemandSpecification
+  m_Script: {fileID: 11500000, guid: 0f81c64a76394bbcaf98a82ce33b448d, type: 3}
+  m_Name: FinalDialogRewardSpecification
   m_EditorClassIdentifier: 
   Specification:
-    _id: 3_kill
-    KillCount: 3
+    _id: final_dialog
+    Texts:
+    - "\u0418 \u0442\u0443\u0442 \u043F\u043E\u0440\u0442\u0430\u043B..."

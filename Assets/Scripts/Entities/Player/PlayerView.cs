@@ -24,9 +24,9 @@ namespace Entities.Player
             EntityAnimatorController.SetBool(IsMovement, true);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision other)
         {
-            if (other.CompareTag("EnemySpell"))
+            if (other.gameObject.CompareTag("EnemySpell"))
             {
                 OnDamage?.Invoke();
                 Destroy(other.gameObject);

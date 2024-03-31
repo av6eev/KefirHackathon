@@ -22,7 +22,6 @@ namespace Save.Single
         {
             var rawData = PlayerPrefs.GetString(_model.SaveModel.SaveId);
 
-            Debug.Log($"{_model.SaveModel.SaveId}: {rawData}");
             var containsData = !string.IsNullOrEmpty(rawData);
             
             if (containsData)

@@ -27,12 +27,11 @@ namespace Input
             _view.OnEscaped += HandleEscapeInput;
             _view.OnAttack += HandleAttackInput;
             _view.OnDash += HandleDashInput;
+            _view.OnAnyKey += HandleAnyKeyInput;
 
             _view.OnSkill1Toggled += HandleSkill1Input;
             _view.OnSkill2Toggled += HandleSkill2Input;
             _view.OnSkill3Toggled += HandleSkill3Input;
-            _view.OnSkill4Toggled += HandleSkill4Input;
-            _view.OnSkill5Toggled += HandleSkill5Input;
         }
 
         public void Dispose()
@@ -46,12 +45,16 @@ namespace Input
             _view.OnEscaped -= HandleEscapeInput;
             _view.OnAttack -= HandleAttackInput;
             _view.OnDash -= HandleDashInput;
+            _view.OnAnyKey -= HandleAnyKeyInput;
 
             _view.OnSkill1Toggled -= HandleSkill1Input;
             _view.OnSkill2Toggled -= HandleSkill2Input;
             _view.OnSkill3Toggled -= HandleSkill3Input;
-            _view.OnSkill4Toggled -= HandleSkill4Input;
-            _view.OnSkill5Toggled -= HandleSkill5Input;
+        }
+
+        private void HandleAnyKeyInput()
+        {
+            _model.AnyKeyInput();
         }
 
         private void HandleDashInput()
@@ -95,13 +98,7 @@ namespace Input
         }
 
         private void HandleSkill1Input() => HandleSkillInput(0);
-
         private void HandleSkill2Input() => HandleSkillInput(1);
-
         private void HandleSkill3Input() => HandleSkillInput(2);
-
-        private void HandleSkill4Input() => HandleSkillInput(3);
-
-        private void HandleSkill5Input() => HandleSkillInput(4);
     }
 }

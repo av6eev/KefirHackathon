@@ -7,9 +7,9 @@ namespace Entities.Player.Target
 {
     public class PlayerTargetUpdater : IUpdater
     {
-        private const float AngleVisionDistance = 10f;
+        private const float AngleVisionDistance = 3f;
         private const float AngleVision = 70f;
-        private const float CircleVisionDistance = 7f;
+        private const float CircleVisionDistance = 3f;
         
         private readonly IGameModel _gameModel;
         private readonly PlayerModel _model;

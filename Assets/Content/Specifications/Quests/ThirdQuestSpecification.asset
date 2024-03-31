@@ -19,3 +19,4 @@ MonoBehaviour:
     DemandId: 4_kill
     RewardIds:
     - open_portal_reward
+    - final_dialog

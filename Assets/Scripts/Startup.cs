@@ -57,7 +57,7 @@ public class Startup : MonoBehaviour
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
-        if (PlayerPrefs.GetInt("first_init") == 0)
+        if(PlayerPrefs.GetInt("first_init") == 0)
         {
             new FirstInitializer().Initialize(_gameModel);
         }

@@ -23,7 +23,6 @@ namespace Inventory.Collection
             var saveGroup = new SaveGroupModel(InventoriesCollection.Id);
             var rawData = PlayerPrefs.GetString(InventoriesCollection.Id);
 
-            Debug.Log("inventories: " + rawData);
             var containsData = !string.IsNullOrEmpty(rawData);
             
             if (containsData)
