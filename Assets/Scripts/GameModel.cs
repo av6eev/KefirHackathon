@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using DeBuff.Collection;
 using Dialogs.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
@@ -31,4 +32,5 @@ public class GameModel : IGameModel
     public IItemPlaceholderModel ItemPlaceholderModel { get; set; }
     public IEnemiesCollection EnemiesCollection { get; set; }
     public SkillPanelModel SkillPanelModel { get; set; }
+    public IDeBuffsCollection DeBuffsCollection { get; set; }
 }

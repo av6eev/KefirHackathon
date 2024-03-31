@@ -1,4 +1,5 @@
 using Cameras;
+using DeBuff.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Input;
@@ -45,7 +46,8 @@ public class Startup : MonoBehaviour
             CameraModel = new CameraModel(),
             InventoriesCollection = new InventoriesCollection(specifications.InventorySpecifications.GetSpecifications(), specifications.ItemSpecifications.GetSpecifications()),
             PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id]),
-            EnemiesCollection = new EnemiesCollection()
+            EnemiesCollection = new EnemiesCollection(),
+            DeBuffsCollection = new DeBuffsCollection(specifications.DeBuffSpecifications.GetSpecifications())
         };
 
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
