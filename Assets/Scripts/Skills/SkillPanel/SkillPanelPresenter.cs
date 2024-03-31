@@ -43,7 +43,7 @@ namespace Skills.SkillPanel
         {
             var isCooldown = _model.GetModel(index).Skill.IsCooldown.Value;
             
-            if (isCooldown || _model.IsCasting) return;
+            if (isCooldown || _model.IsCasting || _gameModel.PlayerModel.InDash.Value) return;
             
             _model.CurrentSkillIndex = index;
             _gameModel.PlayerModel.IsAttack.Value = true;

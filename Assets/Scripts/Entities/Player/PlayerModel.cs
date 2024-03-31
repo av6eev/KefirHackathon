@@ -21,7 +21,7 @@ namespace Entities.Player
         public int BaseAmnesiaValue { get; private set; }
 
         public bool IsRunning;
-        public ReactiveField<bool> IsDashing { get; } = new();
+        public ReactiveField<bool> InDash { get; } = new();
 
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
