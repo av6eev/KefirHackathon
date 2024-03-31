@@ -9,13 +9,12 @@ namespace Entities
         public readonly EntityResourceType Type;
         
         public ReactiveField<int> Amount { get; } = new();
-        private readonly ReactiveEvent _saveEvent;
+        private readonly ReactiveEvent _saveEvent = new();
 
-        public EntityResource(EntityResourceType type, int amount, ReactiveEvent saveEvent)
+        public EntityResource(EntityResourceType type, int amount)
         {
             Type = type;
             Amount.Value = amount;
-            _saveEvent = saveEvent;
         }
 
         public void Increase(int amount)

@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Specification:
     _id: test_enemy
+    WalkSpeed: 4
+    RunSpeed: 5.6
+    DashSpeed: 10
+    RotationSpeed: 350
+    AttackDistance: 1
+    MaxHealth: 100
     PrefabId: test_enemy
     PatrolSpeed: 10
     MoveTowardsTargetSpeed: 4
-    RotationSpeed: 350
     AttackRange: 1
     ObserveRange: 10
-    PatrolTime: 0
     IdleTime: 1

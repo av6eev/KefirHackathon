@@ -19,12 +19,12 @@ namespace Entities.Enemy
         {
             _view.HealthBar.fillAmount = CalculateHealth(_model.Specification.MaxHealth);
             
-            _model.CurrentHealth.OnChanged += HandleHealthChanged;
+            _model.Resources.GetModel(EntityResourceType.Health).Amount.OnChanged += HandleHealthChanged;
         }
 
         public void Dispose()
         {
-            _model.CurrentHealth.OnChanged -= HandleHealthChanged;
+            _model.Resources.GetModel(EntityResourceType.Health).Amount.OnChanged -= HandleHealthChanged;
         }
 
         private void HandleHealthChanged(int newHealth, int oldHealth)

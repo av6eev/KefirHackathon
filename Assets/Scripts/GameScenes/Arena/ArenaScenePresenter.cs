@@ -17,11 +17,10 @@ namespace GameScenes.Arena
         protected override void AfterInit()
         {
             var enemySpecification = _gameModel.Specifications.EnemySpecifications["test_enemy"];
-            var entitySpecification = _gameModel.Specifications.EntitySpecifications["test_enemy"];
             
-            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
-            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
-            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel, entitySpecification);
+            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel);
+            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel);
+            _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel);
             
             Presenters.Add(new EnemiesCollectionPresenter(GameModel, (EnemiesCollection)_gameModel.EnemiesCollection, _view.EnemiesCollectionView));
             Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));

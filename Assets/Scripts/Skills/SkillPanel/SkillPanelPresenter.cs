@@ -24,7 +24,7 @@ namespace Skills.SkillPanel
             {
                 _view.SlotViews[index].Index = index;
                 
-                var presenter = new SkillSlotPresenter(_gameModel, _model.GetModel(index), _view.SlotViews[index]);
+                var presenter = new SkillSlotPresenter(_gameModel, _model.GetModel(index), _view.SlotViews[index], _gameModel.PlayerModel);
                 _presenters.Add(presenter);
             }
             
@@ -43,6 +43,9 @@ namespace Skills.SkillPanel
 
         private void HandleSkillUse(int index)
         {
+            _model.CurrentSkillIndex = index;
+            _gameModel.PlayerModel.IsAttack.Value = true;
+
             _model.GetModel(index).Skill.StartCast();
         }
     }

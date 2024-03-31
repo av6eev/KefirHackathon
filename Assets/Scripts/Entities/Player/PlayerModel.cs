@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Entities.Animation;
+using Entities.Player.Animator;
 using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
@@ -23,9 +25,8 @@ namespace Entities.Player
 
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
-            Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0, ChangeEvent));
-            Resources.Add(EntityResourceType.Health, new EntityResource(EntityResourceType.Health, entitySpecification.MaxHealth, ChangeEvent));
+            Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0));
+            Resources.Add(EntityResourceType.Amnesia, new EntityResource(EntityResourceType.Amnesia, 0));
         }
 
         public IDictionary<string, object> GetSaveData()
@@ -45,12 +46,12 @@ namespace Entities.Player
 
         public void SetSaveData(IDictionary<string, object> node)
         {
-            Resources.GetModel(EntityResourceType.Essence).Amount.Value = node.GetInt(EntityResourceType.Essence.ToString());
-            Resources.GetModel(EntityResourceType.Amnesia).Amount.Value = node.GetInt(EntityResourceType.Amnesia.ToString());
-            Resources.GetModel(EntityResourceType.Health).Amount.Value = node.GetInt(EntityResourceType.Health.ToString());
+            // Resources.GetModel(EntityResourceType.Essence).Amount.Value = node.GetInt(EntityResourceType.Essence.ToString());
+            // Resources.GetModel(EntityResourceType.Amnesia).Amount.Value = node.GetInt(EntityResourceType.Amnesia.ToString());
+            // Resources.GetModel(EntityResourceType.Health).Amount.Value = node.GetInt(EntityResourceType.Health.ToString());
             
-            BaseLocationId = node.GetString("base_location");
-            BaseAmnesiaValue = node.GetInt("base_amnesia_value");
+            // BaseLocationId = node.GetString("base_location");
+            // BaseAmnesiaValue = node.GetInt("base_amnesia_value");
         }
     }
 }

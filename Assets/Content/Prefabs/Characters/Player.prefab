@@ -170,10 +170,10 @@ MonoBehaviour:
   HealthBar: {fileID: 0}
   WeaponSlot: {fileID: 8689492755874154223}
   EntityAnimatorController: {fileID: 3891622585925513472}
+  EntityAnimationEvents: {fileID: 8896701401201711721}
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  PlayerAnimationEvents: {fileID: 8896701401201711721}
 --- !u!1 &8689492755874154223
 GameObject:
   m_ObjectHideFlags: 0

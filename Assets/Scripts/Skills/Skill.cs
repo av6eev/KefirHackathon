@@ -11,6 +11,7 @@ namespace Skills
         
         public readonly MeleeSkillSpecification Specification;
         public bool IsCoolDown { get; private set; }
+        public bool IsStarted { get; set; }
 
         public Skill(MeleeSkillSpecification specification, EntityModel owner)
         {
@@ -21,6 +22,8 @@ namespace Skills
         public void StartCast()
         {
             IsCoolDown = true;
+            IsStarted = true;
+            
             StartCastEvent.Invoke();
         }
     }
