@@ -44,6 +44,7 @@ namespace Skills
                 
                 _model.IsStarted = false;
                 _entityModel.IsAttack.Value = false;
+                _gameModel.SkillPanelModel.IsCasting = false;
             }
         }
 

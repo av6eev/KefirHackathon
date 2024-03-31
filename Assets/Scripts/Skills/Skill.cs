@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Reactive.Event;
+using Reactive.Field;
 using Skills.Specification;
 
 namespace Skills
@@ -10,7 +11,8 @@ namespace Skills
         public ReactiveEvent StartCastEvent = new();
         
         public readonly MeleeSkillSpecification Specification;
-        public bool IsCoolDown { get; private set; }
+        public float Cooldown { get; set; }
+        public ReactiveField<bool> IsCooldown { get; } = new();
         public bool IsStarted { get; set; }
 
         public Skill(MeleeSkillSpecification specification, EntityModel owner)
@@ -21,7 +23,8 @@ namespace Skills
 
         public void StartCast()
         {
-            IsCoolDown = true;
+            IsCooldown.Value = true;
+            Cooldown = 0;
             IsStarted = true;
             
             StartCastEvent.Invoke();

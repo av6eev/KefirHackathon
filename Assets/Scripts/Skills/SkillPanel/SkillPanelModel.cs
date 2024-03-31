@@ -8,6 +8,7 @@ namespace Skills.SkillPanel
     public class SkillPanelModel : ModelCollection<SkillSlotModel>
     {
         public int CurrentSkillIndex { get; set; }
+        public bool IsCasting { get; set; }
 
         public SkillPanelModel(SkillDeckSpecification deckSpecification, PlayerModel owner)
         {

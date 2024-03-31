@@ -227,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3913010209073529527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -475,7 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2221db8d6d40688d256772bcb7287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Index: 0
+  AmnesiaEffect: {fileID: 5114703993724589802}
+  CooldownRoot: {fileID: 7840697273850552221}
+  CooldownFillBar: {fileID: 3102391286523980298}
   Icon: {fileID: 6691278734889766991}
 --- !u!1 &7065790647507182224
 GameObject:
@@ -569,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1059850955020246454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -624,6 +626,6 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 0
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
