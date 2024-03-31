@@ -807,6 +807,7 @@ GameObject:
   - component: {fileID: 8792628064035306700}
   - component: {fileID: 539487686353116098}
   - component: {fileID: 1590188419448731619}
+  - component: {fileID: 6076135096150730906}
   m_Layer: 5
   m_Name: Noise
   m_TagString: Untagged
@@ -868,6 +869,27 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 3
+--- !u!95 &6076135096150730906
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433982962880537230}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27e9fa99b918b0c4ebc207bf8a2edcf4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7385737528309764415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1524,7 @@ GameObject:
   - component: {fileID: 7911942246835192735}
   - component: {fileID: 7285094857852054310}
   - component: {fileID: 6800546174886354079}
+  - component: {fileID: 7131413067350563514}
   m_Layer: 5
   m_Name: Noise
   m_TagString: Untagged
@@ -1560,9 +1583,30 @@ MonoBehaviour:
   m_UVRect:
     serializedVersion: 2
     x: 0
-    y: -2.1
+    y: 0
     width: 1
     height: 2
+--- !u!95 &7131413067350563514
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9128575088974984935}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27e9fa99b918b0c4ebc207bf8a2edcf4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2161178638670650050
 PrefabInstance:
   m_ObjectHideFlags: 0

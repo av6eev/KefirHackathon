@@ -228,6 +228,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueWithNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 981650823959748952, guid: d44e2b9f40dc9354681bea1eb4e761b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1932893438969420289, guid: d44e2b9f40dc9354681bea1eb4e761b8,
         type: 3}
       propertyPath: m_Pivot.x
