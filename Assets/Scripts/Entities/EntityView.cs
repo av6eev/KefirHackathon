@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Entities.Animation;
+using Entities.Player.Animator;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Entities
@@ -14,6 +17,7 @@ namespace Entities
         public Image HealthBar;
         public GameObject WeaponSlot;
         public Animator EntityAnimatorController;
+        public EntityAnimationEventsView EntityAnimationEvents;
         public LayerMask EnemyLayer;
 
         public Vector3 Forward => Root.forward;

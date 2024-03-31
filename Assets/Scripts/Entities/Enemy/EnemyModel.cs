@@ -13,7 +13,7 @@ namespace Entities.Enemy
         
         public bool IsAgro { get; set; }
 
-        public EnemyModel(EntitySpecification entitySpecification, IEntityModel target, EnemySpecification enemySpecification) : base(entitySpecification, target)
+        public EnemyModel(EnemySpecification enemySpecification, IEntityModel target) : base(enemySpecification, target)
         {
             EnemySpecification = enemySpecification;
         }

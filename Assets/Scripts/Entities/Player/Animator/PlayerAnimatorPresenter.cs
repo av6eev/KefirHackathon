@@ -6,9 +6,9 @@ namespace Entities.Player.Animator
     {
         private readonly GameModel _gameModel;
         private readonly PlayerModel _model;
-        private readonly IPlayerView _view;
+        private readonly PlayerView _view;
 
-        public PlayerAnimatorPresenter(GameModel gameModel, PlayerModel model, IPlayerView view)
+        public PlayerAnimatorPresenter(GameModel gameModel, PlayerModel model, PlayerView view)
         {
             _gameModel = gameModel;
             _model = model;
@@ -18,13 +18,26 @@ namespace Entities.Player.Animator
         public void Init()
         {
             _model.CurrentSpeed.OnChanged += ChangeCurrentAnimation;
+            _model.IsAttack.OnChanged += HandleAttackState;
+
             _gameModel.InputModel.IsRun.OnChanged += HandleRun;
         }
 
         public void Dispose()
         {
             _model.CurrentSpeed.OnChanged -= ChangeCurrentAnimation;
+            _model.IsAttack.OnChanged -= HandleAttackState;
+            
             _gameModel.InputModel.IsRun.OnChanged -= HandleRun;
+        }
+
+        private void HandleAttackState(bool newValue, bool oldValue)
+        {
+            if (newValue)
+            {
+                _view.EntityAnimatorController.SetTrigger("IsAttack");
+                _view.EntityAnimatorController.SetInteger("AttackType", _gameModel.SkillPanelModel.CurrentSkillIndex);
+            }
         }
 
         private void ChangeCurrentAnimation(float newSpeed, float oldSpeed)

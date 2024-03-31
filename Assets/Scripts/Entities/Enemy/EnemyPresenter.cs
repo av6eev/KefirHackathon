@@ -52,6 +52,7 @@ namespace Entities.Enemy
             _presenters.Init();
 
             _model.InTarget.OnChanged += HandleInTarget;
+            _model.DieEvent.OnChanged += HandleDie;
         }
 
         public void Dispose()
@@ -69,8 +70,14 @@ namespace Entities.Enemy
             _pull.Put(_view.gameObject);
             
             _model.InTarget.OnChanged -= HandleInTarget;
+            _model.DieEvent.OnChanged -= HandleDie;
         }
-        
+
+        private void HandleDie()
+        {
+            _gameModel.EnemiesCollection.Remove(_model);
+        }
+
         private void HandleInTarget(bool newState, bool oldState)
         {
             _view.InTargetCircle.SetActive(newState);

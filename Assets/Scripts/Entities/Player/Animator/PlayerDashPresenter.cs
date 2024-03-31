@@ -18,13 +18,13 @@ namespace Entities.Player.Animator
         public void Init()
         {
             _gameModel.InputModel.OnDash += HandleDash;
-            _view.PlayerAnimationEvents.OnEndRoll += HandleEndRoll;
+            _view.EntityAnimationEvents.OnEndRoll += HandleEndRoll;
         }
 
         public void Dispose()
         {
             _gameModel.InputModel.OnDash -= HandleDash;
-            _view.PlayerAnimationEvents.OnEndRoll -= HandleEndRoll;
+            _view.EntityAnimationEvents.OnEndRoll -= HandleEndRoll;
         }
 
         private void HandleEndRoll()

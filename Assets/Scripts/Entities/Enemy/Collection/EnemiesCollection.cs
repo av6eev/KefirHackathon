@@ -6,9 +6,9 @@ namespace Entities.Enemy.Collection
 {
     public class EnemiesCollection : ModelCollection<EnemyModel>, IEnemiesCollection
     {
-        public void AddEnemy(EnemySpecification specification, IEntityModel target, EntitySpecification entitySpecification)
+        public void AddEnemy(EnemySpecification specification, IEntityModel target)
         {
-            Add(new EnemyModel(entitySpecification, target, specification));
+            Add(new EnemyModel(specification, target));
         }
     }
 }

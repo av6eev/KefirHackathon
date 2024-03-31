@@ -7,6 +7,8 @@ namespace Skills.SkillPanel
 {
     public class SkillPanelModel : ModelCollection<SkillSlotModel>
     {
+        public int CurrentSkillIndex { get; set; }
+
         public SkillPanelModel(SkillDeckSpecification deckSpecification, PlayerModel owner)
         {
             foreach (var meleeSkillSpecification in deckSpecification.MeleeSkills)

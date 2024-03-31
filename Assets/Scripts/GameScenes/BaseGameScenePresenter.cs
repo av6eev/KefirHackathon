@@ -1,4 +1,5 @@
 ﻿using Cameras;
+using Entities.Animation;
 using Entities.Player;
 using Presenter;
 using Skills.SkillPanel;
@@ -22,6 +23,7 @@ namespace GameScenes
         {
             Presenters.Add(new CameraPresenter(GameModel, (CameraModel)GameModel.CameraModel, _view.CameraView));
             Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, _view.PlayerView));
+            Presenters.Add(new EntityAnimationPresenter(_view.PlayerView.EntityAnimationEvents, GameModel.PlayerModel.AnimationEvents));
 
             AfterInit();
             
