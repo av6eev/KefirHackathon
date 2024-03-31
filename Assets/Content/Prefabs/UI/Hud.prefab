@@ -72,7 +72,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 2084544719515328971}
   - component: {fileID: 6222660693930702057}
   - component: {fileID: 7622926431880005944}
+  - component: {fileID: 3792111052361223521}
   m_Layer: 5
   m_Name: HudHealthBarIco
   m_TagString: Untagged
@@ -241,11 +242,25 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3792111052361223521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603462905305733734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b20ac0fded9473fa82e064e3b6aee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PercentageText: {fileID: 5459426768459880420}
+  FillBar: {fileID: 3463587073715090119}
 --- !u!1 &2165912457866096718
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +598,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2725808991859707321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -663,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7229726397410285355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -738,7 +753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3972571232397197332
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1002,7 +1017,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: -20, y: -13.464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1403536429004754836
 CanvasRenderer:
@@ -1066,6 +1081,7 @@ GameObject:
   - component: {fileID: 6355576217722462251}
   - component: {fileID: 6340834775783586535}
   - component: {fileID: 7108642154516732391}
+  - component: {fileID: 7681111480963890271}
   m_Layer: 5
   m_Name: AmnesiaBarIco
   m_TagString: Untagged
@@ -1113,7 +1129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8743674239134063401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1136,6 +1152,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7681111480963890271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743674239134063401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b20ac0fded9473fa82e064e3b6aee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PercentageText: {fileID: 6251393678693393677}
+  FillBar: {fileID: 1620735888166070351}
 --- !u!1 &8744524367500412506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1218,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744524367500412506}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

@@ -43,9 +43,6 @@ namespace Cameras
             NextTarget = newTarget;
             NextState = newStateType;
 
-            Debug.Log("New next state: " + NextState);
-            Debug.Log("Current state: " + CurrentState);
-            
             OnStateChanged?.Invoke(newStateType);
         }
     }

@@ -1,7 +1,10 @@
-﻿namespace Entities.Player
+﻿using UnityEngine.UI;
+
+namespace Entities.Player
 {
     public class PlayerView : EntityView, IPlayerView
     {
+        
         public void SetAnimationMovementSpeed(float normalizedSpeed)
         {
             EntityAnimatorController.SetFloat(Speed, normalizedSpeed);

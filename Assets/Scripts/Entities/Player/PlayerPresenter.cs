@@ -24,7 +24,6 @@ namespace Entities.Player
         
         public void Init()
         {
-            _presenters.Add(new PlayerHealthPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerAnimatorPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));
             
