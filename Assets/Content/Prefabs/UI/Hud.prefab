@@ -1585,7 +1585,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1
-    height: 2
+    height: 3
 --- !u!95 &7131413067350563514
 Animator:
   serializedVersion: 5

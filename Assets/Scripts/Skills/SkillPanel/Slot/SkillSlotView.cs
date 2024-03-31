@@ -5,7 +5,9 @@ namespace Skills.SkillPanel.Slot
 {
     public class SkillSlotView : MonoBehaviour
     {
-        public int Index;
+        public GameObject AmnesiaEffect;
+        public GameObject CooldownRoot;
+        public Image CooldownFillBar;
         public Image Icon;
     }
 }
