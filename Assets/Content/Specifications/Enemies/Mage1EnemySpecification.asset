@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b241e1bb96f45bb8b885110757464c9, type: 3}
+  m_Name: Mage1EnemySpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    _id: mage_one
+    WalkSpeed: 2
+    RunSpeed: 3
+    DashSpeed: 10
+    RotationSpeed: 350
+    AttackDistance: 10
+    MaxHealth: 100
+    BaseDamage: 15
+    PrefabId: mage_one
+    PatrolSpeed: 3
+    MoveTowardsTargetSpeed: 4
+    AttackRange: 7
+    ObserveRange: 10
+    IdleTime: 1
+    CastGameObjectPrefabId: {fileID: 7279716614378958525, guid: b7546a6be5df15f4a930aeb7e8545a2f,
+      type: 3}

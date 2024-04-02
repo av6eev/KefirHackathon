@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23fc1ccd68d44fb9ed2b54ec20e0ccb, type: 3}
+  m_Name: PlayerFollowCameraSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    _id: player_follow_camera
+    StateType: 1
+    Offset: {x: 0, y: 5, z: -5}
+    InitialRotation: {x: 30, y: 0, z: 0}
+    HorizontalSensitivity: 0
+    PositionSmoothTime: 0.05
+    RotationSmoothTime: 0.05
+    FreeLookPositionSmoothTime: 0
+    FreeLookRotationSmoothTime: 0
+    FieldOfView: 0
+    NearClippingPlane: 0
+    FarClippingPlane: 0
+    IsAwaitable: 0

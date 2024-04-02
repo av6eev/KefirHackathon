@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: specifications
+  m_EditorClassIdentifier: 
+  m_GroupName: specifications
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f97439a62013db441a798285adc1dd4b
+  m_SerializeEntries:
+  - m_GUID: e8588040d57e1af489380a7dda5bf193
+    m_Address: scenes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cd5151d4a057a0438bc7fb62f4b02e5
+    m_Address: cameras
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4aacaf85efdcdb4cb68e2a3eea90c42
+    m_Address: entities
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcb85b547b47786419f5fe632c89c4d3
+    m_Address: items
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97c8951589202d1469d981930aecfeac
+    m_Address: inventories
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f93043e01b1f21c429ecd205752cb069
+    m_Address: enemies
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d95b52d346eba094d8d810db7559a676
+    m_Address: skill_decks
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 871c6712ba1812b4b9e96334407f744a
+    m_Address: de_buffs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2be368e8d3de2fa44b8644b45a3d0cb4
+    m_Address: demands
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a8c72f17022ffb489eb712012aebcf3
+    m_Address: quests
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d19d1b4d184383e46bd00910886dd23f
+    m_Address: rewards
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b22797879fb99ea4c871f59585baa9d1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 949af93c540b49e4ea6162385fb18dcd, type: 2}
+    - {fileID: 11400000, guid: db6f34bcc0b456d42987747eddfa028d, type: 2}

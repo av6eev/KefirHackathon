@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d393a055fb08dd43a85c419580ed9c3, type: 3}
+  m_Name: DeBuffCollectionSpecification
+  m_EditorClassIdentifier: 
+  Collection:
+  - {fileID: 11400000, guid: f4989f38ccac7f74cb400fbdd5dc58c2, type: 2}
+  - {fileID: 11400000, guid: bbcb18c8fe0637b41ba7036a9940bca4, type: 2}
+  - {fileID: 11400000, guid: 487fc27d2f01a96479a83df843abe312, type: 2}
