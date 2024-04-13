@@ -36,10 +36,10 @@ namespace Entities.Characters.Collection
 
         private void HandleAdd(CharacterModel model)
         {
-            // if (model.Id == _gameModel.PlayerModel.Id)
-            // {
-            //     return;
-            // }
+            if (model.Id == _gameModel.PlayerModel.Id)
+            {
+                return;
+            }
             
             var presenter = new CharacterPresenter(_gameModel, model, _view.Root);
             presenter.Init();
