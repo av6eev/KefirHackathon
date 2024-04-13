@@ -34,7 +34,6 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
@@ -72,3 +71,28 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .idea/
+
+Client/Library/
+
+Client/Logs/
+
+Client/Temp/
+
+Client/UserSettings/
+
+ServerCore/bin/
+
+ServerCore/obj/
+
+
+ServerCore/bin.meta
+
+ServerCore/obj.meta
+
+Server/bin/
+
+Server/obj/
+
+Client/Client.sln
+
+Client/obj/

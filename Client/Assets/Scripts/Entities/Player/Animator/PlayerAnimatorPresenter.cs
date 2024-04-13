@@ -1,4 +1,7 @@
 ﻿using Presenter;
+using ServerCore.Main.Commands;
+using ServerCore.Main.Utilities;
+using UnityEngine;
 
 namespace Entities.Player.Animator
 {
@@ -20,6 +23,7 @@ namespace Entities.Player.Animator
             _model.CurrentSpeed.OnChanged += ChangeCurrentAnimation;
             _model.IsAttack.OnChanged += HandleAttackState;
             _model.DeathEvent.OnChanged += HandleDeath;
+            _model.AnimationState.OnChanged += HandleAnimationStateChange;
             
             _gameModel.InputModel.IsRun.OnChanged += HandleRun;
             _gameModel.InputModel.OnAttack += HandleAttackInput;
@@ -33,12 +37,19 @@ namespace Entities.Player.Animator
             _model.CurrentSpeed.OnChanged -= ChangeCurrentAnimation;
             _model.IsAttack.OnChanged -= HandleAttackState;
             _model.DeathEvent.OnChanged -= HandleDeath;
+            _model.AnimationState.OnChanged -= HandleAnimationStateChange;
             
             _gameModel.InputModel.IsRun.OnChanged -= HandleRun;
             _gameModel.InputModel.OnAttack -= HandleAttackInput;
             
             _view.EntityAnimationEvents.OnEndSimpleAttack -= HandleEndSimpleAttack;
             _view.EntityAnimationEvents.OnDeath -= HandleViewDeath;
+        }
+
+        private void HandleAnimationStateChange(EntityAnimationState newState, EntityAnimationState oldValue)
+        {
+            var command = new EntityAnimationCommand(_model.Id, newState);
+            command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
         }
 
         private void HandleViewDeath()
@@ -61,6 +72,8 @@ namespace Entities.Player.Animator
         {
             _view.EntityAnimatorController.SetBool("IsMovement", false);
             _view.EntityAnimatorController.SetTrigger("IsDeath");
+            
+            _model.AnimationState.Value = EntityAnimationState.Death;
         }
 
         private void HandleAttackInput()
@@ -69,6 +82,8 @@ namespace Entities.Player.Animator
             {
                 _model.IsSimpleAttack.Value = true;
                 _view.EntityAnimatorController.SetTrigger("SimpleAttack");
+                
+                _model.AnimationState.Value = EntityAnimationState.SimpleAttack;
             }
         }
 
@@ -88,6 +103,8 @@ namespace Entities.Player.Animator
             {
                 _view.EntityAnimatorController.SetTrigger("IsAttack");
                 _view.EntityAnimatorController.SetInteger("AttackType", _gameModel.SkillPanelModel.CurrentSkillIndex);
+
+                _model.AnimationState.Value = EntityAnimationState.Attack;
             }
         }
 
@@ -102,6 +119,8 @@ namespace Entities.Player.Animator
             {
                 _view.SetAnimationMovementSpeed(0);
                 _view.EnableIdleAnimation();
+                
+                _model.AnimationState.Value = EntityAnimationState.Idle;
             }
             else
             {
@@ -113,6 +132,7 @@ namespace Entities.Player.Animator
             if (normalizedSpeed < .5f && .5f - normalizedSpeed < .01f)
             {
                 normalizedSpeed = 0.49f;
+                _model.AnimationState.Value = EntityAnimationState.Walk;
             }
             
             _view.SetAnimationMovementSpeed(normalizedSpeed);
@@ -121,6 +141,7 @@ namespace Entities.Player.Animator
         private void HandleRun(bool newState, bool oldState)
         {
             _model.IsRunning = newState;
+            _model.AnimationState.Value = EntityAnimationState.Run;
         }
     }
 }

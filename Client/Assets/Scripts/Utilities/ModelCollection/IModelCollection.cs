@@ -20,6 +20,7 @@ namespace Utilities.ModelCollection
         void Remove(TKey key);
         TValue GetModel(TKey key);
         IEnumerable<TValue> GetModels();
+        bool Contains(TKey id);
         void Clear();
     }
 }

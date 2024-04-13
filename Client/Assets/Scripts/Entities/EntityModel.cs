@@ -1,9 +1,12 @@
 ﻿using Entities.Animation;
+using Entities.Player.Animator;
 using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
+using ServerCore.Main.Utilities;
 using UnityEngine;
 using Utilities.ModelCollection;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Entities
 {
@@ -12,6 +15,7 @@ namespace Entities
         public EntitySpecification Specification { get; }
         public Vector3 Position { get; set; }
         public EntityAnimationEvents AnimationEvents { get; } = new();
+        public ReactiveField<EntityAnimationState> AnimationState { get; } = new();
         public ReactiveField<bool> IsCanAttack { get; } = new();
         public ReactiveField<bool> IsAttack { get; } = new();
         public ReactiveField<bool> IsSimpleAttack { get; } = new();

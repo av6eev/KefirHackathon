@@ -47,7 +47,7 @@ public class Startup : MonoBehaviour
             InputModel = new InputModel(),
             CameraModel = new CameraModel(),
             InventoriesCollection = new InventoriesCollection(specifications.InventorySpecifications.GetSpecifications(), specifications.ItemSpecifications.GetSpecifications()),
-            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.Id]),
+            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.ConstId]),
             EnemiesCollection = new EnemiesCollection(),
             DeBuffsCollection = new DeBuffsCollection(specifications.DeBuffSpecifications.GetSpecifications()),
             PlayerDialogModel = new PlayerDialogModel(),
