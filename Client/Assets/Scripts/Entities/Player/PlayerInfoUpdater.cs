@@ -21,8 +21,6 @@ namespace Entities.Player
                 return;
             }
             
-            _playerModel.Position = _playerView.Position;
-
             if (_playerModel.Target.Value == null) return;
 
             if (Vector3.Distance(_playerModel.Position, _playerModel.Target.Value.Position) < _playerModel.Specification.AttackDistance)

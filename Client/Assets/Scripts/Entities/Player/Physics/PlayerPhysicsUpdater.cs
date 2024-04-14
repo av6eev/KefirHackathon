@@ -33,18 +33,34 @@ namespace Entities.Player.Physics
         public void Update(float deltaTime)
         {
             _timer += deltaTime;
+            
+            PhysicsUpdate(deltaTime);
 
-            while (_timer >= ServerConst.TimeBetweenTicks)
+            if (_timer >= ServerConst.TimeBetweenTicks)
             {
-                _timer -= ServerConst.TimeBetweenTicks;
+                _timer = 0;
 
-                HandleTick(deltaTime);
+                SendCommand();
 
                 _currentTick++;
             }
         }
 
-        private void HandleTick(float deltaTime)
+        private void SendCommand()
+        {
+            var command = new PlayerMovementCommand(
+                _playerModel.Id,
+                _playerModel.CurrentSpeed.Value,
+                Mathf.FloorToInt(_playerModel.Position.x * 100),
+                Mathf.FloorToInt(_playerModel.Position.y * 100),
+                Mathf.FloorToInt(_playerModel.Position.z * 100),
+                Mathf.FloorToInt(_playerView.LocalEulerAngles.y * 100),
+                _currentTick);
+                
+            command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
+        }
+
+        private void PhysicsUpdate(float deltaTime)
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
 
@@ -94,15 +110,8 @@ namespace Entities.Player.Physics
 
             if (input != Vector3.zero)
             {
-                var bufferIndex = _currentTick % 2048;
-                var position = new Vector3(
-                    Mathf.FloorToInt(_playerModel.Position.x * 100f),
-                    Mathf.FloorToInt(_playerModel.Position.y * 100f),
-                    Mathf.FloorToInt(_playerModel.Position.z * 100f));
-
-                _playerModel.MovementBuffer[bufferIndex] = new CharacterMovementState(_currentTick, position, Mathf.FloorToInt(_playerView.LocalEulerAngles.y * 100));
-                
                 _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
+                
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
                 var movementDirection = movementInput.normalized;
 
@@ -117,22 +126,12 @@ namespace Entities.Player.Physics
                 newPosition += movementDirection * (_playerModel.CurrentSpeed.Value * deltaTime);
 
                 _playerView.Move(newPosition);
+                _playerModel.Position = _playerView.Position;
             }
             else
             {
                 _playerModel.CurrentSpeed.Value = 0;
             }
-            
-            var command = new PlayerMovementCommand(
-                _playerModel.Id,
-                _playerModel.CurrentSpeed.Value,
-                Mathf.FloorToInt(newPosition.x * 100),
-                Mathf.FloorToInt(newPosition.y * 100),
-                Mathf.FloorToInt(newPosition.z * 100),
-                Mathf.FloorToInt(_playerView.LocalEulerAngles.y * 100),
-                _currentTick);
-                
-            command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
             
             UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
             UnityEngine.Physics.simulationMode = SimulationMode.Update;

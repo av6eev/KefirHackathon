@@ -25,19 +25,22 @@ namespace Entities.Characters.Physics
         {
             _timer += deltaTime;
 
-            while (_timer >= ServerConst.TimeBetweenTicks)
+            UpdatePhysics(deltaTime);
+            
+            if (_timer >= ServerConst.TimeBetweenTicks)
             {
-                _timer -= ServerConst.TimeBetweenTicks;
-                HandleTick(deltaTime);
+                _timer = 0;
+                
+                // HandleTick(deltaTime);
+                
                 _currentTick++;
             }
         }
 
-        private void HandleTick(float deltaTime)
-        {
-            UpdatePhysics(deltaTime);
-            HandleServerReconciliation();
-        }
+        // private void HandleTick(float deltaTime)
+        // {
+        //     HandleServerReconciliation();
+        // }
 
         private void UpdatePhysics(float deltaTime)
         {

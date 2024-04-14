@@ -27,8 +27,6 @@ namespace Entities.Player
         public ReactiveField<bool> InDash { get; } = new();
         public ReactiveField<int> KillCount { get; } = new();
         
-        public readonly CharacterMovementState[] MovementBuffer = new CharacterMovementState[2048];
-        
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0));

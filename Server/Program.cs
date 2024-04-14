@@ -56,7 +56,7 @@ namespace Server
             _worldHost = new Host();
             _worldHost.Create(worldAddress, MaxClients);
 
-            var peers = new List<ServerCore.Main.Peer>();
+            var peers = new List<Peer>();
             
             while (true)
             {
@@ -92,15 +92,7 @@ namespace Server
                     _worldHost.Flush();
                 }
 
-                _timer += .02f;
-                
-                while (_timer >= ServerConst.TimeBetweenTicks)
-                {
-                    _timer -= ServerConst.TimeBetweenTicks;
-                    
-                    HandleWorldTick(gameModel, ref peers);
-                    _currentTick++;
-                }
+                HandleWorldTick(gameModel, ref peers);
             }
         }
 
