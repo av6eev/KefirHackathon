@@ -103,3 +103,5 @@ Client/ENet.csproj
 Client/Main.csproj
 
 Client/ServerCore.csproj
+
+BUILD.zip

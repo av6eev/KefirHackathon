@@ -32,7 +32,6 @@ namespace Entities.Player.Physics
 
         public void Update(float deltaTime)
         {
-
             _timer += deltaTime;
 
             while (_timer >= ServerConst.TimeBetweenTicks)
