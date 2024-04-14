@@ -37,6 +37,8 @@ namespace Server
             
             Library.Initialize();
 
+            Console.WriteLine("STARTED");
+            
             while (true)
             {
             }            
