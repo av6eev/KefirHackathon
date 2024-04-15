@@ -19,7 +19,7 @@ namespace ServerManagement.Test.World
             var client = _gameModel.ServerConnectionModel.WorldHost;
             var peer = _gameModel.ServerConnectionModel.WorldPeer;
             
-            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(15, out netEvent) <= 0)
+            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(1, out netEvent) <= 0)
             {
                 return;
             }
@@ -40,9 +40,9 @@ namespace ServerManagement.Test.World
                     break;
                 case EventType.Receive:
                     var readBuffer = new byte[2048];
-
+                    
                     netEvent.Packet.CopyTo(readBuffer);
-            
+                    
                     var protocol = new Protocol(readBuffer);
                     protocol.Get(out string command);
                     protocol.Get(out ushort dataCount);

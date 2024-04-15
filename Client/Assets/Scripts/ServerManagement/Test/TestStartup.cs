@@ -13,6 +13,7 @@ using Presenter;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerCore.Main;
 using ServerCore.Main.Commands;
 using Skills.SkillPanel;
 using Specifications;
@@ -24,6 +25,7 @@ namespace ServerManagement.Test
 {
     public class TestStartup : MonoBehaviour
     {
+        public NetworkUpdaters NetworkUpdaters;
         public Transform PlayerRoot;
         public InputView InputView;
         public CameraView CameraView;
@@ -66,7 +68,9 @@ namespace ServerManagement.Test
                 CharactersCollection = new CharactersCollection()
             };
 
-            var serverConnectionPresenter = new ServerConnectionPresenter(_gameModel, serverConnectionModel);
+            Library.Initialize();
+            
+            var serverConnectionPresenter = new ServerConnectionPresenter(_gameModel, serverConnectionModel, NetworkUpdaters);
             serverConnectionPresenter.Init();
             
             serverConnectionModel.ConnectPlayer();
@@ -74,7 +78,7 @@ namespace ServerManagement.Test
             
             serverConnectionModel.ConnectWorld();
             await serverConnectionModel.CompleteWorldConnectAwaiter;
-
+            
             _gameModel.PlayerModel.Id = Guid.NewGuid().ToString();
             
             var command = new LoginCommand(_gameModel.PlayerModel.Id);
@@ -102,6 +106,11 @@ namespace ServerManagement.Test
         private void LateUpdate()
         {
             _gameModel?.LateUpdatersList.Update(Time.deltaTime);
+        }
+
+        private void OnDestroy()
+        {
+            Library.Deinitialize();
         }
     }
 }

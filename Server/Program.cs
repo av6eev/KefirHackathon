@@ -86,6 +86,7 @@ namespace Server
                             break;
                         case EventType.Timeout:
                             Console.WriteLine("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            peers.Remove(netEvent.Peer);
                             break;
                     }
 

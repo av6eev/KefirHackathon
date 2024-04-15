@@ -38,7 +38,7 @@ namespace Entities.Characters
             _presenters.Init();
             
             _updater = new CharacterPhysicsUpdater(_model, _view);
-            _gameModel.FixedUpdatersList.Add(_updater);
+            _gameModel.UpdatersList.Add(_updater);
         }
 
         public void Dispose()
@@ -46,7 +46,7 @@ namespace Entities.Characters
             _presenters.Dispose();
             _presenters.Clear();
 
-            _gameModel.FixedUpdatersList.Remove(_updater);
+            _gameModel.UpdatersList.Remove(_updater);
 
             //TODO: dispose
         }

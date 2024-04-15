@@ -10,13 +10,15 @@ namespace ServerManagement.Test
     {
         private readonly GameModel _gameModel;
         private readonly ServerConnectionModel _model;
+        private readonly NetworkUpdaters _networkUpdaters;
         private IUpdater _playerConnectionUpdater;
         private IUpdater _worldConnectionUpdater;
         
-        public ServerConnectionPresenter(GameModel gameModel, ServerConnectionModel model)
+        public ServerConnectionPresenter(GameModel gameModel, ServerConnectionModel model, NetworkUpdaters networkUpdaters)
         {
             _gameModel = gameModel;
             _model = model;
+            _networkUpdaters = networkUpdaters;
         }
         
         public void Init()
@@ -37,8 +39,6 @@ namespace ServerManagement.Test
 
         private void HandlePlayerConnect()
         {
-            Library.Initialize();
-
             var address = new Address();
             address.SetHost(ServerConnectionConst.Ip);
             address.Port = ServerConnectionConst.PlayerPort;
@@ -48,21 +48,18 @@ namespace ServerManagement.Test
             _model.PlayerPeer = _model.PlayerHost.Connect(address);
 
             _playerConnectionUpdater = new ServerPlayerConnectionUpdater(_gameModel);
-            _gameModel.UpdatersList.Add(_playerConnectionUpdater);
+            _networkUpdaters.UpdatersList.Add(_playerConnectionUpdater);
         }
 
         private void HandlePlayerDisconnect()
         {
             _model.PlayerHost.Dispose();
-            Library.Deinitialize();
             
-            _gameModel.UpdatersList.Remove(_playerConnectionUpdater);
+            _networkUpdaters.UpdatersList.Remove(_playerConnectionUpdater);
         }
         
         private void HandleWorldConnect()
         {
-            Library.Initialize();
-
             var address = new Address();
             address.SetHost(ServerConnectionConst.Ip);
             address.Port = ServerConnectionConst.WorldPort;
@@ -72,15 +69,14 @@ namespace ServerManagement.Test
             _model.WorldPeer = _model.WorldHost.Connect(address);
             
             _worldConnectionUpdater = new ServerWorldConnectionUpdater(_gameModel);
-            _gameModel.UpdatersList.Add(_worldConnectionUpdater);
+            _networkUpdaters.UpdatersList.Add(_worldConnectionUpdater);
         }
 
         private void HandleWorldDisconnect()
         {
             _model.WorldHost.Dispose();
-            Library.Deinitialize();
             
-            _gameModel.UpdatersList.Remove(_worldConnectionUpdater);
+            _networkUpdaters.UpdatersList.Remove(_worldConnectionUpdater);
         }
     }
 }

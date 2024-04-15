@@ -18,7 +18,7 @@ namespace ServerManagement.Test.Player
             var client = _gameModel.ServerConnectionModel.PlayerHost;
             var peer = _gameModel.ServerConnectionModel.PlayerPeer;
             
-            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(15, out netEvent) <= 0)
+            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(1, out netEvent) <= 0)
             {
                 return;
             }
