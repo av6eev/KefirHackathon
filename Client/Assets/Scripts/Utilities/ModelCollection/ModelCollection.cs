@@ -96,6 +96,8 @@ namespace Utilities.ModelCollection
             }
         }
 
+        public bool Contains(TKey id) => Collection.ContainsKey(id); 
+        
         public void Clear()
         {
             Collection.Clear();

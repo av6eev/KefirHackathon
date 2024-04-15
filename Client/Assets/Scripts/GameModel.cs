@@ -1,6 +1,7 @@
 ﻿using Cameras;
 using DeBuff.Collection;
 using Dialogs.Collection;
+using Entities.Characters.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
@@ -12,6 +13,7 @@ using Loader.Scene;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
 using Updater;
@@ -37,5 +39,7 @@ public class GameModel : IGameModel
     public IDeBuffsCollection DeBuffsCollection { get; set; }
     public PlayerDialogModel PlayerDialogModel { get; set; }
     public QuestsCollection QuestsCollection { get; set; }
+    public IServerConnectionModel ServerConnectionModel { get; set; }
+    public CharactersCollection CharactersCollection { get; set; }
     public bool Rerun { get; set; }
 }

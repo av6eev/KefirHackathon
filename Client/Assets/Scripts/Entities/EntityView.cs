@@ -45,6 +45,11 @@ namespace Entities
         {
             Root.rotation = newRotation;
         }
+
+        public void RotateEuler(Vector3 newRotation)
+        {
+            Root.localEulerAngles = newRotation;
+        }
     }
 
     public interface IEntityView

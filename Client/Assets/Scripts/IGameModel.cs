@@ -12,6 +12,7 @@ using Loader.Scene;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
 using Updater;
@@ -37,4 +38,5 @@ public interface IGameModel : IBaseGameModel
     IDeBuffsCollection DeBuffsCollection { get; }
     PlayerDialogModel PlayerDialogModel { get; }
     QuestsCollection QuestsCollection { get; }
+    IServerConnectionModel ServerConnectionModel { get; }
 }

@@ -23,7 +23,7 @@ namespace GameScenes
         public void Init()
         {
             Presenters.Add(new CameraPresenter(GameModel, (CameraModel)GameModel.CameraModel, _view.CameraView));
-            Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, _view.PlayerView));
+            Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, null));
             Presenters.Add(new PlayerDialogPresenter(GameModel, GameModel.PlayerDialogModel, _view.PlayerView.DialogView));
             Presenters.Add(new EntityAnimationPresenter(_view.PlayerView.EntityAnimationEvents, GameModel.PlayerModel.AnimationEvents));
             

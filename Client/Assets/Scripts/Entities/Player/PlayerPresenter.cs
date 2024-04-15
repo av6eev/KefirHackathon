@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Cameras;
 using Entities.Player.Animator;
 using Entities.Player.Physics;
 using Entities.Player.Target;
+using Loader.Object;
 using Presenter;
+using UnityEngine;
 using Updater;
 
 namespace Entities.Player
@@ -11,20 +14,30 @@ namespace Entities.Player
     {
         private readonly GameModel _gameModel;
         private readonly PlayerModel _model;
-        private readonly PlayerView _view;
+        private readonly Transform _root;
+        private PlayerView _view;
 
         private readonly PresentersList _presenters = new();
         private readonly List<IUpdater> _updaters = new();
-        
-        public PlayerPresenter(GameModel gameModel, PlayerModel model, PlayerView view)
+        private ILoadObjectModel<GameObject> _loadObjectModel;
+
+        public PlayerPresenter(GameModel gameModel, PlayerModel model, Transform root)
         {
             _gameModel = gameModel;
             _model = model;
-            _view = view;
+            _root = root;
         }
         
-        public void Init()
+        public async void Init()
         {
+            _loadObjectModel = _gameModel.LoadObjectsModel.Load<GameObject>("player");
+            await _loadObjectModel.LoadAwaiter;
+
+            var component = _loadObjectModel.Result.GetComponent<PlayerView>();
+            _view = Object.Instantiate(component, _root);
+            
+            _gameModel.CameraModel.ChangeState(CameraStateType.PlayerFollow, _view.Root);
+            
             _presenters.Add(new PlayerTargetPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerAnimatorPresenter(_gameModel, _model, _view));
             _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));

@@ -3,6 +3,8 @@ using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
 using SceneManagement;
+using ServerCore.Main.Utilities;
+using ServerManagement.Test;
 
 namespace Entities.Player
 {
@@ -11,19 +13,20 @@ namespace Entities.Player
         public ReactiveEvent ChangeEvent { get; } = new();
         public ReactiveEvent DeathEvent { get; } = new();
 
-        public const string Id = "Player";
+        public const string ConstId = "Player";
         public const string HudId = "player_hud_inventory";
-        public string SaveId => Id;
+        public string SaveId => ConstId;
+        public string Id { get; set; }
         public string BaseLocationId { get; } = SceneConst.HubId;
         
         public bool IsRunning;
-        public ReactiveField<bool> IsAfk { get; } = new(false);
-        public ReactiveField<float> AfkTime { get; } = new(0);
-
-        public ReactiveField<bool> InDash { get; } = new();
-        public ReactiveField<int> KillCount { get; } = new();
         public bool IsInputInverse { get; private set; }
 
+        public ReactiveField<float> AfkTime { get; } = new(0);
+        public ReactiveField<bool> IsAfk { get; } = new(false);
+        public ReactiveField<bool> InDash { get; } = new();
+        public ReactiveField<int> KillCount { get; } = new();
+        
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0));

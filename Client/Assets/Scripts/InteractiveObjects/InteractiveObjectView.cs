@@ -14,7 +14,7 @@ namespace InteractiveObjects
         
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(PlayerModel.Id))
+            if (other.gameObject.CompareTag(PlayerModel.ConstId))
             {
                 IsInRange = true;
                 Tooltip.SetActive(true);
@@ -25,7 +25,7 @@ namespace InteractiveObjects
 
         protected virtual void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag(PlayerModel.Id))
+            if (other.gameObject.CompareTag(PlayerModel.ConstId))
             {
                 IsInRange = false;
                 Tooltip.SetActive(false);

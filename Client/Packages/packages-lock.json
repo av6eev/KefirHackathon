@@ -30,7 +30,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.12",
+      "version": "1.8.13",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -205,6 +205,12 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "server.core": {
+      "version": "file:../../ServerCore/Main",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
     },
     "space_adventure_lib": {
       "version": "https://github.com/av6eev/SpaceAdventureLib.git",
