@@ -12,6 +12,7 @@ using Loader.Scene;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerCore.Main.World;
 using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
@@ -39,4 +40,5 @@ public interface IGameModel : IBaseGameModel
     PlayerDialogModel PlayerDialogModel { get; }
     QuestsCollection QuestsCollection { get; }
     IServerConnectionModel ServerConnectionModel { get; }
+    WorldData WorldData { get; }
 }

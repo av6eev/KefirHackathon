@@ -44,23 +44,8 @@ namespace ServerManagement.Test.World
                     netEvent.Packet.CopyTo(readBuffer);
                     
                     var protocol = new Protocol(readBuffer);
-                    protocol.Get(out string command);
-                    protocol.Get(out ushort dataCount);
                     
-                    for (var i = 0; i < dataCount; i++)
-                    {
-                        protocol.Get(out string dataName);
-                        
-                        if (_gameModel.CharactersCollection.Contains(dataName))
-                        {
-                            _gameModel.CharactersCollection.GetModel(dataName).ServerData.Read(protocol);
-                        }
-                        else
-                        {
-                            _gameModel.CharactersCollection.AddCharacter(dataName, _gameModel.PlayerModel.Specification);
-                            _gameModel.CharactersCollection.GetModel(dataName).ServerData.Read(protocol);
-                        }
-                    }
+                    _gameModel.WorldData.Read(protocol);
                     
                     netEvent.Packet.Dispose();
                     break;

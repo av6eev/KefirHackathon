@@ -9,6 +9,7 @@ namespace ServerCore.Main
     public class ServerData : IServerData
     {
         public string Id { get; }
+        public bool IsDirty { get; }
         public Dictionary<string, IProperty> Properties { get; } = new();
         public Dictionary<string, IServerData> Dataset = new();
 
@@ -71,7 +72,7 @@ namespace ServerCore.Main
         
             foreach (var data in Dataset)
             {
-                if (data.Value.Properties.Any(property => property.Value.IsChanged))
+                if (data.Value.HasChanges())
                 {
                     changedDataCount++;
                     changedDataset.Add(data.Value);
@@ -141,6 +142,27 @@ namespace ServerCore.Main
                 return true;
             }
 
+            return false;
+        }
+
+        public bool HasChanges()
+        {
+            foreach (var property in Properties)
+            {
+                if (property.Value.IsChanged)
+                {
+                    return true;
+                }
+            }
+
+            foreach (var data in Dataset)
+            {
+                if (data.Value.HasChanges())
+                {
+                    return true;
+                }
+            }
+            
             return false;
         }
     }

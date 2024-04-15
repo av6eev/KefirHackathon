@@ -179,14 +179,12 @@ namespace Server
                     var playerMovementCommand = new PlayerMovementCommand();
                     playerMovementCommand.Read(protocol);
 
-                    if (gameModel.WorldData.Dataset.TryGetValue(playerMovementCommand.PlayerId, out var value))
+                    if (gameModel.WorldData.CharacterDataCollection.Collection.TryGetValue(playerMovementCommand.PlayerId, out var value))
                     {
-                        var serverData = (CharacterServerData)value;
-
-                        serverData.LatestServerPosition.Value = new Vector3(playerMovementCommand.X, playerMovementCommand.Y, playerMovementCommand.Z);
-                        serverData.CurrentTick.Value = playerMovementCommand.Tick++;
-                        serverData.Rotation.Value = playerMovementCommand.RotationY;
-                        serverData.Speed.Value = playerMovementCommand.Speed;
+                        value.LatestServerPosition.Value = new Vector3(playerMovementCommand.X, playerMovementCommand.Y, playerMovementCommand.Z);
+                        value.CurrentTick.Value = playerMovementCommand.Tick++;
+                        value.Rotation.Value = playerMovementCommand.RotationY;
+                        value.Speed.Value = playerMovementCommand.Speed;
 
                         // serverData.Position.Value = new Vector3(playerMovementCommand.X, playerMovementCommand.Y, playerMovementCommand.Z);
                     }
@@ -194,19 +192,21 @@ namespace Server
                 case "LoginCommand":
                     var loginCommand = new LoginCommand();
                     loginCommand.Read(protocol);
-                    
-                    gameModel.WorldData.Dataset.Add(loginCommand.PlayerId, new CharacterServerData(loginCommand.PlayerId));
+
+                    var serverData = new CharacterServerData
+                    {
+                        PlayerId = { Value = loginCommand.PlayerId }
+                    };
+
+                    gameModel.WorldData.CharacterDataCollection.Add(loginCommand.PlayerId, serverData);
                     break;
                 case "EntityAnimationCommand":
                     var entityAnimationCommand = new EntityAnimationCommand();
                     entityAnimationCommand.Read(protocol);
                     
-                    if (gameModel.WorldData.Dataset.TryGetValue(entityAnimationCommand.PlayerId, out var entityServerData))
+                    if (gameModel.WorldData.CharacterDataCollection.Collection.TryGetValue(entityAnimationCommand.PlayerId, out var entityServerData))
                     {
-                        var newAnimationState = entityAnimationCommand.AnimationState;
-                        var serverData = (CharacterServerData)entityServerData;
-                        
-                        serverData.AnimationState.Value = newAnimationState;    
+                        entityServerData.AnimationState.Value = entityAnimationCommand.AnimationState;    
                     }
                     break;
             }

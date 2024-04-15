@@ -86,10 +86,10 @@ namespace Entities.Player.Physics
 
         private void MoveUpdate(Vector3 input, float deltaTime)
         {
-            UnityEngine.Physics.simulationMode = SimulationMode.Script;
-            _playerView.Rigidbody.isKinematic = false;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            _playerView.Rigidbody.angularVelocity = Vector3.zero;
+            // UnityEngine.Physics.simulationMode = SimulationMode.Script;
+            // _playerView.Rigidbody.isKinematic = false;
+            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            // _playerView.Rigidbody.angularVelocity = Vector3.zero;
             
             var newPosition = _playerView.Position;
             var specification = _playerModel.Specification;
@@ -113,9 +113,10 @@ namespace Entities.Player.Physics
                 _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
                 
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
+                // var movementInput = input;
                 var movementDirection = movementInput.normalized;
 
-                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.InDash.Value)
+                if (movementDirection != Vector3.zero && !_playerModel.InDash.Value)
                 {
                     var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
                     var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
@@ -133,10 +134,10 @@ namespace Entities.Player.Physics
                 _playerModel.CurrentSpeed.Value = 0;
             }
             
-            UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
-            UnityEngine.Physics.simulationMode = SimulationMode.Update;
-            _playerView.Rigidbody.isKinematic = true;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            // UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
+            // UnityEngine.Physics.simulationMode = SimulationMode.Update;
+            // _playerView.Rigidbody.isKinematic = true;
+            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
     }
 }

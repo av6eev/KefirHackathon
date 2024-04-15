@@ -12,6 +12,7 @@ using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement;
 using SceneManagement.Collection;
+using ServerCore.Main.World;
 using Specifications;
 using UnityEngine;
 using Updater;
@@ -51,7 +52,8 @@ public class Startup : MonoBehaviour
             EnemiesCollection = new EnemiesCollection(),
             DeBuffsCollection = new DeBuffsCollection(specifications.DeBuffSpecifications.GetSpecifications()),
             PlayerDialogModel = new PlayerDialogModel(),
-            QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications())
+            QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications()),
+            WorldData = new WorldData()
         };
 
         _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
