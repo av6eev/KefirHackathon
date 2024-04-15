@@ -1,0 +1,15 @@
+{
+  "name": "server.core",
+  "version": "0.0.1",
+  "displayName": "Server core",
+  "description": "",
+  "unity": "2022.3",
+  "dependences": {},
+  "keywords": [],
+  "author": {
+    "name": "Arseny Avdeev",
+    "email": "av6eev@gmail.com",
+    "url": ""
+  },
+  "hideInEditor": false
+}
