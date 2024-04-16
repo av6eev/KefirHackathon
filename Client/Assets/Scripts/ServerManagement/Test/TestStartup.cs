@@ -15,6 +15,7 @@ using Save.Single.Collection;
 using SceneManagement.Collection;
 using ServerCore.Main;
 using ServerCore.Main.Commands;
+using ServerCore.Main.World;
 using Skills.SkillPanel;
 using Specifications;
 using UnityEngine;
@@ -65,7 +66,8 @@ namespace ServerManagement.Test
                 QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications()),
                 ServerConnectionModel = serverConnectionModel,
                 SkillPanelModel = new SkillPanelModel(specifications.SkillDeckSpecifications.GetSpecifications().First().Value, playerModel),
-                CharactersCollection = new CharactersCollection()
+                CharactersCollection = new CharactersCollection(),
+                WorldData = new WorldData()
             };
 
             Library.Initialize();
@@ -75,9 +77,6 @@ namespace ServerManagement.Test
             
             serverConnectionModel.ConnectPlayer();
             await serverConnectionModel.CompletePlayerConnectAwaiter;
-            
-            serverConnectionModel.ConnectWorld();
-            await serverConnectionModel.CompleteWorldConnectAwaiter;
             
             _gameModel.PlayerModel.Id = Guid.NewGuid().ToString();
             

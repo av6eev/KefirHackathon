@@ -43,6 +43,7 @@ namespace ServerCore.Main.Property
                 var data = new T();
                 
                 Collection.Add(data);
+                data.Read(protocol);
                 
                 OnAdd?.Invoke(data);
             }
@@ -53,6 +54,20 @@ namespace ServerCore.Main.Property
             {
                 protocol.Get(out ushort index);
                 Collection[index].Read(protocol);
+            }
+        }
+
+        public void WriteAll(Protocol protocol)
+        {
+            protocol.Add((ushort)0);
+            protocol.Add((ushort)Collection.Count);
+
+            for (ushort index = 0; index < Collection.Count; index++)
+            {
+                var element = Collection[index];
+                protocol.Add(index);
+                
+                element.Write(protocol);
             }
         }
 
@@ -191,8 +206,30 @@ namespace ServerCore.Main.Property
             for (var i = 0; i < changedCount; i++)
             {
                 protocol.Get(out TKey index);
+                
                 Collection[index].Read(protocol);
+                
+                // if (Collection.TryGetValue(index, out var data))
+                // {
+                    // data.Read(protocol);
+                // }
             }
+        }
+
+        public void WriteAll(Protocol protocol)
+        {
+            protocol.Add((ushort)0);
+            protocol.Add((ushort)Collection.Count);
+            
+            Console.WriteLine(Collection.Count);
+            
+            foreach (var element in Collection.Keys)
+            {
+                protocol.Add(element);
+                Collection[element].WriteAll(protocol);
+            }
+            
+            protocol.Add((ushort)0);
         }
 
         public bool Write(Protocol protocol)
@@ -215,7 +252,7 @@ namespace ServerCore.Main.Property
             ushort changedDataCount = 0;
             var changedDataset = new Dictionary<TKey, IServerData>();
 
-            foreach (var data in Collection.Where(data => data.Value.IsDirty))
+            foreach (var data in Collection.Where(data => data.Value.HasChanges()))
             {
                 changedDataCount++;
                 changedDataset.Add(data.Key, data.Value);

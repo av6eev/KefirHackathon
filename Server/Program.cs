@@ -16,7 +16,6 @@ namespace Server
 {
     public class Program
     {
-        private const ushort WorldPort = 6006;
         private const ushort PlayerPort = 6005;
         private const int MaxClients = 100;
 
@@ -24,15 +23,13 @@ namespace Server
         private static float _timer;
         
         private static Host _playerHost = new();
-        private static Host _worldHost = new();
+        private static Dictionary<Peer, UserConnection> _users = new();
         
         private static void Main(string[] args)
         {
             var gameModel = new ServerGameModel();
-            var worldThread = new Thread(() => WorldObserve(gameModel));
             var playerThread = new Thread(() => PlayerObserve(gameModel));
 
-            worldThread.Start();
             playerThread.Start();
             
             Library.Initialize();
@@ -46,72 +43,33 @@ namespace Server
             Library.Deinitialize();
         }
 
-        private static void WorldObserve(ServerGameModel gameModel)
+        private static void HandleWorldTick(ServerGameModel gameModel, ref Dictionary<Peer, UserConnection> users)
         {
-            var worldAddress = new Address
-            {
-                Port = WorldPort
-            };
-
-            _worldHost = new Host();
-            _worldHost.Create(worldAddress, MaxClients);
-
-            var peers = new List<Peer>();
-            
-            while (true)
-            {
-                var polled = false;
-
-                while (!polled)
-                {
-                    if (_worldHost.CheckEvents(out var netEvent) <= 0)
-                    {
-                        if (_worldHost.Service(15, out netEvent) <= 0)
-                            break;
-
-                        polled = true;
-                    }
-
-                    switch (netEvent.Type)
-                    {
-                        case EventType.None:
-                            break;
-                        case EventType.Connect:
-                            Console.WriteLine("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                            
-                            peers.Add(netEvent.Peer);
-                            break;
-                        case EventType.Disconnect:
-                            Console.WriteLine("Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                            break;
-                        case EventType.Timeout:
-                            Console.WriteLine("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
-                            peers.Remove(netEvent.Peer);
-                            break;
-                    }
-
-                    _worldHost.Flush();
-                }
-
-                HandleWorldTick(gameModel, ref peers);
-            }
-        }
-
-        private static void HandleWorldTick(ServerGameModel gameModel, ref List<Peer> peers)
-        {
+            var firstConnectionUsers = users.Values.Where(user => user.FirstConnection).ToList();
             var protocol = new Protocol();
             var packet = default(ServerCore.Main.Packet);
-
-            if (!gameModel.WorldData.Write(protocol))
+            
+            if (gameModel.WorldData.Write(protocol))
             {
-                return;
+                packet.Create(protocol.Stream.GetBuffer());
+
+                foreach (var user in users.Values.Where(user => !firstConnectionUsers.Contains(user)))
+                {
+                    user.Peer.Send(0, ref packet);
+                }
             }
             
-            packet.Create(protocol.Stream.GetBuffer());
-
-            foreach (var peer in peers)
+            foreach (var user in firstConnectionUsers)
             {
-                peer.Send(0, ref packet);
+                var fullProtocol = new Protocol();
+                var fullPacket = default(ServerCore.Main.Packet);
+
+                gameModel.WorldData.WriteAll(fullProtocol);
+
+                fullPacket.Create(fullProtocol.Stream.GetBuffer());
+                user.Peer.Send(0, ref fullPacket);
+                
+                user.FirstConnection = false;
             }
         }
 
@@ -128,12 +86,14 @@ namespace Server
             while (true)
             {
                 var polled = false;
+                
+                HandleWorldTick(gameModel, ref _users);
 
                 while (!polled)
                 {
                     if (_playerHost.CheckEvents(out var netEvent) <= 0)
                     {
-                        if (_playerHost.Service(15, out netEvent) <= 0)
+                        if (_playerHost.Service(5, out netEvent) <= 0)
                             break;
 
                         polled = true;
@@ -144,13 +104,16 @@ namespace Server
                         case EventType.None:
                             break;
                         case EventType.Connect:
-                            Console.WriteLine("Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Console.WriteLine("[PLAYER]: Client connected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
                             break;
                         case EventType.Disconnect:
-                            Console.WriteLine("Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Console.WriteLine("[PLAYER]: Client disconnected - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
                             break;
                         case EventType.Timeout:
-                            Console.WriteLine("Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            Console.WriteLine("[PLAYER]: Client timeout - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP);
+                            
+                            gameModel.WorldData.CharacterDataCollection.Remove(_users[netEvent.Peer].PlayerId);
+                            _users.Remove(netEvent.Peer);
                             break;
                         case EventType.Receive:
                             // Console.WriteLine("Packet received from - ID: " + netEvent.Peer.ID + ", IP: " + netEvent.Peer.IP + ", Channel ID: " + netEvent.ChannelID + ", Data length: " + netEvent.Packet.Length);
@@ -199,6 +162,7 @@ namespace Server
                     };
 
                     gameModel.WorldData.CharacterDataCollection.Add(loginCommand.PlayerId, serverData);
+                    _users.Add(netEvent.Peer, new UserConnection(netEvent.Peer, loginCommand.PlayerId));
                     break;
                 case "EntityAnimationCommand":
                     var entityAnimationCommand = new EntityAnimationCommand();

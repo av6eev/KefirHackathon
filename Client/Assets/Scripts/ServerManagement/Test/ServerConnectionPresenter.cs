@@ -1,7 +1,6 @@
 ﻿using Presenter;
 using ServerCore.Main;
 using ServerManagement.Test.Player;
-using ServerManagement.Test.World;
 using Updater;
 
 namespace ServerManagement.Test
@@ -25,22 +24,18 @@ namespace ServerManagement.Test
         {
             _model.OnPlayerConnect += HandlePlayerConnect;
             _model.OnPlayerDisconnect += HandlePlayerDisconnect;
-            _model.OnWorldConnect += HandleWorldConnect;
-            _model.OnWorldDisconnect += HandleWorldDisconnect;
         }
         
         public void Dispose()
         {
             _model.OnPlayerConnect -= HandlePlayerConnect;
             _model.OnPlayerDisconnect -= HandlePlayerDisconnect;
-            _model.OnWorldConnect -= HandleWorldConnect;
-            _model.OnWorldDisconnect -= HandleWorldDisconnect;
         }
 
         private void HandlePlayerConnect()
         {
             var address = new Address();
-            address.SetHost(ServerConnectionConst.Ip);
+            address.SetHost(ServerConnectionConst.LocalIp);
             address.Port = ServerConnectionConst.PlayerPort;
 
             _model.PlayerHost = new Host();
@@ -48,6 +43,7 @@ namespace ServerManagement.Test
             _model.PlayerPeer = _model.PlayerHost.Connect(address);
 
             _playerConnectionUpdater = new ServerPlayerConnectionUpdater(_gameModel);
+            
             _networkUpdaters.UpdatersList.Add(_playerConnectionUpdater);
         }
 
@@ -56,27 +52,6 @@ namespace ServerManagement.Test
             _model.PlayerHost.Dispose();
             
             _networkUpdaters.UpdatersList.Remove(_playerConnectionUpdater);
-        }
-        
-        private void HandleWorldConnect()
-        {
-            var address = new Address();
-            address.SetHost(ServerConnectionConst.Ip);
-            address.Port = ServerConnectionConst.WorldPort;
-
-            _model.WorldHost = new Host();
-            _model.WorldHost.Create();
-            _model.WorldPeer = _model.WorldHost.Connect(address);
-            
-            _worldConnectionUpdater = new ServerWorldConnectionUpdater(_gameModel);
-            _networkUpdaters.UpdatersList.Add(_worldConnectionUpdater);
-        }
-
-        private void HandleWorldDisconnect()
-        {
-            _model.WorldHost.Dispose();
-            
-            _networkUpdaters.UpdatersList.Remove(_worldConnectionUpdater);
         }
     }
 }

@@ -145,6 +145,58 @@ namespace ServerCore.Main
             return false;
         }
 
+        public void WriteAll(Protocol protocol)
+        {
+            var changedDataCount = (ushort)Dataset.Count;
+            var changedDataset = Dataset.Select(data => data.Value).ToList();
+
+            var changedPropertyCount = (ushort)Properties.Count;
+            var changedProperties = Properties.Select(property => property.Value).ToList();
+            
+            if (changedDataCount > 0 && changedPropertyCount > 0)
+            {
+                protocol.Add("DP");
+                protocol.Add(changedDataCount);
+            
+                foreach (var data in changedDataset)
+                {
+                    protocol.Add(data.Id);
+                    Console.WriteLine(data.Id);
+                    data.WriteAll(protocol);
+                }
+            
+                protocol.Add(changedPropertyCount);
+
+                foreach (var property in changedProperties)
+                {
+                    protocol.Add(property.Id);
+                    property.GetForProtocol(protocol);
+                }
+            }
+            else if (changedDataCount > 0)
+            {
+                protocol.Add("D");            
+                protocol.Add(changedDataCount);
+
+                foreach (var data in changedDataset)
+                {
+                    protocol.Add(data.Id);
+                    data.WriteAll(protocol);
+                }
+            }
+            else if (changedPropertyCount > 0)
+            {
+                protocol.Add("P");
+                protocol.Add(changedPropertyCount);
+
+                foreach (var property in changedProperties)
+                {
+                    protocol.Add(property.Id);
+                    property.GetForProtocol(protocol);
+                }
+            }
+        }
+
         public bool HasChanges()
         {
             foreach (var property in Properties)

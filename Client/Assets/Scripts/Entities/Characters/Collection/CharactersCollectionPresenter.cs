@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Presenter;
 using ServerCore.Main;
+using UnityEngine;
 
 namespace Entities.Characters.Collection
 {
@@ -33,10 +34,10 @@ namespace Entities.Characters.Collection
 
         private void HandleAdd(CharacterServerData serverData)
         {
-            // if (serverData.PlayerId.Value == _gameModel.PlayerModel.Id)
-            // {
-            //     return;
-            // }
+            if (serverData.PlayerId.Value == _gameModel.PlayerModel.Id)
+            {
+                return;
+            }
             
             var presenter = new CharacterPresenter(_gameModel, _model.AddCharacter(serverData, _gameModel.Specifications.EntitySpecifications.GetSpecifications().Values.First()), _view.Root);
             presenter.Init();
@@ -52,6 +53,8 @@ namespace Entities.Characters.Collection
             }
 
             _presenters.Remove(playerId);
+            
+            Debug.Log($"removed: {playerId}");
         }
     }
 }

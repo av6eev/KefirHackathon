@@ -17,9 +17,9 @@ MonoBehaviour:
     StateType: 1
     Offset: {x: 4, y: 8, z: -4}
     InitialRotation: {x: 25, y: 0, z: 0}
-    HorizontalSensitivity: 0
-    PositionSmoothTime: 0.3
-    RotationSmoothTime: 0.06
+    HorizontalSensitivity: 1
+    PositionSmoothTime: 0.2
+    RotationSmoothTime: 0.1
     FreeLookPositionSmoothTime: 0
     FreeLookRotationSmoothTime: 0
     FieldOfView: 0

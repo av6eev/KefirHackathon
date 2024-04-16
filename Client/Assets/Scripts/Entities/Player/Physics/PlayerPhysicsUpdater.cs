@@ -19,6 +19,7 @@ namespace Entities.Player.Physics
 
         private float _timer;
         private int _currentTick;
+        private bool _isSendWhenAfk;
 
         public PlayerPhysicsUpdater(IGameModel gameModel, PlayerModel playerModel, PlayerView playerView)
         {
@@ -33,6 +34,8 @@ namespace Entities.Player.Physics
         public void Update(float deltaTime)
         {
             _timer += deltaTime;
+
+            var currentPosition = _playerModel.Position;
             
             PhysicsUpdate(deltaTime);
 
@@ -40,7 +43,19 @@ namespace Entities.Player.Physics
             {
                 _timer = 0;
 
-                SendCommand();
+                if (!_playerModel.Position.Equals(currentPosition))
+                {
+                    SendCommand();
+                    _isSendWhenAfk = false;
+                }
+                else
+                {
+                    if (_isSendWhenAfk) return;
+                
+                    Debug.Log("send once");
+                    SendCommand();
+                    _isSendWhenAfk = true;
+                }
 
                 _currentTick++;
             }
