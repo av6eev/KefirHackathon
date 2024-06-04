@@ -2,6 +2,7 @@
 using Input;
 using ServerCore.Main.Commands;
 using ServerCore.Main.Utilities;
+using ServerManagement;
 using ServerManagement.Test;
 using UnityEngine;
 using Updater;
@@ -19,6 +20,7 @@ namespace Entities.Player.Physics
 
         private float _timer;
         private int _currentTick;
+        private bool _isSendWhenAfk;
 
         public PlayerPhysicsUpdater(IGameModel gameModel, PlayerModel playerModel, PlayerView playerView)
         {
@@ -33,14 +35,27 @@ namespace Entities.Player.Physics
         public void Update(float deltaTime)
         {
             _timer += deltaTime;
+
+            var currentPosition = _playerModel.Position;
             
             PhysicsUpdate(deltaTime);
 
-            if (_timer >= ServerConst.TimeBetweenTicks)
+            if (_timer >= ClientConst.TimeBetweenTicks)
             {
                 _timer = 0;
 
-                SendCommand();
+                if (!_playerModel.Position.Equals(currentPosition))
+                {
+                    SendCommand();
+                    _isSendWhenAfk = false;
+                }
+                else
+                {
+                    if (_isSendWhenAfk) return;
+                
+                    SendCommand();
+                    _isSendWhenAfk = true;
+                }
 
                 _currentTick++;
             }
@@ -86,10 +101,10 @@ namespace Entities.Player.Physics
 
         private void MoveUpdate(Vector3 input, float deltaTime)
         {
-            UnityEngine.Physics.simulationMode = SimulationMode.Script;
-            _playerView.Rigidbody.isKinematic = false;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            _playerView.Rigidbody.angularVelocity = Vector3.zero;
+            // UnityEngine.Physics.simulationMode = SimulationMode.Script;
+            // _playerView.Rigidbody.isKinematic = false;
+            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            // _playerView.Rigidbody.angularVelocity = Vector3.zero;
             
             var newPosition = _playerView.Position;
             var specification = _playerModel.Specification;
@@ -113,9 +128,10 @@ namespace Entities.Player.Physics
                 _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
                 
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
+                // var movementInput = input;
                 var movementDirection = movementInput.normalized;
 
-                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.InDash.Value)
+                if (movementDirection != Vector3.zero && !_playerModel.InDash.Value)
                 {
                     var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
                     var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
@@ -133,10 +149,10 @@ namespace Entities.Player.Physics
                 _playerModel.CurrentSpeed.Value = 0;
             }
             
-            UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
-            UnityEngine.Physics.simulationMode = SimulationMode.Update;
-            _playerView.Rigidbody.isKinematic = true;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            // UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
+            // UnityEngine.Physics.simulationMode = SimulationMode.Update;
+            // _playerView.Rigidbody.isKinematic = true;
+            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
     }
 }

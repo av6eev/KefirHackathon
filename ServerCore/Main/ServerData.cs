@@ -9,6 +9,7 @@ namespace ServerCore.Main
     public class ServerData : IServerData
     {
         public string Id { get; }
+        public bool IsDirty { get; }
         public Dictionary<string, IProperty> Properties { get; } = new();
         public Dictionary<string, IServerData> Dataset = new();
 
@@ -71,7 +72,7 @@ namespace ServerCore.Main
         
             foreach (var data in Dataset)
             {
-                if (data.Value.Properties.Any(property => property.Value.IsChanged))
+                if (data.Value.HasChanges())
                 {
                     changedDataCount++;
                     changedDataset.Add(data.Value);
@@ -141,6 +142,79 @@ namespace ServerCore.Main
                 return true;
             }
 
+            return false;
+        }
+
+        public void WriteAll(Protocol protocol)
+        {
+            var changedDataCount = (ushort)Dataset.Count;
+            var changedDataset = Dataset.Select(data => data.Value).ToList();
+
+            var changedPropertyCount = (ushort)Properties.Count;
+            var changedProperties = Properties.Select(property => property.Value).ToList();
+            
+            if (changedDataCount > 0 && changedPropertyCount > 0)
+            {
+                protocol.Add("DP");
+                protocol.Add(changedDataCount);
+            
+                foreach (var data in changedDataset)
+                {
+                    protocol.Add(data.Id);
+                    // Console.WriteLine(data.Id);
+                    data.WriteAll(protocol);
+                }
+            
+                protocol.Add(changedPropertyCount);
+
+                foreach (var property in changedProperties)
+                {
+                    protocol.Add(property.Id);
+                    property.GetForProtocol(protocol);
+                }
+            }
+            else if (changedDataCount > 0)
+            {
+                protocol.Add("D");            
+                protocol.Add(changedDataCount);
+
+                foreach (var data in changedDataset)
+                {
+                    protocol.Add(data.Id);
+                    data.WriteAll(protocol);
+                }
+            }
+            else if (changedPropertyCount > 0)
+            {
+                protocol.Add("P");
+                protocol.Add(changedPropertyCount);
+
+                foreach (var property in changedProperties)
+                {
+                    protocol.Add(property.Id);
+                    property.GetForProtocol(protocol);
+                }
+            }
+        }
+
+        public bool HasChanges()
+        {
+            foreach (var property in Properties)
+            {
+                if (property.Value.IsChanged)
+                {
+                    return true;
+                }
+            }
+
+            foreach (var data in Dataset)
+            {
+                if (data.Value.HasChanges())
+                {
+                    return true;
+                }
+            }
+            
             return false;
         }
     }

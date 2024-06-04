@@ -24,14 +24,12 @@ namespace GameScenes
         {
             Presenters.Add(new CameraPresenter(GameModel, (CameraModel)GameModel.CameraModel, _view.CameraView));
             Presenters.Add(new PlayerPresenter(GameModel, (PlayerModel)GameModel.PlayerModel, null));
-            Presenters.Add(new PlayerDialogPresenter(GameModel, GameModel.PlayerDialogModel, _view.PlayerView.DialogView));
-            Presenters.Add(new EntityAnimationPresenter(_view.PlayerView.EntityAnimationEvents, GameModel.PlayerModel.AnimationEvents));
+            // Presenters.Add(new PlayerDialogPresenter(GameModel, GameModel.PlayerDialogModel, _view.PlayerView.DialogView));
+            // Presenters.Add(new EntityAnimationPresenter(_view.PlayerView.EntityAnimationEvents, GameModel.PlayerModel.AnimationEvents));
             
             AfterInit();
             
             Presenters.Init();
-            
-            GameModel.CameraModel.ChangeState(CameraStateType.PlayerFollow, _view.PlayerView.Root);
         }
 
         public void Dispose()

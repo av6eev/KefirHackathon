@@ -8,7 +8,6 @@ namespace Entities.Characters
 {
     public class CharacterModel : EntityModel, IModel
     {
-        public string Id { get; }
         public readonly CharacterServerData ServerData;
 
         public CharacterMovementState LastProcessedState;
@@ -21,10 +20,9 @@ namespace Entities.Characters
         {
         }
 
-        public CharacterModel(string id, EntitySpecification specification) : base(specification)
+        public CharacterModel(CharacterServerData serverData, EntitySpecification specification) : base(specification)
         {
-            Id = id;
-            ServerData = new CharacterServerData(id);
+            ServerData = serverData;
             MovementBuffer = new CharacterMovementState[2048];
         }
     }

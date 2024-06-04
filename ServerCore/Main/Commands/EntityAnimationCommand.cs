@@ -4,7 +4,7 @@ namespace ServerCore.Main.Commands
 {
     public class EntityAnimationCommand : BaseCommand
     {
-        public override string Id => "EntityAnimationCommand";
+        public override string Id => CommandConst.EntityAnimation;
         public string PlayerId;
         public byte AnimationState;
 
@@ -14,7 +14,7 @@ namespace ServerCore.Main.Commands
             AnimationState = (byte)animationState;
         }
 
-        public EntityAnimationCommand()
+        public EntityAnimationCommand(Protocol protocol) : base(protocol)
         {
         }
 

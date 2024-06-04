@@ -25,7 +25,7 @@ namespace Cameras
         
         public void Init()
         {
-            _updaters.Add(new CameraFollowUpdater(_model, _view));
+            _updaters.Add(new CameraFollowUpdater(_model, _view, _gameModel.InputModel));
             _updaters.Add(new CameraInfoUpdater(_model, _view));
 
             foreach (var updater in _updaters)

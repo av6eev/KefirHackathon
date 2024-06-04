@@ -5,9 +5,11 @@ namespace ServerCore.Main
 {
     public interface IServerData
     {
-        Dictionary<string, IProperty> Properties { get; }
         string Id { get; }
+        bool IsDirty { get; }
         void Read(Protocol protocol);
+        void WriteAll(Protocol protocol);
         bool Write(Protocol protocol);
+        bool HasChanges();
     }
 }

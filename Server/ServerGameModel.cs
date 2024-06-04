@@ -1,8 +1,14 @@
-﻿using ServerCore.Main.World;
+﻿using Server.Party.Collection;
+using Server.World.Collection;
+using ServerCore.Main.Specifications;
+using ServerCore.Main.Users.Collection;
 
 namespace Server;
 
 public class ServerGameModel
 {
-    public WorldData WorldData { get; } = new();
+    public IUsersCollection UsersCollection { get; set; }
+    public WorldsCollection WorldsCollection { get; set; }
+    public PartiesCollection PartiesCollection { get; set; }
+    public IServerSpecifications Specifications { get; set; }
 }

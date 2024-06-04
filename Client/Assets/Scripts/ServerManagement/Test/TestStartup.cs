@@ -15,6 +15,9 @@ using Save.Single.Collection;
 using SceneManagement.Collection;
 using ServerCore.Main;
 using ServerCore.Main.Commands;
+using ServerCore.Main.Specifications;
+using ServerCore.Main.Utilities.LoadWrapper.Json;
+using ServerCore.Main.World;
 using Skills.SkillPanel;
 using Specifications;
 using UnityEngine;
@@ -44,6 +47,13 @@ namespace ServerManagement.Test
             var specifications = new GameSpecifications(loadObjectsModel);
             await specifications.LoadAwaiter;
 
+            var serverLoadObjectsModel = new ServerCore.Main.Utilities.LoadWrapper.Object.LoadObjectsModel(new JsonObjectLoadWrapper(), "../ServerCore/Main/Specifications");
+            var serverSpecifications = new ServerSpecifications(serverLoadObjectsModel);
+            await serverSpecifications.LoadAwaiter;
+
+            Debug.Log(serverSpecifications.LocationSpecifications.GetSpecifications().Count);
+            Debug.Log(serverSpecifications.InteractObjectStateSpecifications.GetSpecifications().Count);
+            
             var playerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.ConstId]);
             
             _gameModel = new GameModel
@@ -53,6 +63,7 @@ namespace ServerManagement.Test
                 LateUpdatersList = new UpdatersList(),
                 LoadObjectsModel = loadObjectsModel,
                 Specifications = specifications,
+                ServerSpecifications = serverSpecifications,
                 SaveSingleModelCollection = new SaveSingleModelCollection(),
                 SceneManagementModelsCollection = new SceneManagementModelsCollection(),
                 InputModel = new InputModel(),
@@ -65,7 +76,8 @@ namespace ServerManagement.Test
                 QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications()),
                 ServerConnectionModel = serverConnectionModel,
                 SkillPanelModel = new SkillPanelModel(specifications.SkillDeckSpecifications.GetSpecifications().First().Value, playerModel),
-                CharactersCollection = new CharactersCollection()
+                CharactersCollection = new CharactersCollection(),
+                // WorldData = new WorldData()
             };
 
             Library.Initialize();
@@ -76,13 +88,10 @@ namespace ServerManagement.Test
             serverConnectionModel.ConnectPlayer();
             await serverConnectionModel.CompletePlayerConnectAwaiter;
             
-            serverConnectionModel.ConnectWorld();
-            await serverConnectionModel.CompleteWorldConnectAwaiter;
-            
             _gameModel.PlayerModel.Id = Guid.NewGuid().ToString();
             
-            var command = new LoginCommand(_gameModel.PlayerModel.Id);
-            command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
+            // var command = new LoginCommand(_gameModel.PlayerModel.Id, _gameModel.PlayerModel.BaseLocationId);
+            // command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
             
             Debug.Log("finish");
 

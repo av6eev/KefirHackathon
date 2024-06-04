@@ -1,11 +1,14 @@
-﻿namespace ServerCore.Main.Commands
+﻿using ServerCore.Main.Utilities;
+
+namespace ServerCore.Main.Commands
 {
     public class LoginCommand : BaseCommand
     {
-        public override string Id => "LoginCommand";
+        public override string Id => CommandConst.Login;
+
         public string PlayerId;
 
-        public LoginCommand()
+        public LoginCommand(Protocol protocol) : base(protocol)
         {
         }
 

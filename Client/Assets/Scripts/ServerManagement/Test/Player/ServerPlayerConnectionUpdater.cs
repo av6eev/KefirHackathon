@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ServerCore.Main;
+using UnityEngine;
 using Updater;
 using EventType = ServerCore.Main.EventType;
 
@@ -18,11 +19,11 @@ namespace ServerManagement.Test.Player
             var client = _gameModel.ServerConnectionModel.PlayerHost;
             var peer = _gameModel.ServerConnectionModel.PlayerPeer;
             
-            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(1, out netEvent) <= 0)
+            if (client.CheckEvents(out var netEvent) <= 0 && client.Service(3, out netEvent) <= 0)
             {
                 return;
             }
-
+            
             switch (netEvent.Type)
             {
                 case EventType.None:
@@ -38,7 +39,15 @@ namespace ServerManagement.Test.Player
                     Debug.Log("[PLAYER]: Client connection timeout");
                     break;
                 case EventType.Receive:
-                    Debug.Log("[PLAYER]: Packet received from server - Channel ID: " + netEvent.ChannelID + ", Data length: " + netEvent.Packet.Length);
+                    var readBuffer = new byte[2048];
+                    
+                    netEvent.Packet.CopyTo(readBuffer);
+                    
+                    var protocol = new Protocol(readBuffer);
+                    
+                    _gameModel.UserData.Read(protocol);
+                    _gameModel.WorldData.Read(protocol);
+                    
                     netEvent.Packet.Dispose();
                     break;
             }

@@ -1,0 +1,22 @@
+{
+  "locations": [
+    {
+      "id": "test_connection",
+      "interact_objects": [
+        {
+          "id": "door",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "test_server_portal",
+      "interact_objects": [
+        {
+          "id": "door",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

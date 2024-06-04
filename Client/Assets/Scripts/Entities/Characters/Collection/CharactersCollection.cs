@@ -1,15 +1,16 @@
 ﻿using Entities.Specification;
+using ServerCore.Main;
 using Utilities.ModelCollection;
 
 namespace Entities.Characters.Collection
 {
     public class CharactersCollection : ModelCollection<string, CharacterModel>
     {
-        public CharacterModel AddCharacter(string id, EntitySpecification specification)
+        public CharacterModel AddCharacter(CharacterServerData serverData, EntitySpecification specification)
         {
-            var model = new CharacterModel(id, specification);
+            var model = new CharacterModel(serverData, specification);
             
-            Add(id, model);
+            Add(serverData.PlayerId.Value, model);
             
             return model;
         }

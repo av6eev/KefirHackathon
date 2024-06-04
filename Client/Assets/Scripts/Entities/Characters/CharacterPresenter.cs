@@ -33,6 +33,7 @@ namespace Entities.Characters
 
             var component = _loadObjectModel.Result.GetComponent<PlayerView>();
             _view = Object.Instantiate(component, _root);
+            _view.gameObject.name = _model.ServerData.PlayerId.Value;
             
             _presenters.Add(new CharacterAnimatorPresenter(_gameModel, _model, _view));
             _presenters.Init();
@@ -48,7 +49,10 @@ namespace Entities.Characters
 
             _gameModel.UpdatersList.Remove(_updater);
 
-            //TODO: dispose
+            Object.Destroy(_view.gameObject);
+            _gameModel.LoadObjectsModel.Unload(_loadObjectModel);
+
+            Debug.Log("disposed");
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
+using ServerCore.Main.Utilities;
 
 namespace ServerCore.Main.Commands
 {
     public class PlayerMovementCommand : BaseCommand
     {
-        public override string Id => "PlayerMovementCommand";
+        public override string Id => CommandConst.PlayerMovement;
 
         public float Speed;
         public int X;
@@ -15,9 +16,8 @@ namespace ServerCore.Main.Commands
 
         public string PlayerId;
         
-        public PlayerMovementCommand()
+        public PlayerMovementCommand(Protocol protocol) : base(protocol)
         {
-            
         }
         
         public PlayerMovementCommand(string playerId, float speed, int x, int y, int z, int rotationY, int tick)
