@@ -17,7 +17,8 @@ namespace Entities.Player
         public const string HudId = "player_hud_inventory";
         public string SaveId => ConstId;
         public string Id { get; set; }
-        public string BaseLocationId { get; } = SceneConst.HubId;
+        public string BaseLocationId { get; } = SceneConst.TestConnectionId;
+        public string CurrentLocationId { get; set; }
         
         public bool IsRunning;
         public bool IsInputInverse { get; private set; }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ServerCore.Main.Property;
+﻿using ServerCore.Main.Property;
 using ServerCore.Main.Utilities;
 
 namespace ServerCore.Main
@@ -8,13 +7,12 @@ namespace ServerCore.Main
     {
         public readonly Property<string> PlayerId = new("id", string.Empty);
         
-        public readonly Property<Vector3> Position = new(ServerConst.PositionPropertyId, new Vector3(0,0,0));
+        public readonly Property<Vector3> Position = new("position", new Vector3(0,0,0));
         public readonly Property<int> Rotation = new("rotation", 0);
         public readonly Property<float> Speed = new("speed", 0);
         public readonly Property<byte> AnimationState = new("animation_state", 0);
 
-        public Property<Vector3> LatestServerPosition = new("latest_server_position", new Vector3(0,0,0));
-        public Property<int> CurrentTick = new("current_tick", 0);
+        public readonly Property<Vector3> LatestServerPosition = new("latest_server_position", new Vector3(0,0,0));
         
         public CharacterServerData() : base("character_server_data")
         {
@@ -24,7 +22,6 @@ namespace ServerCore.Main
             Properties.Add(Speed.Id, Speed);
             Properties.Add(AnimationState.Id, AnimationState);
             Properties.Add(LatestServerPosition.Id, LatestServerPosition);
-            Properties.Add(CurrentTick.Id, CurrentTick);
         }
     }
 }

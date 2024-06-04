@@ -2,7 +2,7 @@
 {
     public interface ILoadObjectWrapper
     {
-        void Load<T>(ILoadObjectToWrapperModel<T> model);
+        void Load(ILoadObjectToWrapperModel model);
         void Unload(IWrapperLoadModel model);
     }
 }

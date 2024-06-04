@@ -221,8 +221,6 @@ namespace ServerCore.Main.Property
             protocol.Add((ushort)0);
             protocol.Add((ushort)Collection.Count);
             
-            Console.WriteLine(Collection.Count);
-            
             foreach (var element in Collection.Keys)
             {
                 protocol.Add(element);

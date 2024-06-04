@@ -2,7 +2,7 @@
 {
     public interface ILoadObjectsModel
     {
-        ILoadObjectModel<T> Load<T>(string key);
+        ILoadObjectModel Create(string key);
         void Unload(ILoadElement model);
     }
 }

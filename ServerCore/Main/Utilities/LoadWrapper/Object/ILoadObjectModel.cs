@@ -3,10 +3,11 @@ using ServerCore.Main.Utilities.Awaiter;
 
 namespace ServerCore.Main.Utilities.LoadWrapper.Object
 {
-    public interface ILoadObjectModel<T> : ILoadElement, IDisposable
+    public interface ILoadObjectModel : ILoadElement, IDisposable
     {
         CustomAwaiter LoadAwaiter { get; }
         CustomAwaiter UnloadAwaiter { get; }
-        T Result { get; }
+        string Result { get; }
+        CustomAwaiter Load();
     }
 }

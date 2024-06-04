@@ -24,8 +24,6 @@ namespace ServerManagement.Test.Player
                 return;
             }
             
-            Debug.Log(netEvent.ChannelID);
-
             switch (netEvent.Type)
             {
                 case EventType.None:
@@ -47,6 +45,7 @@ namespace ServerManagement.Test.Player
                     
                     var protocol = new Protocol(readBuffer);
                     
+                    _gameModel.UserData.Read(protocol);
                     _gameModel.WorldData.Read(protocol);
                     
                     netEvent.Packet.Dispose();

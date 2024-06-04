@@ -2,6 +2,7 @@
 using Input;
 using ServerCore.Main.Commands;
 using ServerCore.Main.Utilities;
+using ServerManagement;
 using ServerManagement.Test;
 using UnityEngine;
 using Updater;
@@ -39,7 +40,7 @@ namespace Entities.Player.Physics
             
             PhysicsUpdate(deltaTime);
 
-            if (_timer >= ServerConst.TimeBetweenTicks)
+            if (_timer >= ClientConst.TimeBetweenTicks)
             {
                 _timer = 0;
 
@@ -52,7 +53,6 @@ namespace Entities.Player.Physics
                 {
                     if (_isSendWhenAfk) return;
                 
-                    Debug.Log("send once");
                     SendCommand();
                     _isSendWhenAfk = true;
                 }

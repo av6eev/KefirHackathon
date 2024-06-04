@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ServerCore.Main.Specifications.Base;
 
 namespace ServerCore.Main.Specifications.Collection
 {

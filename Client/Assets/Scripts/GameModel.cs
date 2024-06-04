@@ -13,6 +13,8 @@ using Loader.Scene;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerCore.Main.Specifications;
+using ServerCore.Main.Users;
 using ServerCore.Main.World;
 using ServerManagement.Test;
 using Skills.SkillPanel;
@@ -44,4 +46,6 @@ public class GameModel : IGameModel
     public CharactersCollection CharactersCollection { get; set; }
     public bool Rerun { get; set; }
     public WorldData WorldData { get; set; }
+    public UserData UserData { get; set; }
+    public IServerSpecifications ServerSpecifications { get; set; }
 }

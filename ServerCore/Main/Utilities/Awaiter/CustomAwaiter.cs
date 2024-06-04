@@ -6,7 +6,7 @@ namespace ServerCore.Main.Utilities.Awaiter
     //taken from: https://gist.github.com/Krumelur/39c44b45dfc658bb633c
     public class CustomAwaiter : INotifyCompletion
     {
-        private Action _continuation;
+        private Action? _continuation;
 
         public bool IsCompleted
         {
@@ -21,7 +21,9 @@ namespace ServerCore.Main.Utilities.Awaiter
         }
 
         public void OnCompleted(Action continuation) => _continuation = continuation;
-        public void GetResult() => Console.WriteLine("Done!");
+
+        public void GetResult() {}
+
         public CustomAwaiter GetAwaiter() => this;
         public void Dispose() => _continuation = null;
     }

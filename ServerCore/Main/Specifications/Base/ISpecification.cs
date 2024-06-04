@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ServerCore.Main.Specifications
+namespace ServerCore.Main.Specifications.Base
 {
     public interface ISpecification
     {

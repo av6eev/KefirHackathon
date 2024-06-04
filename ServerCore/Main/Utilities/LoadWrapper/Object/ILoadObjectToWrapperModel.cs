@@ -1,8 +1,9 @@
 ﻿namespace ServerCore.Main.Utilities.LoadWrapper.Object
 {
-    public interface ILoadObjectToWrapperModel<in T> : IWrapperLoadModel
+    public interface ILoadObjectToWrapperModel : IWrapperLoadModel
     {
-        T Result { set; }
+        string Path { get; }
         string Key { get; }
+        string Result { set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ServerCore.Main.Specifications;
+using ServerCore.Main.Specifications.Base;
 using ServerCore.Main.Specifications.Collection;
 using ServerCore.Main.Utilities.Awaiter;
 using ServerCore.Main.Utilities.LoadWrapper.Object;
@@ -8,31 +9,41 @@ namespace ServerCore.Main.Utilities.LoadWrapper
 {
     public class LoadSpecificationsWrapper<T> where T : ISpecification, new()
     {
+        private readonly ILoadObjectsModel _loadObjectsModel;
+        private readonly string _key;
         private readonly IPrimitiveSpecificationsCollection _specificationsCollection;
         public readonly CustomAwaiter LoadAwaiter = new();
     
         public LoadSpecificationsWrapper(ILoadObjectsModel loadObjectsModel, string key, IPrimitiveSpecificationsCollection specificationsCollection)
         {
+            _loadObjectsModel = loadObjectsModel;
+            _key = key;
             _specificationsCollection = specificationsCollection;
-            LoadFromJson(loadObjectsModel, key);
         }
 
-        private async void LoadFromJson(ILoadObjectsModel loadObjectsModel, string key)
+        private async void LoadFromJson()
         {
-            var objectModel = loadObjectsModel.Load<string>(key);
-            await objectModel.LoadAwaiter;
+            var objectModel = _loadObjectsModel.Create(_key);
+            await objectModel.Load();
             
             var result = new JsonParser(objectModel.Result).ParseAsDictionary();
 
-            foreach (var element in result.GetNodes(key))
+            foreach (var element in result.GetNodes(_key))
             {
                 var specification = new T();
                 
                 specification.Fill(element);
                 _specificationsCollection.Add(element.GetString("id"), specification);
             }
-            
+
             LoadAwaiter.Complete();
+        }
+
+        public CustomAwaiter Load()
+        {
+            LoadFromJson();
+            
+            return LoadAwaiter;
         }
     }
 }

@@ -3,19 +3,17 @@
     public class LoadObjectsModel : ILoadObjectsModel
     {
         private readonly ILoadObjectWrapper _wrapper;
+        private readonly string _path;
 
-        public LoadObjectsModel(ILoadObjectWrapper wrapper)
+        public LoadObjectsModel(ILoadObjectWrapper wrapper, string path)
         {
             _wrapper = wrapper;
+            _path = path;
         }
 
-        public ILoadObjectModel<T> Load<T>(string key)
+        public ILoadObjectModel Create(string key)
         {
-            var model = new LoadObjectModel<T>(key);
-            
-            _wrapper.Load(model);
-            
-            return model;
+            return new LoadObjectModel(_wrapper, key, _path);
         }
 
         public void Unload(ILoadElement model)

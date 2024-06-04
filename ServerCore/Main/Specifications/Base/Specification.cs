@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ServerCore.Main.Specifications
+namespace ServerCore.Main.Specifications.Base
 {
     [Serializable]
     public abstract class Specification : ISpecification

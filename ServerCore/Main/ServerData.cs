@@ -161,7 +161,7 @@ namespace ServerCore.Main
                 foreach (var data in changedDataset)
                 {
                     protocol.Add(data.Id);
-                    Console.WriteLine(data.Id);
+                    // Console.WriteLine(data.Id);
                     data.WriteAll(protocol);
                 }
             

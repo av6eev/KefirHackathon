@@ -22,14 +22,19 @@ namespace Entities.Characters.Collection
         
         public void Init()
         {
-            _gameModel.WorldData.CharacterDataCollection.OnAdd += HandleAdd;
-            _gameModel.WorldData.CharacterDataCollection.OnRemove += HandleRemove;
+            foreach (var model in _model.GetModels())
+            {
+                HandleAdd(model.ServerData);
+            }
+            
+            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnAdd += HandleAdd;
+            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnRemove += HandleRemove;
         }
 
         public void Dispose()
         {
-            _gameModel.WorldData.CharacterDataCollection.OnAdd -= HandleAdd;
-            _gameModel.WorldData.CharacterDataCollection.OnRemove -= HandleRemove;
+            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnAdd -= HandleAdd;
+            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnRemove -= HandleRemove;
         }
 
         private void HandleAdd(CharacterServerData serverData)
