@@ -1,5 +1,6 @@
 using Reactive.Field;
 using Save.Single;
+using ServerCore.Main.Users;
 using Utilities.ModelCollection;
 
 namespace Entities.Player
@@ -13,6 +14,7 @@ namespace Entities.Player
         ReactiveField<float> AfkTime { get; }
         ReactiveField<int> KillCount { get; }
         ModelCollection<EntityResourceType, EntityResource> Resources { get; }
+        UserData UserData { get; }
         bool IsInputInverse { get; }
         void Death();
         void InverseInput(bool state);

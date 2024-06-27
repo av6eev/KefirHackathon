@@ -13,6 +13,7 @@ namespace ServerCore.Main.Property
         public List<T> Collection { get; } = new();
 
         public bool IsDirty { get; set; }
+        public bool IsNew { get; private set; }
 
         private readonly List<ushort> _addIndices = new();
         private readonly List<ushort> _removeIndices = new();
@@ -23,10 +24,16 @@ namespace ServerCore.Main.Property
             Id = id;
         }
 
-        public void Read(Protocol protocol)
+        public Dictionary<string, object> Read(Protocol protocol)
         {
+            var result = new Dictionary<string, object>();
+            var removeData = new Dictionary<string, object>();
+            var addData = new Dictionary<string, object>();
+            var changeData = new Dictionary<string, object>();
+            
             protocol.Get(out ushort removedCount);
-
+            removeData.Add("count", removedCount);
+            
             for (var i = 0; i < removedCount; i++)
             {
                 protocol.Get(out ushort index);
@@ -34,10 +41,13 @@ namespace ServerCore.Main.Property
                 Collection.Remove(data);
                 
                 OnRemove?.Invoke(data);
+                
+                removeData.Add(index.ToString(), data);
             }
             
             protocol.Get(out ushort addedCount);
-
+            addData.Add("count", addedCount);
+            
             for (var i = 0; i < addedCount; i++)
             {
                 protocol.Get(out ushort index);
@@ -46,10 +56,13 @@ namespace ServerCore.Main.Property
                 Collection.Insert(index, value);
                 
                 OnAdd?.Invoke(value);
+                
+                addData.Add(index.ToString(), value);
             }
             
             protocol.Get(out ushort changedCount);
-            
+            changeData.Add("count", changedCount);
+
             for (var i = 0; i < changedCount; i++)
             {
                 protocol.Get(out ushort index);
@@ -58,7 +71,15 @@ namespace ServerCore.Main.Property
                 Collection[index] = value;
             
                 OnChanged?.Invoke(value);
+                
+                changeData.Add(index.ToString(), value);
             }
+            
+            result.Add("remove", removeData);
+            result.Add("change", changeData);
+            result.Add("add", addData);
+            
+            return result;
         }
 
         public void WriteAll(Protocol protocol)
@@ -122,8 +143,8 @@ namespace ServerCore.Main.Property
         {
             Collection.Add(data);
             _addIndices.Add((ushort)Collection.IndexOf(data));
-            IsDirty = true;
-
+            
+            
             OnAdd?.Invoke(data);
         }
 
@@ -134,6 +155,11 @@ namespace ServerCore.Main.Property
             IsDirty = true;
 
             OnRemove?.Invoke(data);
+        }
+
+        public void ChangeIsNew(bool state)
+        {
+            IsNew = state;
         }
 
         public void Change(int index, T value)

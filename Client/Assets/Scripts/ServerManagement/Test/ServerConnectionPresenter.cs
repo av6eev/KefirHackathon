@@ -12,7 +12,7 @@ namespace ServerManagement.Test
         private readonly NetworkUpdaters _networkUpdaters;
         private IUpdater _playerConnectionUpdater;
         private IUpdater _worldConnectionUpdater;
-        
+
         public ServerConnectionPresenter(GameModel gameModel, ServerConnectionModel model, NetworkUpdaters networkUpdaters)
         {
             _gameModel = gameModel;
@@ -40,10 +40,9 @@ namespace ServerManagement.Test
 
             _model.PlayerHost = new Host();
             _model.PlayerHost.Create();
-            _model.PlayerPeer = _model.PlayerHost.Connect(address);
+            _model.PlayerPeer = _model.PlayerHost.Connect(address, ServerConnectionConst.MaxChannels);
 
             _playerConnectionUpdater = new ServerPlayerConnectionUpdater(_gameModel);
-            
             _networkUpdaters.UpdatersList.Add(_playerConnectionUpdater);
         }
 

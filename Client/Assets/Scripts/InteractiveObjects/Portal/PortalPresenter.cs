@@ -40,6 +40,8 @@ namespace InteractiveObjects.Portal
             {
                 var command = new ChangeLocationCommand(_gameModel.PlayerModel.Id, _view.NextSceneId);
                 command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
+                
+                Debug.Log("Send ChangeLocationCommand");
             }
         }
     }

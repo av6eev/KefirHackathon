@@ -6,6 +6,7 @@ using ServerCore.Main.Specifications;
 using ServerCore.Main.Users.Collection;
 using ServerCore.Main.Utilities.LoadWrapper.Json;
 using ServerCore.Main.Utilities.LoadWrapper.Object;
+using ServerCore.Main.Utilities.Logger;
 using ServerCore.Main.Utilities.Presenter;
 using ServerCore.Main.World;
 
@@ -15,6 +16,7 @@ public class Server
 {
     private const ushort PlayerPort = 6005;
     private const int MaxClients = 100;
+    private const int MaxChannels = 5;
 
     private static Host _playerHost = new();
 
@@ -22,6 +24,8 @@ public class Server
     
     public async void Start()
     {
+        Logger.SetLogger(new ServerLogger());
+        
         var loadObjectModel = new LoadObjectsModel(new JsonObjectLoadWrapper(), "../../../../ServerCore/Main/Specifications");
         var specifications = new ServerSpecifications(loadObjectModel);
 
@@ -56,7 +60,7 @@ public class Server
         };
 
         _playerHost = new Host();
-        _playerHost.Create(playerAddress, MaxClients);
+        _playerHost.Create(playerAddress, MaxClients, MaxChannels);
 
         var executorFactory = new ExecutorFactory();
         
@@ -64,14 +68,14 @@ public class Server
         {
             var polled = false;
 
-            HandleWorldTick(gameModel);
             HandleUserTick(gameModel);
-            
+            HandleWorldTick(gameModel);
+
             while (!polled)
             {
                 if (_playerHost.CheckEvents(out var netEvent) <= 0)
                 {
-                    if (_playerHost.Service(5, out netEvent) <= 0)
+                    if (_playerHost.Service(15, out netEvent) <= 0)
                         break;
 
                     polled = true;
@@ -116,45 +120,78 @@ public class Server
             var protocol = new Protocol();
             var packet = default(Packet);
 
-            user.Write(protocol);
+            if (!user.Write(protocol)) continue;
             
             packet.Create(protocol.Stream.GetBuffer());
-
-            user.Peer.Send(0, ref packet);
+            
+            SendPacket(user.Peer, 1, ref packet);
         }
     }
 
     private void HandleWorldTick(ServerGameModel gameModel)
     {
-        var protocol = new Protocol();
-        var packet = default(Packet);
+        var fullWorldsData = new Dictionary<string, Protocol>();
+        var worldsData = new Dictionary<string, (bool, Protocol)>();
+        
+        foreach (var world in gameModel.WorldsCollection.Worlds)
+        {
+            var protocol = new Protocol();
+            var fullProtocol = new Protocol();
+            
+            var uTimeSpan = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0);
+            world.Value.Time.Value = uTimeSpan.TotalMilliseconds;
+            
+            world.Value.Time.GetForProtocol(protocol);
+            world.Value.Time.GetForProtocol(fullProtocol);
 
+            world.Value.MessageType.Value = "new";
+            world.Value.MessageType.GetForProtocol(fullProtocol);
+            
+            world.Value.MessageType.Value = "update";
+            world.Value.MessageType.GetForProtocol(protocol);
+
+            var changed = world.Value.Write(protocol);
+            world.Value.WriteAll(fullProtocol);
+
+            fullWorldsData.Add(world.Key, fullProtocol);
+            worldsData.Add(world.Key, (changed, protocol));
+        }
+        
         foreach (var user in gameModel.UsersCollection.GetUsers())
         {
-            var world = gameModel.WorldsCollection.Worlds[user.WorldId];
-            
-            if (user.FirstConnection)
+            if (user.WorldFirstConnection)
             {
-                Console.WriteLine("first connection: " + user.PlayerId.Value);
+                var packet = new Packet(default);
                 
-                var fullProtocol = new Protocol();
-                var fullPacket = default(Packet);
+                packet.Create(fullWorldsData[user.WorldId].Stream.GetBuffer());
                 
-                world.WriteAll(protocol);
+                Console.WriteLine("First connection: " + user.PlayerId.Value);
+
+                user.WorldFirstConnection = false;
                 
-                fullPacket.Create(fullProtocol.Stream.GetBuffer());
-            
-                user.Peer.Send(0, ref fullPacket);
-                user.FirstConnection = false;
-                
-                continue;
+                SendPacket(user.Peer, 0, ref packet);
             }
+            else
+            {
+                var data = worldsData[user.WorldId];
+                
+                if (data.Item1)
+                {
+                    var packet = new Packet(default);
 
-            world.Write(protocol);
-            
-            packet.Create(protocol.Stream.GetBuffer());
+                    packet.Create(data.Item2.Stream.GetBuffer());
 
-            user.Peer.Send(0, ref packet);
+                    SendPacket(user.Peer, 0, ref packet);
+                }
+            }
+        }
+    }
+
+    private void SendPacket(Peer peer, byte channelId, ref Packet packet)
+    {
+        if (!peer.Send(channelId, ref packet))
+        {   
+            Console.WriteLine($"Failed to send data to peer: {peer.ID} on {channelId} channel.");
         }
     }
 }

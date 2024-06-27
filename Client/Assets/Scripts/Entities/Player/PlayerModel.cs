@@ -3,8 +3,7 @@ using Entities.Specification;
 using Reactive.Event;
 using Reactive.Field;
 using SceneManagement;
-using ServerCore.Main.Utilities;
-using ServerManagement.Test;
+using ServerCore.Main.Users;
 
 namespace Entities.Player
 {
@@ -27,6 +26,8 @@ namespace Entities.Player
         public ReactiveField<bool> IsAfk { get; } = new(false);
         public ReactiveField<bool> InDash { get; } = new();
         public ReactiveField<int> KillCount { get; } = new();
+
+        public UserData UserData { get; } = new();
         
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {

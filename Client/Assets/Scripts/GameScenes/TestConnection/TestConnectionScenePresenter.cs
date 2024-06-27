@@ -1,5 +1,6 @@
 ﻿using Entities.Characters.Collection;
 using InteractiveObjects.Portal;
+using UnityEngine;
 
 namespace GameScenes.TestConnection
 {
@@ -22,7 +23,6 @@ namespace GameScenes.TestConnection
 
         protected override void AfterDispose()
         {
-            
         }
     }
 }

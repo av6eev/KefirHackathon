@@ -13,14 +13,11 @@ public class ChangeLocationCommandExecutor : CommandExecutor<ChangeLocationComma
     public override void Execute()
     {
         if (!GameModel.UsersCollection.TryGetUser(Peer, out var userData)) return;
-        
+
+        if (Command.ToId == userData.CurrentLocationId.Value) return;
+
         WorldData newWorld;
 
-        if (Command.ToId == userData.CurrentLocationId.Value)
-        {
-            return;
-        }
-                    
         if (Command.ToId.Equals("test_connection"))
         {
             newWorld = GameModel.WorldsCollection.Worlds["hub"];
@@ -28,19 +25,29 @@ public class ChangeLocationCommandExecutor : CommandExecutor<ChangeLocationComma
         else
         {
             newWorld = new WorldData(Guid.NewGuid().ToString());
-            GameModel.WorldsCollection.Worlds.Add(newWorld.Guid, newWorld);
+            GameModel.WorldsCollection.Worlds.Add(newWorld.Guid, newWorld); 
         }
 
-        GameModel.WorldsCollection.Worlds[userData.WorldId].CharacterDataCollection.Remove(userData.PlayerId.Value);
-                    
-        userData.WorldId = newWorld.Guid;
-        userData.CurrentLocationId.Value = Command.ToId;
-                    
         var characterServerData = new CharacterServerData
         {
             PlayerId = { Value = userData.PlayerId.Value }
         };
-                    
-        GameModel.WorldsCollection.Worlds[newWorld.Guid].CharacterDataCollection.Add(userData.PlayerId.Value, characterServerData);
+        
+        if (!string.IsNullOrEmpty(userData.CurrentLocationId.Value))
+        {
+            GameModel.WorldsCollection.Worlds[userData.WorldId].CharacterDataCollection.Remove(userData.PlayerId.Value);
+            Console.WriteLine($"Remove user: {userData.PlayerId.Value} from world: {userData.WorldId}");
+        }
+
+        if (!string.IsNullOrEmpty(userData.CurrentLocationId.Value))
+        {
+            GameModel.WorldsCollection.Worlds[newWorld.Guid].CharacterDataCollection.Add(userData.PlayerId.Value, characterServerData);
+            Console.WriteLine($"Add user: {userData.PlayerId.Value} to world: {newWorld.Guid}");
+        }
+        
+        userData.WorldId = newWorld.Guid;
+        Console.WriteLine($"Change location for user {userData.PlayerId.Value} from: {userData.CurrentLocationId.Value} , to: {Command.ToId}, world: {newWorld.Guid}");
+        userData.CurrentLocationId.Value = Command.ToId;
+        userData.WorldFirstConnection = true;
     }
 }

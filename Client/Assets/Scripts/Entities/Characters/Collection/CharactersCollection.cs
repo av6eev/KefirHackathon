@@ -1,4 +1,5 @@
-﻿using Entities.Specification;
+﻿using System.Collections.Generic;
+using Entities.Specification;
 using ServerCore.Main;
 using Utilities.ModelCollection;
 
@@ -13,6 +14,16 @@ namespace Entities.Characters.Collection
             Add(serverData.PlayerId.Value, model);
             
             return model;
+        }
+        
+        public void RemoveAll()
+        {
+            foreach (var id in new List<string>(Collection.Keys))
+            {
+                Remove(id);
+            }
+            
+            Collection.Clear();
         }
     }
 }

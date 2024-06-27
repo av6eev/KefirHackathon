@@ -22,10 +22,20 @@ public class LoginCommandExecutor : CommandExecutor<LoginCommand>
             Peer = Peer,
             PlayerId = { Value = playerId },
             WorldId = "hub",
-            CurrentLocationId = { Value = "test_connection" }
+            CurrentLocationId = { Value = "test_connection" },
+            WorldFirstConnection = true
         };
-                
-        GameModel.WorldsCollection.Worlds[user.WorldId].CharacterDataCollection.Add(user.PlayerId.Value, serverData);
-        GameModel.UsersCollection.Add(user);
+
+        if (GameModel.WorldsCollection.Worlds.TryGetValue(user.WorldId, out var worldData))
+        {
+            worldData.CharacterDataCollection.Add(user.PlayerId.Value, serverData);
+            GameModel.UsersCollection.Add(user);
+            
+            Console.WriteLine($"Connect user: {user.PlayerId.Value} to world: {worldData.Guid}");
+        }
+        else
+        {
+            Console.WriteLine($"No world with id {user.WorldId} was found!");
+        }
     }
 }

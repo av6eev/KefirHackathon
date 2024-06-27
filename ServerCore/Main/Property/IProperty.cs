@@ -7,7 +7,7 @@ namespace ServerCore.Main.Property
         event Action Changed;
         string Id { get; }
         bool IsChanged { get; }
-        void SetFromProtocol(Protocol protocol);
+        void SetFromProtocol(Protocol protocol, out object value);
         void GetForProtocol(Protocol protocol);
     }
 }

@@ -43,7 +43,6 @@ namespace Entities.Player
             _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));
             _presenters.Add(new EnemyChangePresenter(_model));
             _presenters.Add(new PlayerKillCountChangePresenter(_model));
-            _presenters.Add(new PlayerChangeLocationPresenter(_gameModel, _model));
 
             _updaters.Add(new PlayerPhysicsUpdater(_gameModel, _model, _view));
             _updaters.Add(new PlayerInfoUpdater(_model, _view));
@@ -67,6 +66,8 @@ namespace Entities.Player
             }
             
             _updaters.Clear();
+            
+            Object.Destroy(_view.gameObject);
         }
     }
 }

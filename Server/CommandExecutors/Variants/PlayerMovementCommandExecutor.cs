@@ -12,14 +12,22 @@ public class PlayerMovementCommandExecutor : CommandExecutor<PlayerMovementComma
 
     public override void Execute()
     {
-        if (!GameModel.UsersCollection.TryGetUser(Peer, out var data)) return;
+        if (!GameModel.UsersCollection.TryGetUser(Peer, out var data))
+        {
+            Console.WriteLine($"[MovementCommandExecutor]: no user with peer: {Peer}");
+            return;
+        }
         
         var world = GameModel.WorldsCollection.Worlds[data.WorldId];
 
-        if (!world.CharacterDataCollection.Collection.TryGetValue(Command.PlayerId, out var value)) return;
+        if (!world.CharacterDataCollection.Collection.TryGetValue(Command.PlayerId, out var characterServerData))
+        {
+            Console.WriteLine($"[MovementCommandExecutor]: no world with id: {data.WorldId}");
+            return;
+        }
             
-        value.LatestServerPosition.Value = new Vector3(Command.X, Command.Y, Command.Z);
-        value.Rotation.Value = Command.RotationY;
-        value.Speed.Value = Command.Speed;
+        characterServerData.LatestServerPosition.Value = new Vector3(Command.X, Command.Y, Command.Z);
+        characterServerData.Rotation.Value = Command.RotationY;
+        characterServerData.Speed.Value = Command.Speed;
     }
 }

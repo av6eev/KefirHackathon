@@ -44,8 +44,7 @@ public class GameModel : IGameModel
     public QuestsCollection QuestsCollection { get; set; }
     public IServerConnectionModel ServerConnectionModel { get; set; }
     public CharactersCollection CharactersCollection { get; set; }
-    public bool Rerun { get; set; }
     public WorldData WorldData { get; set; }
-    public UserData UserData { get; set; }
     public IServerSpecifications ServerSpecifications { get; set; }
+    public bool Rerun { get; set; }
 }

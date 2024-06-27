@@ -7,5 +7,6 @@
         public const string LocalIp = "127.0.0.1";
         public const ushort PlayerPort = 6005;
         public const ushort WorldPort = 6006;
+        public const int MaxChannels = 5;
     }
 }

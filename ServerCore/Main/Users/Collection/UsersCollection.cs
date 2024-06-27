@@ -16,7 +16,7 @@ namespace ServerCore.Main.Users.Collection
             {
                 PlayerId = { Value = userId },
                 Peer = peer,
-                FirstConnection = true
+                WorldFirstConnection = true
             };
         
             UsersByPeer.Add(peer, userData);

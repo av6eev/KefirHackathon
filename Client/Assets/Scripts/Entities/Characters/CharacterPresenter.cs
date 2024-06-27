@@ -44,15 +44,13 @@ namespace Entities.Characters
 
         public void Dispose()
         {
+            _gameModel.UpdatersList.Remove(_updater);
+            
             _presenters.Dispose();
             _presenters.Clear();
 
-            _gameModel.UpdatersList.Remove(_updater);
-
             Object.Destroy(_view.gameObject);
             _gameModel.LoadObjectsModel.Unload(_loadObjectModel);
-
-            Debug.Log("disposed");
         }
     }
 }

@@ -7,9 +7,11 @@ namespace ServerCore.Main
     {
         string Id { get; }
         bool IsDirty { get; }
-        void Read(Protocol protocol);
+        bool IsNew { get; }
+        Dictionary<string, object> Read(Protocol protocol);
         void WriteAll(Protocol protocol);
         bool Write(Protocol protocol);
         bool HasChanges();
+        void ChangeIsNew(bool state);
     }
 }

@@ -15,7 +15,7 @@ namespace ServerCore.Main.Users
         public PartyData PartyData = new(string.Empty);
 
         public string WorldId;
-        public bool FirstConnection = true;
+        public bool WorldFirstConnection = true;
         public Peer Peer;
     
         public UserData() : base("user_data")

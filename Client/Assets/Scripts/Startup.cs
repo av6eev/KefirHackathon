@@ -29,6 +29,8 @@ using Updater;
 using Utilities.Initializer;
 using Utilities.Loader.Addressable;
 using Utilities.Loader.Addressable.Scene;
+using Utilities.Logger;
+using Logger = ServerCore.Main.Utilities.Logger.Logger;
 
 public class Startup : MonoBehaviour
 {
@@ -45,7 +47,9 @@ public class Startup : MonoBehaviour
     private async void Start()
     {
         Application.runInBackground = true;
-            
+        
+        Logger.SetLogger(new UnityLogger());
+        
         var serverConnectionModel = new ServerConnectionModel();
             
         var loadObjectsModel = new LoadObjectsModel(new AddressableObjectLoadWrapper());
@@ -56,9 +60,6 @@ public class Startup : MonoBehaviour
         var serverSpecifications = new ServerSpecifications(serverLoadObjectsModel);
         await serverSpecifications.LoadAwaiter;
 
-        Debug.Log(serverSpecifications.LocationSpecifications.GetSpecifications().Count);
-        Debug.Log(serverSpecifications.InteractObjectStateSpecifications.GetSpecifications().Count);
-            
         var playerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.ConstId]);
 
         _gameModel = new GameModel
@@ -81,7 +82,6 @@ public class Startup : MonoBehaviour
             QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications()),
             SkillPanelModel = new SkillPanelModel(specifications.SkillDeckSpecifications.GetSpecifications().First().Value, playerModel),
             CharactersCollection = new CharactersCollection(),
-            UserData = new UserData(),
             WorldData = new WorldData(string.Empty),
             ServerConnectionModel = serverConnectionModel
         };
@@ -94,14 +94,9 @@ public class Startup : MonoBehaviour
         serverConnectionModel.ConnectPlayer();
         await serverConnectionModel.CompletePlayerConnectAwaiter;
             
-        _gameModel.PlayerModel.Id = Guid.NewGuid().ToString();
+        playerModel.Id = Guid.NewGuid().ToString();
             
-        var command = new LoginCommand(_gameModel.PlayerModel.Id);
-        command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
-            
-        Debug.Log("finish");
-        
-        _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
+        _gameModel.SaveSingleModelCollection.Add(playerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
         if (PlayerPrefs.GetInt("first_init") == 0)
@@ -113,20 +108,16 @@ public class Startup : MonoBehaviour
         _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, InputView));
         _presenters.Add(new InventoriesCollectionSavePresenter(_gameModel, (InventoriesCollection) _gameModel.InventoriesCollection));
         _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection)_gameModel.SaveSingleModelCollection));
+        _presenters.Add(new PlayerChangeLocationPresenter(_gameModel, playerModel));
+        _presenters.Add(new PlayerChangeWorldPresenter(_gameModel, playerModel));
         _presenters.Init();
-
-        _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
-
-        var userLastLocationId = _gameModel.UserData.CurrentLocationId.Value;
         
-        if (userLastLocationId == string.Empty || userLastLocationId == _gameModel.PlayerModel.BaseLocationId)
-        {
-            _gameModel.SceneManagementModelsCollection.Load(_gameModel.PlayerModel.BaseLocationId); 
-        }
-        else
-        {
-            _gameModel.SceneManagementModelsCollection.Load(userLastLocationId);
-        }
+        _presenters.Add(serverConnectionPresenter);
+        
+        var command = new LoginCommand(playerModel.Id);
+        command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
+        
+        _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
     }
 
     private void Update()
