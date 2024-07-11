@@ -28,6 +28,7 @@ public class ExecutorFactory
             CommandConst.InviteParty => new InvitePartyCommandExecutor(new InvitePartyCommand(protocol), gameModel, netEvent.Peer),
             CommandConst.AcceptParty => new AcceptPartyCommandExecutor(new AcceptPartyCommand(protocol), gameModel, netEvent.Peer),
             CommandConst.DeclineParty => new DeclinePartyCommandExecutor(new DeclinePartyCommand(protocol), gameModel, netEvent.Peer),
+            CommandConst.LeaveParty => new LeavePartyCommandExecutor(new LeavePartyCommand(protocol), gameModel, netEvent.Peer),
             _ => null
         };
         

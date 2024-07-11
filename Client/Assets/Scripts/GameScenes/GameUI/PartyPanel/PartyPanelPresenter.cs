@@ -1,5 +1,6 @@
 ﻿using GameScenes.GameUI.PartyPanel.Slot;
 using Presenter;
+using ServerCore.Main.Commands.Party;
 using UnityEngine;
 
 namespace GameScenes.GameUI.PartyPanel
@@ -28,6 +29,8 @@ namespace GameScenes.GameUI.PartyPanel
             _gameModel.PlayerModel.UserData.PartyData.Members.OnAdd += HandleAddMember;
             _gameModel.PlayerModel.UserData.PartyData.Members.OnRemove += HandleRemoveMember;
             _gameModel.PlayerModel.UserData.PartyData.OwnerNickname.Changed += HandleOwnerChange;
+            
+            _view.LeaveButton.onClick.AddListener(HandleLeaveClick);
         }
 
         public void Dispose()
@@ -36,6 +39,16 @@ namespace GameScenes.GameUI.PartyPanel
             _gameModel.PlayerModel.UserData.PartyData.Members.OnAdd -= HandleAddMember;
             _gameModel.PlayerModel.UserData.PartyData.Members.OnRemove -= HandleRemoveMember;
             _gameModel.PlayerModel.UserData.PartyData.OwnerNickname.Changed -= HandleOwnerChange;
+            
+            _view.LeaveButton.onClick.RemoveListener(HandleLeaveClick);
+        }
+
+        private void HandleLeaveClick()
+        {
+            var userData = _gameModel.PlayerModel.UserData;
+            var command = new LeavePartyCommand(userData.PlayerId.Value, userData.PartyData.Guid.Value);
+            
+            command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
         }
 
         private void HandleOwnerChange()

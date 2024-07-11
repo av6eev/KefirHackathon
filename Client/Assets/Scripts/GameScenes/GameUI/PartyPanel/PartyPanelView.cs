@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameScenes.GameUI.PartyPanel.Slot;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameScenes.GameUI.PartyPanel
 {
@@ -9,7 +10,6 @@ namespace GameScenes.GameUI.PartyPanel
         public RectTransform Root;
         public RectTransform ContentRoot;
         public PartyPanelSlotView SlotPrefab;
-
-        public readonly Dictionary<string, PartyPanelSlotView> ActiveSlots = new();
+        public Button LeaveButton;
     }
 }

@@ -8,11 +8,12 @@ public class PartyModel
 {
     public event Action<string> OnMemberAdded; 
     public event Action<string> OnMemberRemoved; 
+    public event Action<string> OnLeaderChange; 
     
     public readonly string Guid;
-    public readonly string OwnerId;
     public readonly string OwnerNickname;
-    
+    public string OwnerId { get; private set; }
+
     public readonly Dictionary<string, PartyInviteModel> Invites = new();
     public readonly List<string> Members = new();
     
@@ -39,5 +40,14 @@ public class PartyModel
         }
         
         OnMemberRemoved?.Invoke(memberNickname);
+    }
+
+    public void ChangeLeader(string memberNickname)
+    {
+        if (!Members.Contains(memberNickname)) return;
+
+        OwnerId = memberNickname;
+        
+        OnLeaderChange?.Invoke(memberNickname);
     }
 }

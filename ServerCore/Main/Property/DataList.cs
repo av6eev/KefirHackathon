@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ServerCore.Main.Utilities.Logger;
 
 namespace ServerCore.Main.Property
 {
@@ -30,15 +31,23 @@ namespace ServerCore.Main.Property
             var removeData = new Dictionary<string, object>();
             var addData = new Dictionary<string, object>();
             var changeData = new Dictionary<string, object>();
-            
+            var sortedRemovedIndices = new List<ushort>();
+
             protocol.Get(out ushort removedCount);
             removeData.Add("count", removedCount);
             
             for (var i = 0; i < removedCount; i++)
             {
                 protocol.Get(out ushort index);
+                sortedRemovedIndices.Add(index);
+            }
+            
+            sortedRemovedIndices.Reverse();
+            
+            foreach (var index in sortedRemovedIndices)
+            {
                 var data = Collection[index];
-                Collection.Remove(data);
+                Collection.RemoveAt(index);
                 
                 OnRemove?.Invoke(data);
                 
@@ -157,6 +166,17 @@ namespace ServerCore.Main.Property
             OnRemove?.Invoke(data);
         }
 
+        public void Clear()
+        {
+            foreach (var element in Collection)
+            {
+                _removeIndices.Add((ushort)Collection.IndexOf(element));
+            }
+            
+            Collection.Clear();
+            IsDirty = true;
+        }
+        
         public void ChangeIsNew(bool state)
         {
             IsNew = state;
