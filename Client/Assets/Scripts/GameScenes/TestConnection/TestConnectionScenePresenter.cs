@@ -1,5 +1,6 @@
 ﻿using Entities.Characters.Collection;
 using InteractiveObjects.Portal;
+using LoadingScreen;
 using UnityEngine;
 
 namespace GameScenes.TestConnection
@@ -17,8 +18,8 @@ namespace GameScenes.TestConnection
 
         protected override void AfterInit()
         {
-            Presenters.Add(new CharactersCollectionPresenter(_gameModel, _gameModel.CharactersCollection, _view.CharactersCollectionView));
-            Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
+            Presenters.Add(LoadingScreenMessageConst.CharactersCollectionPresenter, new CharactersCollectionPresenter(_gameModel, _gameModel.CharactersCollection, _view.CharactersCollectionView));
+            Presenters.Add(LoadingScreenMessageConst.PortalPresenter, new PortalPresenter(_gameModel, _view.PortalView));
         }
 
         protected override void AfterDispose()

@@ -9,21 +9,21 @@ public class PartiesCollection
     
     private readonly Dictionary<string, PartyModel> _parties = new();
 
-    public PartyModel Create(string ownerId)
+    public PartyModel Create(string ownerId, string ownerNickname)
     {
-        var newParty = new PartyModel(Guid.NewGuid().ToString(), ownerId);
+        var partyData = new PartyModel(Guid.NewGuid().ToString(), ownerId, ownerNickname);
         
-        _parties.Add(newParty.PartyData.Id, newParty);
-        OnCreated?.Invoke(newParty);
+        _parties.Add(partyData.Guid, partyData);
+        OnCreated?.Invoke(partyData);
         
-        return newParty;
+        return partyData;
     }
 
     public void Remove(string partyId)
     {
         if (!_parties.TryGetValue(partyId, out var party)) return;
         
-        _parties.Remove(party.PartyData.Id);
+        _parties.Remove(party.Guid);
         OnRemoved?.Invoke(party);
     }
 

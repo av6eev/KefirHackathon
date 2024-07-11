@@ -46,7 +46,7 @@ namespace Dialogs
             AfterDispose();
         }
 
-        private void HandleClose()
+        protected void HandleClose()
         {
             _model.IsOpened = false;
             _gameModel.DialogsCollection.Remove(_model);

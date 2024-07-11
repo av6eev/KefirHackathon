@@ -14,14 +14,15 @@ namespace Input
         public event Action OnDash;
         public event Action<int> OnSkillUse;
         public event Action OnAnyKey;
+        public event Action OnDebugPanelToggle;
 
-        public ReactiveField<bool> IsRun { get; } = new();
-        public ReactiveField<Vector2> Direction { get; } = new();
         public Vector2 MouseDelta { get; set; }
-
+        public Vector2 MousePosition { get; set; }
+        public ReactiveField<Vector2> Direction { get; } = new();
+        public ReactiveField<bool> IsRun { get; } = new();
         private readonly Dictionary<int, bool> _slotStates = new();
         public ReactiveField<int> CurrentActiveSlot { get; } = new (-1);
-        
+
         public void SetSlotState(int index)
         {
             if (CurrentActiveSlot.Value != -1)
@@ -71,6 +72,11 @@ namespace Input
         public void AnyKeyInput()
         {
             OnAnyKey?.Invoke();
+        }
+
+        public void ToggleDebugPanel()
+        {
+            OnDebugPanelToggle?.Invoke();
         }
     }
 }

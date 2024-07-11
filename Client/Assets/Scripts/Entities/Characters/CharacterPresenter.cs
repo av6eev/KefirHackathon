@@ -1,4 +1,5 @@
 ﻿using Entities.Characters.Animator;
+using Entities.Characters.Dialogs.Party;
 using Entities.Characters.Physics;
 using Entities.Player;
 using Loader.Object;
@@ -18,7 +19,7 @@ namespace Entities.Characters
         private readonly PresentersList _presenters = new();
         private ILoadObjectModel<GameObject> _loadObjectModel;
         private IUpdater _updater;
-
+        
         public CharacterPresenter(IGameModel gameModel, CharacterModel model, Transform root)
         {
             _gameModel = gameModel;
@@ -34,8 +35,9 @@ namespace Entities.Characters
             var component = _loadObjectModel.Result.GetComponent<PlayerView>();
             _view = Object.Instantiate(component, _root);
             _view.gameObject.name = _model.ServerData.PlayerId.Value;
-            
+
             _presenters.Add(new CharacterAnimatorPresenter(_gameModel, _model, _view));
+            _presenters.Add(new CharacterBodyClickPresenter(_gameModel, _model, _view));
             _presenters.Init();
             
             _updater = new CharacterPhysicsUpdater(_model, _view);

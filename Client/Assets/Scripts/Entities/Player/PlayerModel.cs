@@ -16,6 +16,7 @@ namespace Entities.Player
         public const string HudId = "player_hud_inventory";
         public string SaveId => ConstId;
         public string Id { get; set; }
+        public string Nickname { get; set; }
         public string BaseLocationId { get; } = SceneConst.TestConnectionId;
         public string CurrentLocationId { get; set; }
         
@@ -28,7 +29,7 @@ namespace Entities.Player
         public ReactiveField<int> KillCount { get; } = new();
 
         public UserData UserData { get; } = new();
-        
+
         public PlayerModel(EntitySpecification entitySpecification) : base(entitySpecification)
         {
             Resources.Add(EntityResourceType.Essence, new EntityResource(EntityResourceType.Essence, 0));

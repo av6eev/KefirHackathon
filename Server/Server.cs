@@ -1,5 +1,6 @@
 ﻿using Server.CommandExecutors;
 using Server.Party.Collection;
+using Server.Party.Invite.Collection;
 using Server.World.Collection;
 using ServerCore.Main;
 using ServerCore.Main.Specifications;
@@ -36,10 +37,12 @@ public class Server
             Specifications = specifications,
             UsersCollection = new UsersCollection(),
             WorldsCollection = new WorldsCollection(),
-            PartiesCollection = new PartiesCollection()
+            PartiesCollection = new PartiesCollection(),
+            PartyInviteCollection = new PartyInviteCollection()
         };
             
         _presenters.Add(new PartiesCollectionPresenter(gameModel, gameModel.PartiesCollection));
+        _presenters.Add(new PartyInviteCollectionPresenter(gameModel, (PartyInviteCollection)gameModel.PartyInviteCollection));
         _presenters.Init();
         
         gameModel.WorldsCollection.Worlds.Add("hub", new WorldData("hub"));

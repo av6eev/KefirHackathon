@@ -1,7 +1,7 @@
 ﻿using ServerCore.Main;
 using ServerCore.Main.Commands.Party;
 
-namespace Server.CommandExecutors.Variants;
+namespace Server.CommandExecutors.Variants.Party;
 
 public class DeclinePartyCommandExecutor : CommandExecutor<DeclinePartyCommand>
 {
@@ -11,5 +11,7 @@ public class DeclinePartyCommandExecutor : CommandExecutor<DeclinePartyCommand>
 
     public override void Execute()
     {
+        var inviteModel = GameModel.PartyInviteCollection.GetInvite(Command.InviteId);
+        inviteModel.Decline();
     }
 }

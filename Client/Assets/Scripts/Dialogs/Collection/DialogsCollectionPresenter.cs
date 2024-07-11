@@ -1,4 +1,7 @@
-﻿using Presenter;
+﻿using Entities.Characters.Dialogs.Party;
+using Entities.Characters.Dialogs.Party.Invite;
+using Entities.Player.Dialog.Party;
+using Presenter;
 
 namespace Dialogs.Collection
 {
@@ -35,6 +38,12 @@ namespace Dialogs.Collection
             
             switch (model)
             {
+                case CharacterPartyInviteDialogModel dialogModel:
+                    presenter = new CharacterPartyInviteDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
+                case PlayerPartyDecisionDialogModel dialogModel:
+                    presenter = new PlayerPartyDecisionDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
             }
 
             if (presenter != null)

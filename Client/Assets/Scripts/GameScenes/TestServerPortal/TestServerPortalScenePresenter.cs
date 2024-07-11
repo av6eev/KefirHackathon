@@ -1,4 +1,5 @@
 ﻿using InteractiveObjects.Portal;
+using LoadingScreen;
 
 namespace GameScenes.TestServerPortal
 {
@@ -15,7 +16,7 @@ namespace GameScenes.TestServerPortal
 
         protected override void AfterInit()
         {
-            Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
+            Presenters.Add(LoadingScreenMessageConst.PortalPresenter, new PortalPresenter(_gameModel, _view.PortalView));
         }
 
         protected override void AfterDispose()

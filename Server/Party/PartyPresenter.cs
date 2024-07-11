@@ -1,6 +1,4 @@
-﻿using Server.Party.Observers;
-using ServerCore.Main.Party;
-using ServerCore.Main.Utilities.Presenter;
+﻿using ServerCore.Main.Utilities.Presenter;
 
 namespace Server.Party;
 
@@ -9,8 +7,6 @@ public class PartyPresenter : IPresenter
     private readonly ServerGameModel _gameModel;
     private readonly PartyModel _model;
 
-    private readonly PresentersDictionary<string> _inviteObservers = new();
-    
     public PartyPresenter(ServerGameModel gameModel, PartyModel model)
     {
         _gameModel = gameModel;
@@ -19,26 +15,37 @@ public class PartyPresenter : IPresenter
 
     public void Init()
     {
-        _model.OnInviteCreated += HandleCreateInvite;
-        _model.OnInviteRemoved += HandleRemoveInvite;
+        _model.OnMemberAdded += HandleMemberAdd;
+        _model.OnMemberRemoved += HandleMemberRemove;
     }
 
     public void Dispose()
     {
-        _model.OnInviteCreated -= HandleCreateInvite;
-        _model.OnInviteRemoved -= HandleRemoveInvite;
+        _model.OnMemberAdded -= HandleMemberAdd;
+        _model.OnMemberRemoved -= HandleMemberRemove;
     }
 
-    private void HandleRemoveInvite(string invitedUserId)
+    private void HandleMemberAdd(string userNickname)
     {
-        _inviteObservers.Remove(invitedUserId);
-    }
-
-    private void HandleCreateInvite(PartyInviteData inviteData)
-    {
-        var observer = new PartyInviteDecisionObserver(_gameModel, inviteData);
-        observer.Init();
+        if (!_gameModel.UsersCollection.TryGetUserByNickname(userNickname, out var addedUserData)) return;
         
-        _inviteObservers.Add(inviteData.InvitedUserId.Value, observer);
+        foreach (var memberNickname in _model.Members)
+        {
+            addedUserData.PartyData.Members.Add(memberNickname);
+            
+            if (!_gameModel.UsersCollection.TryGetUserByNickname(memberNickname, out var memberUserData)) continue;
+            if (memberUserData.PartyData.Members.Contains(userNickname)) continue;
+            
+            memberUserData.PartyData.Members.Add(userNickname);
+        }
+    }
+
+    private void HandleMemberRemove(string userNickname)
+    {
+        foreach (var memberNickname in _model.Members)
+        {
+            if (!_gameModel.UsersCollection.TryGetUserByNickname(memberNickname, out var memberUserData)) continue;
+            memberUserData.PartyData.Members.Remove(userNickname);
+        }
     }
 }

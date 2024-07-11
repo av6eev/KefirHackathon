@@ -59,6 +59,20 @@ namespace ServerCore.Main.Users.Collection
             return false;
         }
 
+        public bool TryGetUserByNickname(string nickname, out UserData userData)
+        {
+            var users = UsersById.Values.Where(user => user.PlayerNickname.Value == nickname).ToList();
+            
+            if (users.Count > 0)
+            {
+                userData = users.First();
+                return true;
+            }
+
+            userData = null;
+            return false;
+        }
+
         public IEnumerable<UserData> GetUsers()
         {
             foreach (var user in UsersByPeer)

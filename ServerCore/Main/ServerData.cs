@@ -11,10 +11,11 @@ namespace ServerCore.Main
     public class ServerData : IServerData
     {
         public string Id { get; }
-        public bool IsDirty { get; private set; }
+        public bool IsDirty { get; protected internal set; }
         public bool IsNew { get; private set; } = true;
-        public Dictionary<string, IProperty> Properties { get; } = new();
-        public Dictionary<string, IServerData> Dataset = new();
+        
+        public readonly Dictionary<string, IProperty> Properties = new();
+        public readonly Dictionary<string, IServerData> Dataset = new();
 
         public ServerData(string id)
         {

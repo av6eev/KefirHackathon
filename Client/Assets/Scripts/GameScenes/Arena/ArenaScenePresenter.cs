@@ -3,6 +3,7 @@ using Entities.Enemy.Specification;
 using Entities.Player;
 using GameScenes.GameUI.DeBuffPanel;
 using InteractiveObjects.Portal;
+using LoadingScreen;
 using SceneManagement;
 using UnityEngine;
 
@@ -43,9 +44,9 @@ namespace GameScenes.Arena
                 _gameModel.EnemiesCollection.AddEnemy(enemySpecification, _gameModel.PlayerModel);
             }
             
-            Presenters.Add(new EnemiesCollectionPresenter(GameModel, (EnemiesCollection)_gameModel.EnemiesCollection, _view.EnemiesCollectionView));
-            Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
-            Presenters.Add(new DeBuffPenaltyPresenter(_gameModel));
+            Presenters.Add(LoadingScreenMessageConst.EnemiesCollectionPresenter, new EnemiesCollectionPresenter(GameModel, (EnemiesCollection)_gameModel.EnemiesCollection, _view.EnemiesCollectionView));
+            Presenters.Add(LoadingScreenMessageConst.PortalPresenter, new PortalPresenter(_gameModel, _view.PortalView));
+            Presenters.Add(LoadingScreenMessageConst.DeBuffPenaltyPresenter, new DeBuffPenaltyPresenter(_gameModel));
 
             _gameModel.QuestsCollection.AddQuest("first_quest");
             

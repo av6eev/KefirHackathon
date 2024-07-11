@@ -15,12 +15,14 @@ public class LoginCommandExecutor : CommandExecutor<LoginCommand>
         var playerId = Command.PlayerId;
         var serverData = new CharacterServerData
         {
-            PlayerId = { Value = playerId }
+            PlayerId = { Value = playerId },
+            PlayerNickname = { Value = Command.PlayerNickname }
         };
         var user = new UserData
         {
             Peer = Peer,
             PlayerId = { Value = playerId },
+            PlayerNickname = { Value = Command.PlayerNickname },
             WorldId = "hub",
             CurrentLocationId = { Value = "test_connection" },
             WorldFirstConnection = true

@@ -143,7 +143,7 @@ namespace ServerCore.Main.Property
         {
             Collection.Add(data);
             _addIndices.Add((ushort)Collection.IndexOf(data));
-            
+            IsDirty = true;
             
             OnAdd?.Invoke(data);
         }

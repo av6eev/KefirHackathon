@@ -13,10 +13,12 @@ namespace Input
         event Action OnDash;
         event Action<int> OnSkillUse;
         event Action OnAnyKey;
-        
+        event Action OnDebugPanelToggle;
+
         ReactiveField<bool> IsRun { get; }
         ReactiveField<Vector2> Direction { get; }
         Vector2 MouseDelta { get; }
+        Vector2 MousePosition { get; }
         ReactiveField<int> CurrentActiveSlot { get; }
     }
 }

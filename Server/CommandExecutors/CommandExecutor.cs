@@ -15,6 +15,6 @@ public abstract class CommandExecutor<T> : ICommandExecutor where T : BaseComman
         GameModel = gameModel;
         Peer = peer;
     }
-
+    
     public abstract void Execute();
 }

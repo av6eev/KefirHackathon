@@ -15,15 +15,5 @@ namespace Entities.Characters.Collection
             
             return model;
         }
-        
-        public void RemoveAll()
-        {
-            foreach (var id in new List<string>(Collection.Keys))
-            {
-                Remove(id);
-            }
-            
-            Collection.Clear();
-        }
     }
 }

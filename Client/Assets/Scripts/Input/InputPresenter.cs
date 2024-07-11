@@ -21,6 +21,7 @@ namespace Input
             _view.Initialize();
             
             _view.OnMouseMove += HandleMouseMoveInput;
+            _view.OnMousePositionChange += HandleMousePositionInput;
             _view.OnMoved += HandleMoveInput;
             _view.OnRun += HandleRunInput;
             _view.OnInteracted += HandleInteractInput;
@@ -28,6 +29,7 @@ namespace Input
             _view.OnAttack += HandleAttackInput;
             _view.OnDash += HandleDashInput;
             _view.OnAnyKey += HandleAnyKeyInput;
+            _view.OnDebugPanelToggled += HandleDebugPanelInput;
 
             _view.OnSkill1Toggled += HandleSkill1Input;
             _view.OnSkill2Toggled += HandleSkill2Input;
@@ -39,6 +41,7 @@ namespace Input
             _view.Dispose();
             
             _view.OnMouseMove -= HandleMouseMoveInput;
+            _view.OnMousePositionChange -= HandleMousePositionInput;
             _view.OnMoved -= HandleMoveInput;
             _view.OnRun -= HandleRunInput;
             _view.OnInteracted -= HandleInteractInput;
@@ -46,10 +49,21 @@ namespace Input
             _view.OnAttack -= HandleAttackInput;
             _view.OnDash -= HandleDashInput;
             _view.OnAnyKey -= HandleAnyKeyInput;
-
+            _view.OnDebugPanelToggled -= HandleDebugPanelInput;
+            
             _view.OnSkill1Toggled -= HandleSkill1Input;
             _view.OnSkill2Toggled -= HandleSkill2Input;
             _view.OnSkill3Toggled -= HandleSkill3Input;
+        }
+
+        private void HandleDebugPanelInput()
+        {
+            _model.ToggleDebugPanel();
+        }
+
+        private void HandleMousePositionInput(Vector2 newPosition)
+        {
+            _model.MousePosition = newPosition;
         }
 
         private void HandleAnyKeyInput()

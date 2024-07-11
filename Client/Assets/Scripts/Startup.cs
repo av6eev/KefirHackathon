@@ -10,6 +10,7 @@ using Input;
 using Inventory.Collection;
 using Loader.Object;
 using Loader.Scene;
+using LoadingScreen;
 using Presenter;
 using Quest.Collection;
 using Save.Single.Collection;
@@ -25,12 +26,14 @@ using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Updater;
 using Utilities.Initializer;
 using Utilities.Loader.Addressable;
 using Utilities.Loader.Addressable.Scene;
 using Utilities.Logger;
 using Logger = ServerCore.Main.Utilities.Logger.Logger;
+using Random = UnityEngine.Random;
 
 public class Startup : MonoBehaviour
 {
@@ -83,7 +86,7 @@ public class Startup : MonoBehaviour
             SkillPanelModel = new SkillPanelModel(specifications.SkillDeckSpecifications.GetSpecifications().First().Value, playerModel),
             CharactersCollection = new CharactersCollection(),
             WorldData = new WorldData(string.Empty),
-            ServerConnectionModel = serverConnectionModel
+            ServerConnectionModel = serverConnectionModel,
         };
         
         Library.Initialize();
@@ -95,6 +98,7 @@ public class Startup : MonoBehaviour
         await serverConnectionModel.CompletePlayerConnectAwaiter;
             
         playerModel.Id = Guid.NewGuid().ToString();
+        playerModel.Nickname = "nickname_" + Random.Range(1, 10000);
             
         _gameModel.SaveSingleModelCollection.Add(playerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
@@ -114,7 +118,7 @@ public class Startup : MonoBehaviour
         
         _presenters.Add(serverConnectionPresenter);
         
-        var command = new LoginCommand(playerModel.Id);
+        var command = new LoginCommand(playerModel.Id, playerModel.Nickname);
         command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
         
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
