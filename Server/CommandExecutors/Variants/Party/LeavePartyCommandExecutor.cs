@@ -14,6 +14,6 @@ public class LeavePartyCommandExecutor : CommandExecutor<LeavePartyCommand>
         if (!GameModel.UsersCollection.TryGetUser(Command.UserId, out var userData)) return;
         if (!GameModel.PartiesCollection.TryGetParty(Command.PartyId, out var partyModel)) return;
         
-        partyModel.RemoveMember(userData.PlayerNickname.Value);
+        partyModel.RemoveMember(userData.PlayerNickname);
     }
 }

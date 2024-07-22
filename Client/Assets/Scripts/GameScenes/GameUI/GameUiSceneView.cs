@@ -1,6 +1,8 @@
 ﻿using Dialogs.Collection;
 using GameScenes.GameUI.DeBuffPanel;
 using GameScenes.GameUI.DebugPanel;
+using GameScenes.GameUI.EnterNicknamePanel;
+using GameScenes.GameUI.FriendsPanel;
 using GameScenes.GameUI.PartyPanel;
 using GameScenes.GameUI.QuestPanel;
 using Item.ItemPlaceholder;
@@ -22,5 +24,7 @@ namespace GameScenes.GameUI
         public DebugPanelView DebugPanelView;
         public LoadingScreenView LoadingScreenView;
         public PartyPanelView PartyPanelView;
+        public FriendsPanelView FriendsPanelView;
+        public EnterNicknamePanelView EnterNicknamePanelView;
     }
 }

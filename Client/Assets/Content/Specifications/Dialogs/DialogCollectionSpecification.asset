@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: DialogCollectionSpecification
   m_EditorClassIdentifier: 
   Collection:
-  - {fileID: 11400000, guid: 38030e99ca54b494dbf8d47b64f0f9be, type: 2}
   - {fileID: 11400000, guid: 3c66ded565f889142a13744544b898be, type: 2}
+  - {fileID: 11400000, guid: c1561212520baf44792a4f7d226f2506, type: 2}
+  - {fileID: 11400000, guid: 1efcea19316cf894e8f53500f9522033, type: 2}
+  - {fileID: 11400000, guid: 63ef6e6e8ab4cc24c9e2e04c465238df, type: 2}

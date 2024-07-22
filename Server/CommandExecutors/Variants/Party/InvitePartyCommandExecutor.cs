@@ -15,25 +15,25 @@ public class InvitePartyCommandExecutor : CommandExecutor<InvitePartyCommand>
     {
         if (!GameModel.UsersCollection.TryGetUser(Command.FromUserId, out var fromUser)) return;
         if (!GameModel.UsersCollection.TryGetUser(Command.InvitedUserId, out var invitedUser)) return;
-        if (fromUser.Invites.Collection.ContainsKey(invitedUser.PlayerId.Value)) return;
+        if (fromUser.UserData.PartyInvites.Collection.ContainsKey(invitedUser.PlayerId)) return;
 
         PartyInviteData inviteData;
         
         //проверить у отправляющего игрока существование пати
-        if (fromUser.PartyData.InParty.Value)
+        if (fromUser.UserData.PartyData.InParty.Value)
         {
             //если есть, то достаем это пати из коллекции пати и добавляем туда инвайт приглашенному игроку
-            if (!GameModel.PartiesCollection.TryGetParty(fromUser.PartyData.Guid.Value, out var party)) return;
+            if (!GameModel.PartiesCollection.TryGetParty(fromUser.UserData.PartyData.Guid.Value, out var party)) return;
             
             // inviteData = party.CreateInvite(fromUser.PlayerId.Value, invitedUser.PlayerId.Value);
 
             inviteData = new PartyInviteData();
             
-            Logger.Instance.Log($"User {fromUser.PlayerId.Value} already in party: {party.Guid}");
+            Logger.Instance.Log($"User {fromUser.PlayerId} already in party: {party.Guid}");
         }
         else
         {
-            var inviteModel = GameModel.PartyInviteCollection.CreateInvite(fromUser.PlayerId.Value, fromUser.PlayerNickname.Value ,invitedUser.PlayerId.Value);
+            var inviteModel = GameModel.PartyInviteCollection.CreateInvite(fromUser.PlayerId, fromUser.PlayerNickname, invitedUser.PlayerId);
             
             inviteData = new PartyInviteData
             {
@@ -45,6 +45,6 @@ public class InvitePartyCommandExecutor : CommandExecutor<InvitePartyCommand>
         }
         
         //приглашенному игроку в патиинвайтдату этот инвайт
-        invitedUser.Invites.Add(inviteData.InviteId.Value, inviteData);
+        invitedUser.UserData.PartyInvites.Add(inviteData.InviteId.Value, inviteData);
     }
 }

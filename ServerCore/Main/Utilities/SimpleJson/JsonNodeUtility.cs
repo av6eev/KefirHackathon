@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ServerCore.Main.Utilities.SimpleJson
 {
@@ -19,6 +20,10 @@ namespace ServerCore.Main.Utilities.SimpleJson
             }
 
             return result;
+        }
+        public static List<object> GetList(this IDictionary<string, object> node, string key)
+        {
+            return ((object[])node[key]).ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Entities.Player
         private readonly IGameModel _gameModel;
         private readonly IPlayerModel _model;
         private readonly PlayerMainResourceView _view;
-
+        
         public PlayerHealthPresenter(IGameModel gameModel, IPlayerModel model, PlayerMainResourceView view)
         {
             _gameModel = gameModel;

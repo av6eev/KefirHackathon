@@ -22,8 +22,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8bed470024a610c4eb8e046b9a5a950d
-    m_Address: party_invite_dialog
+  - m_GUID: dbee85934aa7d074c9141d4a8d909319
+    m_Address: character_select_actions_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c97d346de6ab78f46a9dfcdfba02bf06
+    m_Address: friends_decision_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85b076f1afa62734a84b9567f4402e3b
+    m_Address: character_select_dialog
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

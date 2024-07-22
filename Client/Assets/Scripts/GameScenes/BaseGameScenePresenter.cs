@@ -48,11 +48,13 @@ namespace GameScenes
             await Task.Delay(1500);
             
             GameModel.LoadingScreenModel.Hide();
+            GameModel.InputModel.Enable();
         }
 
         public void Dispose()
         {
             GameModel.LoadingScreenModel.Show();
+            GameModel.InputModel.Disable();
 
             foreach (var presenter in Presenters.Values)
             {

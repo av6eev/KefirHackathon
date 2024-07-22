@@ -19,6 +19,8 @@ namespace Input
         public void Init()
         {
             _view.Initialize();
+
+            _model.IsEnable.OnChanged += HandleStateChange;
             
             _view.OnMouseMove += HandleMouseMoveInput;
             _view.OnMousePositionChange += HandleMousePositionInput;
@@ -30,6 +32,7 @@ namespace Input
             _view.OnDash += HandleDashInput;
             _view.OnAnyKey += HandleAnyKeyInput;
             _view.OnDebugPanelToggled += HandleDebugPanelInput;
+            _view.OnFriendsPanelToggled += HandleFriendsPanelInput;
 
             _view.OnSkill1Toggled += HandleSkill1Input;
             _view.OnSkill2Toggled += HandleSkill2Input;
@@ -39,6 +42,8 @@ namespace Input
         public void Dispose()
         {
             _view.Dispose();
+            
+            _model.IsEnable.OnChanged -= HandleStateChange;
             
             _view.OnMouseMove -= HandleMouseMoveInput;
             _view.OnMousePositionChange -= HandleMousePositionInput;
@@ -50,10 +55,32 @@ namespace Input
             _view.OnDash -= HandleDashInput;
             _view.OnAnyKey -= HandleAnyKeyInput;
             _view.OnDebugPanelToggled -= HandleDebugPanelInput;
+            _view.OnFriendsPanelToggled -= HandleFriendsPanelInput;
             
             _view.OnSkill1Toggled -= HandleSkill1Input;
             _view.OnSkill2Toggled -= HandleSkill2Input;
             _view.OnSkill3Toggled -= HandleSkill3Input;
+        }
+
+        private void HandleStateChange(bool newValue, bool oldValue)
+        {
+            var playerActionMap = _view.PlayerInputAsset.FindActionMap("Player");
+
+            if (newValue)
+            {
+                playerActionMap.Enable();
+                Debug.Log("enabled");
+            }
+            else
+            {
+                Debug.Log("disabled");
+                playerActionMap.Disable();
+            }
+        }
+
+        private void HandleFriendsPanelInput()
+        {
+            _model.ToggleFriendsPanel();
         }
 
         private void HandleDebugPanelInput()

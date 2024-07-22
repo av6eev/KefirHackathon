@@ -49,11 +49,11 @@ namespace Specifications
             await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<SkillDeckSpecification>(loadObjectsModel, "skill_decks", SkillDeckSpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<DeBuffSpecification>(loadObjectsModel, "de_buffs", DeBuffSpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<QuestSpecification>(loadObjectsModel, "quests", QuestSpecifications).LoadAwaiter;
+            await new LoadAssetsSpecificationsWrapper<DialogSpecification>(loadObjectsModel, "dialogs", DialogSpecifications).LoadAwaiter;
             await new LoadAssetsSpecificationsWrapper<BaseDemandSpecification>(loadObjectsModel, "demands", DemandSpecifications).LoadAwaiter;
             await new LoadAssetsSpecificationsWrapper<BaseRewardSpecification>(loadObjectsModel, "rewards", RewardSpecifications).LoadAwaiter;
-            await new LoadSpecificationsWrapper<QuestSpecification>(loadObjectsModel, "quests", QuestSpecifications).LoadAwaiter;
-            await new LoadSpecificationsWrapper<DialogSpecification>(loadObjectsModel, "dialogs", DialogSpecifications).LoadAwaiter;
-            
+
             LoadAwaiter.Complete();
         }
     }

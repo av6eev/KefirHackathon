@@ -23,12 +23,12 @@ namespace Entities.Player
         {
             _decisionDialogModel = new PlayerPartyDecisionDialogModel(_gameModel.Specifications.DialogSpecifications[CharacterPartyDecisionDialogSpecificationId]);
             
-            _model.UserData.Invites.OnAdd += HandlePartyInvite;
+            _model.UserData.PartyInvites.OnAdd += HandlePartyInvite;
         }
 
         public void Dispose()
         {
-            _model.UserData.Invites.OnAdd -= HandlePartyInvite;
+            _model.UserData.PartyInvites.OnAdd -= HandlePartyInvite;
         }
 
         private void HandlePartyInvite(PartyInviteData inviteData)

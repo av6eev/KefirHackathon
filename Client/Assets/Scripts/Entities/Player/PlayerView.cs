@@ -1,11 +1,10 @@
 ﻿using System;
 using Entities.Player.Dialog;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Entities.Player
 {
-    public class PlayerView : EntityView, IPlayerView, IPointerClickHandler
+    public class PlayerView : EntityView, IPlayerView
     {
         public PlayerDialogView DialogView;
         public event Action OnDamage;
@@ -33,12 +32,6 @@ namespace Entities.Player
                 OnDamage?.Invoke();
                 Destroy(other.gameObject);
             }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Debug.Log("CLICK FROM PLAYER VIEW");
-            OnClick?.Invoke();
         }
     }
 }

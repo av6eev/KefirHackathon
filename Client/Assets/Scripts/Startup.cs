@@ -6,6 +6,7 @@ using Entities.Characters.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
+using GameScenes.GameUI.EnterNicknamePanel;
 using Input;
 using Inventory.Collection;
 using Loader.Object;
@@ -19,14 +20,12 @@ using SceneManagement.Collection;
 using ServerCore.Main;
 using ServerCore.Main.Commands;
 using ServerCore.Main.Specifications;
-using ServerCore.Main.Users;
 using ServerCore.Main.Utilities.LoadWrapper.Json;
 using ServerCore.Main.World;
 using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Updater;
 using Utilities.Initializer;
 using Utilities.Loader.Addressable;
@@ -87,6 +86,8 @@ public class Startup : MonoBehaviour
             CharactersCollection = new CharactersCollection(),
             WorldData = new WorldData(string.Empty),
             ServerConnectionModel = serverConnectionModel,
+            EnterNicknamePanelModel = new EnterNicknamePanelModel(),
+            LoadingScreenModel = new LoadingScreenModel(false)
         };
         
         Library.Initialize();
@@ -96,9 +97,6 @@ public class Startup : MonoBehaviour
             
         serverConnectionModel.ConnectPlayer();
         await serverConnectionModel.CompletePlayerConnectAwaiter;
-            
-        playerModel.Id = Guid.NewGuid().ToString();
-        playerModel.Nickname = "nickname_" + Random.Range(1, 10000);
             
         _gameModel.SaveSingleModelCollection.Add(playerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
@@ -118,10 +116,33 @@ public class Startup : MonoBehaviour
         
         _presenters.Add(serverConnectionPresenter);
         
+        _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
+
+        var enterNicknamePanelModel = _gameModel.EnterNicknamePanelModel;
+        
+        if (PlayerPrefs.GetString("nickname") == string.Empty && PlayerPrefs.GetString("id") == string.Empty)
+        {
+            enterNicknamePanelModel.Show();
+            await enterNicknamePanelModel.ConfirmAwaiter;
+            
+            playerModel.Id = Guid.NewGuid().ToString();
+            playerModel.Nickname = enterNicknamePanelModel.InputNickname;
+            
+            PlayerPrefs.SetString("nickname", enterNicknamePanelModel.InputNickname);
+            PlayerPrefs.SetString("id", playerModel.Id);
+        }
+        else
+        {
+            playerModel.Nickname = PlayerPrefs.GetString("nickname");
+            playerModel.Id = PlayerPrefs.GetString("id");
+            
+            enterNicknamePanelModel.Hide();
+        }
+
+        _gameModel.LoadingScreenModel.Show();
+        
         var command = new LoginCommand(playerModel.Id, playerModel.Nickname);
         command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
-        
-        _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
     }
 
     private void Update()
@@ -147,5 +168,7 @@ public class Startup : MonoBehaviour
         _updatersList.Clear();
         _fixedUpdatersList.Clear();
         _lateUpdatersList.Clear();
+        
+        _gameModel.ServerConnectionModel.PlayerPeer.DisconnectNow(0);
     }
 }

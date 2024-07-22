@@ -1,5 +1,4 @@
 ﻿using Entities.Characters.Animator;
-using Entities.Characters.Dialogs.Party;
 using Entities.Characters.Physics;
 using Entities.Player;
 using Loader.Object;
@@ -34,10 +33,11 @@ namespace Entities.Characters
 
             var component = _loadObjectModel.Result.GetComponent<PlayerView>();
             _view = Object.Instantiate(component, _root);
-            _view.gameObject.name = _model.ServerData.PlayerId.Value;
+            
+            _view.NicknameText.text = _model.ServerData.PlayerNickname.Value;
 
             _presenters.Add(new CharacterAnimatorPresenter(_gameModel, _model, _view));
-            _presenters.Add(new CharacterBodyClickPresenter(_gameModel, _model, _view));
+            _presenters.Add(new CharacterSelectPresenter(_gameModel, _model, _view));
             _presenters.Init();
             
             _updater = new CharacterPhysicsUpdater(_model, _view);

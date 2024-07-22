@@ -19,6 +19,7 @@ namespace Input
         public event Action OnSkill3Toggled;
         public event Action OnAnyKey;
         public event Action OnDebugPanelToggled;
+        public event Action OnFriendsPanelToggled; 
 
         public InputActionAsset PlayerInputAsset;
 
@@ -37,6 +38,7 @@ namespace Input
             PlayerInputAsset["Dash"].performed += OnDashInput;
             PlayerInputAsset["Any"].performed += OnAnyKeyInput;
             PlayerInputAsset["DebugPanel"].performed += OnDebugPanelInput;
+            PlayerInputAsset["FriendsPanel"].performed += OnFriendsPanelInput;
             
             PlayerInputAsset["Skill1"].performed += OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed += OnSkill2InputPerformed;
@@ -58,12 +60,14 @@ namespace Input
             PlayerInputAsset["Dash"].performed -= OnDashInput;
             PlayerInputAsset["Any"].performed -= OnAnyKeyInput;
             PlayerInputAsset["DebugPanel"].performed -= OnDebugPanelInput;
+            PlayerInputAsset["FriendsPanel"].performed -= OnFriendsPanelInput;
 
             PlayerInputAsset["Skill1"].performed -= OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed -= OnSkill2InputPerformed;
             PlayerInputAsset["Skill3"].performed -= OnSkill3InputPerformed;
         }
 
+        private void OnFriendsPanelInput(InputAction.CallbackContext ctx) => OnFriendsPanelToggled?.Invoke();
         private void OnDebugPanelInput(InputAction.CallbackContext ctx) => OnDebugPanelToggled?.Invoke();
         private void OnMousePositionInput(InputAction.CallbackContext ctx) => OnMousePositionChange?.Invoke(ctx.ReadValue<Vector2>());
         private void OnAnyKeyInput(InputAction.CallbackContext ctx) => OnAnyKey?.Invoke();

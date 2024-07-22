@@ -6,6 +6,7 @@ using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
 using GameScenes.GameUI.DebugPanel;
+using GameScenes.GameUI.EnterNicknamePanel;
 using Input;
 using Inventory.Collection;
 using Item.ItemPlaceholder;
@@ -42,6 +43,7 @@ public class GameModel : IGameModel
     public IEnemiesCollection EnemiesCollection { get; set; }
     public SkillPanelModel SkillPanelModel { get; set; }
     public DebugPanelModel DebugPanelModel { get; set; }
+    public EnterNicknamePanelModel EnterNicknamePanelModel { get; set; }
     public IDeBuffsCollection DeBuffsCollection { get; set; }
     public PlayerDialogModel PlayerDialogModel { get; set; }
     public QuestsCollection QuestsCollection { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Entities.Specification;
 using ServerCore.Main;
 using Utilities.ModelCollection;
@@ -14,6 +15,20 @@ namespace Entities.Characters.Collection
             Add(serverData.PlayerId.Value, model);
             
             return model;
+        }
+
+        public bool TryGetByNickname(string nickname, out CharacterModel characterModel)
+        {
+            var character = Collection.Values.Where(element => element.ServerData.PlayerNickname.Value == nickname).ToList();
+            
+            if (character.Any())
+            {
+                characterModel = character.First();
+                return true;
+            }
+
+            characterModel = default;
+            return false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Presenter;
 using ServerCore.Main;
+using ServerCore.Main.Utilities;
 using ServerManagement.Test.Player;
 using Updater;
 
@@ -35,12 +36,12 @@ namespace ServerManagement.Test
         private void HandlePlayerConnect()
         {
             var address = new Address();
-            address.SetHost(ServerConnectionConst.LocalIp);
-            address.Port = ServerConnectionConst.PlayerPort;
+            address.SetHost(ServerConst.LocalIp);
+            address.Port = ServerConst.PlayerPort;
 
             _model.PlayerHost = new Host();
             _model.PlayerHost.Create();
-            _model.PlayerPeer = _model.PlayerHost.Connect(address, ServerConnectionConst.MaxChannels);
+            _model.PlayerPeer = _model.PlayerHost.Connect(address, ServerConst.MaxChannels);
 
             _playerConnectionUpdater = new ServerPlayerConnectionUpdater(_gameModel);
             _networkUpdaters.UpdatersList.Add(_playerConnectionUpdater);

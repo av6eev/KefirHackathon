@@ -29,7 +29,7 @@ public class PartyInvitePresenter : IPresenter
         _timer.AutoReset = false;
         _timer.Start();
         
-        Logger.Instance.Log($"Invite: {_model.InviteId} enable timer!");
+        Logger.Instance.Log($"Party invite: {_model.InviteId} enable timer!");
     }
 
     public void Dispose()
@@ -37,13 +37,13 @@ public class PartyInvitePresenter : IPresenter
         _timer.Stop();
         _model.OnDecided -= HandleDecision;
         
-        Logger.Instance.Log($"Invite: {_model.InviteId} has been disposed!");
+        Logger.Instance.Log($"Party invite: {_model.InviteId} has been disposed!");
     }
     
     private void HandleTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         _gameModel.PartyInviteCollection.RemoveInvite(_model.InviteId);
-        Logger.Instance.Log($"Party: {_model.InviteId} has been disposed by timer!");
+        Logger.Instance.Log($"Party invite: {_model.InviteId} has been disposed by timer!");
     }
 
     private void HandleDecision(bool result)
@@ -55,47 +55,38 @@ public class PartyInvitePresenter : IPresenter
 
         if (result)
         {
-            if (!fromUser.PartyData.InParty.Value)
+            if (!fromUser.UserData.PartyData.InParty.Value)
             {
-                var newPartyModel = _gameModel.PartiesCollection.Create(fromUser.PlayerId.Value, fromUser.PlayerNickname.Value);
+                var newPartyModel = _gameModel.PartiesCollection.Create(fromUser.PlayerId, fromUser.PlayerNickname);
 
-                fromUser.PartyData.Guid.Value = newPartyModel.Guid;
-                fromUser.PartyData.OwnerId.Value = newPartyModel.OwnerId;
-                fromUser.PartyData.OwnerNickname.Value = newPartyModel.OwnerNickname;
-                fromUser.PartyData.InParty.Value = true;
-                // fromUser.PartyData.Members.Add(fromUser.PlayerNickname.Value);
-                // fromUser.PartyData.Members.Add(invitedUser.PlayerNickname.Value);
+                fromUser.UserData.PartyData.Guid.Value = newPartyModel.Guid;
+                fromUser.UserData.PartyData.OwnerId.Value = newPartyModel.OwnerId;
+                fromUser.UserData.PartyData.OwnerNickname.Value = newPartyModel.OwnerNickname;
+                fromUser.UserData.PartyData.InParty.Value = true;
 
-                invitedUser.PartyData.Guid.Value = newPartyModel.Guid;
-                invitedUser.PartyData.OwnerId.Value = newPartyModel.OwnerId;
-                invitedUser.PartyData.OwnerNickname.Value = newPartyModel.OwnerNickname;
-                invitedUser.PartyData.InParty.Value = true;
-                // invitedUser.PartyData.Members.Add(fromUser.PlayerNickname.Value);
-                // invitedUser.PartyData.Members.Add(invitedUser.PlayerNickname.Value);
-
-                // foreach (var nickname in newPartyModel.Members) 
-                // {
-                //     fromUser.PartyData.Members.Add(nickname);
-                //     invitedUser.PartyData.Members.Add(nickname);
-                // }
+                invitedUser.UserData.PartyData.Guid.Value = newPartyModel.Guid;
+                invitedUser.UserData.PartyData.OwnerId.Value = newPartyModel.OwnerId;
+                invitedUser.UserData.PartyData.OwnerNickname.Value = newPartyModel.OwnerNickname;
+                invitedUser.UserData.PartyData.InParty.Value = true;
+             
                 
-                newPartyModel.AddMember(fromUser.PlayerNickname.Value);
-                newPartyModel.AddMember(invitedUser.PlayerNickname.Value);
+                newPartyModel.AddMember(fromUser.PlayerNickname);
+                newPartyModel.AddMember(invitedUser.PlayerNickname);
                 
                 //TODO: causes bug, need to fix
                 // invitedUser.Invites.Remove(_model.InviteId);
             
-                Logger.Instance.Log($"Party: {newPartyModel.Guid} created from user: {fromUser.PlayerId.Value}");
-                Logger.Instance.Log($"User: {invitedUser.PlayerId.Value} accepted invite and added to party: {newPartyModel.Guid}");
+                Logger.Instance.Log($"Party: {newPartyModel.Guid} created from user: {fromUser.PlayerId}");
+                Logger.Instance.Log($"User: {invitedUser.PlayerId} accepted invite and added to party: {newPartyModel.Guid}");
             }
         }
         else
         {
-            invitedUser.Invites.Remove(_model.InviteId);
+            invitedUser.UserData.PartyInvites.Remove(_model.InviteId);
             
             _gameModel.PartyInviteCollection.RemoveInvite(_model.InviteId);
 
-            Logger.Instance.Log($"User: {invitedUser.PlayerId.Value} declined invite: {_model.InviteId}");
+            Logger.Instance.Log($"User: {invitedUser.PlayerId} declined invite: {_model.InviteId}");
         }
     }
 }

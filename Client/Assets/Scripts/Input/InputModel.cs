@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Reactive.Event;
 using Reactive.Field;
 using UnityEngine;
 
@@ -15,7 +16,9 @@ namespace Input
         public event Action<int> OnSkillUse;
         public event Action OnAnyKey;
         public event Action OnDebugPanelToggle;
+        public event Action OnFriendsPanelToggle;
 
+        public ReactiveField<bool> IsEnable { get; } = new(true);
         public Vector2 MouseDelta { get; set; }
         public Vector2 MousePosition { get; set; }
         public ReactiveField<Vector2> Direction { get; } = new();
@@ -44,6 +47,16 @@ namespace Input
             OnSlotStateChanged?.Invoke(index, _slotStates[index]);
         }
 
+        public void Enable()
+        {
+            IsEnable.Value = true;
+        }
+        
+        public void Disable()
+        {
+            IsEnable.Value = false;
+        }
+        
         public void UseSkill(int index)
         {
             OnSkillUse?.Invoke(index);
@@ -77,6 +90,11 @@ namespace Input
         public void ToggleDebugPanel()
         {
             OnDebugPanelToggle?.Invoke();
+        }
+
+        public void ToggleFriendsPanel()
+        {
+            OnFriendsPanelToggle?.Invoke();
         }
     }
 }
