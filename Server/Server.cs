@@ -2,6 +2,9 @@
 using Server.Party.Collection;
 using Server.Party.Invite.Collection;
 using Server.Save.Single.Collection;
+using Server.Services;
+using Server.Services.Collection;
+using Server.Services.Friends;
 using Server.Users.Collection;
 using Server.World.Collection;
 using ServerCore.Main;
@@ -37,9 +40,13 @@ public class Server
             WorldsCollection = new WorldsCollection(),
             PartiesCollection = new PartiesCollection(),
             PartyInviteCollection = new PartyInviteCollection(),
-            SaveSingleModelCollection = new SaveSingleModelCollection()
+            SaveSingleModelCollection = new SaveSingleModelCollection(),
+            ServicesCollection = new ServicesCollection()
         };
         
+        gameModel.ServicesCollection.Register(new FriendsServiceModel());
+        
+        _presenters.Add(new ServicesCollectionPresenter(gameModel, (ServicesCollection)gameModel.ServicesCollection));
         _presenters.Add(new UsersCollectionPresenter(gameModel, (UsersCollection)gameModel.UsersCollection));
         _presenters.Add(new PartiesCollectionPresenter(gameModel, gameModel.PartiesCollection));
         _presenters.Add(new PartyInviteCollectionPresenter(gameModel, (PartyInviteCollection)gameModel.PartyInviteCollection));

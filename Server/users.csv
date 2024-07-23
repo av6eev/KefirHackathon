@@ -1,3 +1,3 @@
 id;nickname;is_online;friends
-1db53276-0d89-4eb3-81d7-c625d0e2662d;build;True;["phyz"]
-3dc07b73-98f2-4fa7-8b61-b85242c3b015;phyz;True;["build"]
+1db53276-0d89-4eb3-81d7-c625d0e2662d;build;False;["phyz"]
+3dc07b73-98f2-4fa7-8b61-b85242c3b015;phyz;False;["build"]

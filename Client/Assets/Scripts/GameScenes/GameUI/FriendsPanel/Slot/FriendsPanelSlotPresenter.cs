@@ -24,7 +24,7 @@ namespace GameScenes.GameUI.FriendsPanel.Slot
         {
             _view = Object.Instantiate(_slotPrefab, _contentRoot);
             _view.PlayerNameText.text = _model.UserName;
-            HandleStatusChange(false, false);
+            HandleStatusChange(_model.IsOnline.Value, false);
             
             _model.IsOnline.OnChanged += HandleStatusChange;
         }

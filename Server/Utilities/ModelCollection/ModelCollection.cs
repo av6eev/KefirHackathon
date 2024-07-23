@@ -34,7 +34,7 @@ namespace Server.Utilities.ModelCollection
         {
             return Collection[index];
         }
-        
+
         public IEnumerable<T> GetModels()
         {
             foreach (var element in Collection)
@@ -43,6 +43,8 @@ namespace Server.Utilities.ModelCollection
             }
         }
 
+        public bool Contains(T value) => Collection.Contains(value); 
+        
         public void Clear()
         {
             foreach (var model in Collection)
@@ -83,6 +85,18 @@ namespace Server.Utilities.ModelCollection
         public TValue GetModel(TKey key)
         {
             return Collection[key];
+        }
+
+        public bool TryGetModel(TKey key, out TValue model)
+        {
+            if (Collection.TryGetValue(key, out var resultModel))
+            {
+                model = resultModel;
+                return true;
+            }
+
+            model = default;
+            return false;
         }
 
         public IEnumerable<TValue> GetModels()

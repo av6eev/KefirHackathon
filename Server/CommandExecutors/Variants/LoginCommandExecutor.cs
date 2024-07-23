@@ -1,4 +1,6 @@
-﻿using ServerCore.Main;
+﻿using Server.Services;
+using Server.Services.Friends;
+using ServerCore.Main;
 using ServerCore.Main.Commands;
 
 namespace Server.CommandExecutors.Variants;
@@ -30,5 +32,7 @@ public class LoginCommandExecutor : CommandExecutor<LoginCommand>
         {
             Console.WriteLine($"No world with id {userModel.WorldId} was found!");
         }
+        
+        GameModel.ServicesCollection.Get<FriendsServiceModel>(ServiceType.Friends).Add(userModel);
     }
 }

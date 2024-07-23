@@ -61,6 +61,8 @@ namespace GameScenes.GameUI.DebugPanel
             builder.AddField("in_party", () => _gameModel.PlayerModel.UserData.PartyData.InParty.Value);
             builder.AddField("party_members_count", () => _gameModel.PlayerModel.UserData.PartyData.Members.Collection.Count);
             builder.AddField("world_players_count", () => _gameModel.WorldData.CharacterDataCollection.Collection.Count);
+            builder.AddField("friends_count", () => _gameModel.PlayerModel.UserData.FriendsData.Friends.Collection.Count);
+            builder.AddField("online_friends_count", () => _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.Collection.Count);
             builder.BuildWith(_view.UIDocument);
         }
     }

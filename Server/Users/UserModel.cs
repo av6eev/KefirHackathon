@@ -93,7 +93,6 @@ public class UserModel : INotifySaveModel
     {
         PlayerId = nodes.GetString("id");
         PlayerNickname = nodes.GetString("nickname");
-        IsOnline = nodes.GetBoolean("is_online");
 
         var friendsData = JsonConvert.DeserializeObject<List<object>>(nodes.GetString("friends"));
         

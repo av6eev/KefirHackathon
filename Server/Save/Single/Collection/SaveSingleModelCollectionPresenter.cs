@@ -7,7 +7,7 @@ namespace Server.Save.Single.Collection
         private readonly ServerGameModel _gameModel;
         private readonly SaveSingleModelCollection _collection;
 
-        private readonly PresentersList _presenters = new();
+        private readonly PresentersDictionary<SaveSingleModel> _presenters = new();
 
         public SaveSingleModelCollectionPresenter(ServerGameModel gameModel, SaveSingleModelCollection collection)
         {
@@ -19,12 +19,11 @@ namespace Server.Save.Single.Collection
         {
             foreach (var model in _collection.GetModels())    
             {
-                var presenter = new SaveSinglePresenter(_gameModel, _collection, model);
-                presenter.Init();
-                _presenters.Add(presenter);
+                HandleAdd(model);
             }
 
             _collection.AddEvent.OnChanged += HandleAdd;
+            _collection.RemoveEvent.OnChanged += HandleRemove;
         }
 
         public void Dispose()
@@ -33,13 +32,19 @@ namespace Server.Save.Single.Collection
             _presenters.Clear();
             
             _collection.AddEvent.OnChanged -= HandleAdd;
+            _collection.RemoveEvent.OnChanged -= HandleRemove;
         }
 
         private void HandleAdd(SaveSingleModel model)
         {
             var presenter = new SaveSinglePresenter(_gameModel, _collection, model);
             presenter.Init();
-            _presenters.Add(presenter);
+            _presenters.Add(model, presenter);
+        }
+
+        private void HandleRemove(SaveSingleModel model)
+        {
+            _presenters.Remove(model);
         }
     }
 }

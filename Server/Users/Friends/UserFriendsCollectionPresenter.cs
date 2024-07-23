@@ -20,16 +20,16 @@ public class UserFriendsCollectionPresenter : IPresenter
     {
         _collection.ChangeEvent.OnChanged += HandleCollectionChange;
 
-        _collection.OnInviteCreated += HandleFriendInviteCreated;
-        _collection.OnInviteRemoved += HandleFriendInviteRemoved;
+        _collection.Invites.AddEvent.OnChanged += HandleFriendInviteCreated;
+        _collection.Invites.RemoveEvent.OnChanged += HandleFriendInviteRemoved;
     }
 
     public void Dispose()
     {
         _collection.ChangeEvent.OnChanged -= HandleCollectionChange;
 
-        _collection.OnInviteCreated -= HandleFriendInviteCreated;
-        _collection.OnInviteRemoved -= HandleFriendInviteRemoved;
+        _collection.Invites.AddEvent.OnChanged -= HandleFriendInviteCreated;
+        _collection.Invites.RemoveEvent.OnChanged -= HandleFriendInviteRemoved;
     }
 
     private void HandleCollectionChange()

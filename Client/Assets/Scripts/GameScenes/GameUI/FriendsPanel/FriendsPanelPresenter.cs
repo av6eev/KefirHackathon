@@ -26,9 +26,11 @@ namespace GameScenes.GameUI.FriendsPanel
             
             _gameModel.PlayerModel.UserData.FriendsData.Friends.OnAdd += HandleAddMember;
             _gameModel.PlayerModel.UserData.FriendsData.Friends.OnRemove += HandleRemoveMember;
-            
+
+            _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.OnAdd += HandleFriendConnect;
+            _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.OnRemove += HandleFriendDisconnect;
+
             _gameModel.InputModel.OnFriendsPanelToggle += HandleStateChange;
-            //TODO: handle friend disconnect
         }
 
         public void Dispose()
@@ -36,14 +38,37 @@ namespace GameScenes.GameUI.FriendsPanel
             _gameModel.PlayerModel.UserData.FriendsData.Friends.OnAdd -= HandleAddMember;
             _gameModel.PlayerModel.UserData.FriendsData.Friends.OnRemove -= HandleRemoveMember;
             
+            _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.OnAdd -= HandleFriendConnect;
+            _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.OnRemove -= HandleFriendDisconnect;
+            
             _gameModel.InputModel.OnFriendsPanelToggle -= HandleStateChange;
         }
-        
+
+        private void HandleFriendConnect(string nickname)
+        {
+            if (!_model.IsOpen) return;
+
+            if (_model.SlotModels.TryGetValue(nickname, out var slotModel))
+            {
+                slotModel.IsOnline.Value = true;
+            }
+        }
+
+        private void HandleFriendDisconnect(string nickname)
+        {
+            if (!_model.IsOpen) return;
+            
+            if (_model.SlotModels.TryGetValue(nickname, out var slotModel))
+            {
+                slotModel.IsOnline.Value = false;
+            }
+        }
+
         private void HandleAddMember(string nickname)
         {
             if (!_model.IsOpen) return;
 
-            var isOnline = _gameModel.CharactersCollection.TryGetByNickname(nickname, out var characterModel);
+            var isOnline = _gameModel.PlayerModel.UserData.FriendsData.OnlineFriends.Contains(nickname);
             var model = new FriendsPanelSlotModel(nickname, isOnline);
             var presenter = new FriendsPanelSlotPresenter(_gameModel, model, _view.ContentRoot, _view.SlotPrefab);
             presenter.Init();

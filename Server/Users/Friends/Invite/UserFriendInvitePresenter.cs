@@ -57,8 +57,8 @@ public class UserFriendInvitePresenter : IPresenter
 
         if (decision)
         {
-            fromUser.FriendsCollection.Add(invitedUser.PlayerNickname);
-            invitedUser.FriendsCollection.Add(fromUser.PlayerNickname);
+            fromUser.FriendsCollection.AddFriend(invitedUser.PlayerNickname);
+            invitedUser.FriendsCollection.AddFriend(fromUser.PlayerNickname);
             
             fromUser.UserData.FriendsData.Friends.Add(invitedUser.PlayerNickname);
             invitedUser.UserData.FriendsData.Friends.Add(fromUser.PlayerNickname);

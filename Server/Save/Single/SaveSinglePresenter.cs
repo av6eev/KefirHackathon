@@ -1,9 +1,7 @@
 ﻿using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Newtonsoft.Json;
 using Server.Save.Single.Collection;
-using Server.Users.Collection;
 using ServerCore.Main.Utilities;
 using ServerCore.Main.Utilities.Logger;
 using ServerCore.Main.Utilities.Presenter;
@@ -12,7 +10,6 @@ namespace Server.Save.Single
 {
     public class SaveSinglePresenter : IPresenter
     {
-        
         private readonly ServerGameModel _gameModel;
         private readonly SaveSingleModelCollection _collection;
         private readonly SaveSingleModel _model;
@@ -68,19 +65,21 @@ namespace Server.Save.Single
             if (resultDictionary.Count == 0)
             {
                 Logger.Instance.Log($"No saved data for SaveId: {_model.SaveModel.SaveId}");
-                _model.Save();
             }
             else
             {
                 _model.FillFromSave(resultDictionary);
             }
             
-            
+            HandleNotify();
+
             _model.SaveModel.NotifySaveEvent.OnChanged += HandleNotify;
         }
 
         public void Dispose()
         {
+            HandleNotify();
+            
             _model.SaveModel.NotifySaveEvent.OnChanged -= HandleNotify;
         }
 

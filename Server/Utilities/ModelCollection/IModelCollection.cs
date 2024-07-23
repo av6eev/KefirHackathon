@@ -25,6 +25,7 @@ namespace Server.Utilities.ModelCollection
         void Add(TKey key, TValue model);
         void Remove(TKey key);
         TValue GetModel(TKey key);
+        bool TryGetModel(TKey key, out TValue model);
         IEnumerable<TValue> GetModels();
         bool Contains(TKey id);
         void Clear();

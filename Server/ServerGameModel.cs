@@ -1,6 +1,7 @@
 ﻿using Server.Party.Collection;
 using Server.Party.Invite.Collection;
 using Server.Save.Single.Collection;
+using Server.Services.Collection;
 using Server.Users.Collection;
 using Server.World.Collection;
 using ServerCore.Main.Specifications;
@@ -15,4 +16,5 @@ public class ServerGameModel
     public IPartyInviteCollection PartyInviteCollection { get; init; }
     public IServerSpecifications Specifications { get; init; }
     public ISaveSingleModelCollection SaveSingleModelCollection { get; init; }
+    public IServicesCollection ServicesCollection { get; init; }
 }
