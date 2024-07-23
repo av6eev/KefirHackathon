@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: dialogs
+  m_EditorClassIdentifier: 
+  m_GroupName: dialogs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 52cffa12134e4c343a3bf6118ec8678f
+  m_SerializeEntries:
+  - m_GUID: 0d441c9fbe9a2734b9f61ad536b826ae
+    m_Address: party_decision_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbee85934aa7d074c9141d4a8d909319
+    m_Address: character_select_actions_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c97d346de6ab78f46a9dfcdfba02bf06
+    m_Address: friends_decision_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85b076f1afa62734a84b9567f4402e3b
+    m_Address: character_select_dialog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: b22797879fb99ea4c871f59585baa9d1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 941a537dd55911e4586023156030e6e0, type: 2}
+    - {fileID: 11400000, guid: 4ae0b9e4f7d756e4a8decc09bde591cd, type: 2}

@@ -42,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Float: 0.11
+    - _Float: 0.1
     m_Colors:
     - _Color: {r: 93.286896, g: 18.070578, b: 383.49805, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}

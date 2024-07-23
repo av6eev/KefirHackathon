@@ -11,9 +11,18 @@ namespace ServerCore.Main.Property
         {
             set
             {
+                if (value != null && value.Equals(_value))
+                {
+                    return;
+                }
+                
                 _value = value;
-                IsChanged = true;
-                Changed?.Invoke();
+                
+                if (NotifyChanged)
+                {
+                    IsChanged = true;
+                    Changed?.Invoke();    
+                }
             }
             get => _value;
         }
@@ -21,17 +30,20 @@ namespace ServerCore.Main.Property
         public string Id { get; }
 
         public bool IsChanged { get; set; }
+        private bool NotifyChanged { get; } 
 
-        public Property(string key, T value)
+        public Property(string key, T value, bool notifyChanged = true)
         {
             Id = key;
             Value = value;
+            NotifyChanged = notifyChanged;
         }
 
-        public void SetFromProtocol(Protocol protocol)
+        public void SetFromProtocol(Protocol protocol, out object value)
         {
             protocol.Get(out _value);
             Changed?.Invoke();
+            value = _value;
         }
 
         public void GetForProtocol(Protocol protocol)

@@ -1,39 +1,68 @@
+using System;
+using System.Linq;
 using Cameras;
 using DeBuff.Collection;
+using Entities.Characters.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
+using GameScenes.GameUI.EnterNicknamePanel;
 using Input;
 using Inventory.Collection;
 using Loader.Object;
 using Loader.Scene;
+using LoadingScreen;
 using Presenter;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement;
 using SceneManagement.Collection;
+using ServerCore.Main;
+using ServerCore.Main.Commands;
+using ServerCore.Main.Specifications;
+using ServerCore.Main.Utilities.LoadWrapper.Json;
+using ServerCore.Main.World;
+using ServerManagement.Test;
+using Skills.SkillPanel;
 using Specifications;
 using UnityEngine;
 using Updater;
 using Utilities.Initializer;
 using Utilities.Loader.Addressable;
 using Utilities.Loader.Addressable.Scene;
+using Utilities.Logger;
+using Logger = ServerCore.Main.Utilities.Logger.Logger;
+using Random = UnityEngine.Random;
 
 public class Startup : MonoBehaviour
 {
-    [SerializeField] private InputView _inputView;
-    
+    public InputView InputView;
+    public NetworkUpdaters NetworkUpdaters;
+
     private readonly PresentersList _presenters = new();
     private readonly UpdatersList _updatersList = new();
     private readonly UpdatersList _fixedUpdatersList = new();
     private readonly UpdatersList _lateUpdatersList = new();
+    
     private GameModel _gameModel;
 
     private async void Start()
     {
+        Application.runInBackground = true;
+        
+        Logger.SetLogger(new UnityLogger());
+        
+        var serverConnectionModel = new ServerConnectionModel();
+            
         var loadObjectsModel = new LoadObjectsModel(new AddressableObjectLoadWrapper());
         var specifications = new GameSpecifications(loadObjectsModel);
         await specifications.LoadAwaiter;
+
+        var serverLoadObjectsModel = new ServerCore.Main.Utilities.LoadWrapper.Object.LoadObjectsModel(new JsonObjectLoadWrapper(), "../ServerCore/Main/Specifications");
+        var serverSpecifications = new ServerSpecifications(serverLoadObjectsModel);
+        await serverSpecifications.LoadAwaiter;
+
+        var playerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.ConstId]);
 
         _gameModel = new GameModel
         {
@@ -42,34 +71,78 @@ public class Startup : MonoBehaviour
             LateUpdatersList = _lateUpdatersList,
             LoadObjectsModel = loadObjectsModel,
             Specifications = specifications,
+            ServerSpecifications = serverSpecifications,
             SaveSingleModelCollection = new SaveSingleModelCollection(),
             SceneManagementModelsCollection = new SceneManagementModelsCollection(),
             InputModel = new InputModel(),
             CameraModel = new CameraModel(),
             InventoriesCollection = new InventoriesCollection(specifications.InventorySpecifications.GetSpecifications(), specifications.ItemSpecifications.GetSpecifications()),
-            PlayerModel = new PlayerModel(specifications.EntitySpecifications[PlayerModel.ConstId]),
+            PlayerModel = playerModel,
             EnemiesCollection = new EnemiesCollection(),
             DeBuffsCollection = new DeBuffsCollection(specifications.DeBuffSpecifications.GetSpecifications()),
             PlayerDialogModel = new PlayerDialogModel(),
-            QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications())
+            QuestsCollection = new QuestsCollection(specifications.QuestSpecifications.GetSpecifications()),
+            SkillPanelModel = new SkillPanelModel(specifications.SkillDeckSpecifications.GetSpecifications().First().Value, playerModel),
+            CharactersCollection = new CharactersCollection(),
+            WorldData = new WorldData(string.Empty),
+            ServerConnectionModel = serverConnectionModel,
+            EnterNicknamePanelModel = new EnterNicknamePanelModel(),
+            LoadingScreenModel = new LoadingScreenModel(false)
         };
-
-        _gameModel.SaveSingleModelCollection.Add(_gameModel.PlayerModel);
+        
+        Library.Initialize();
+            
+        var serverConnectionPresenter = new ServerConnectionPresenter(_gameModel, serverConnectionModel, NetworkUpdaters);
+        serverConnectionPresenter.Init();
+            
+        serverConnectionModel.ConnectPlayer();
+        await serverConnectionModel.CompletePlayerConnectAwaiter;
+            
+        _gameModel.SaveSingleModelCollection.Add(playerModel);
         _gameModel.LoadScenesModel = new LoadScenesModel(new AddressableSceneLoadWrapper(_gameModel));
 
-        if(PlayerPrefs.GetInt("first_init") == 0)
+        if (PlayerPrefs.GetInt("first_init") == 0)
         {
             new FirstInitializer().Initialize(_gameModel);
         }
         
         _presenters.Add(new SceneManagementModelsCollectionPresenter(_gameModel, (SceneManagementModelsCollection)_gameModel.SceneManagementModelsCollection));
-        _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, _inputView));
+        _presenters.Add(new InputPresenter(_gameModel, (InputModel) _gameModel.InputModel, InputView));
         _presenters.Add(new InventoriesCollectionSavePresenter(_gameModel, (InventoriesCollection) _gameModel.InventoriesCollection));
         _presenters.Add(new SaveSingleModelCollectionPresenter(_gameModel, (SaveSingleModelCollection)_gameModel.SaveSingleModelCollection));
+        _presenters.Add(new PlayerChangeLocationPresenter(_gameModel, playerModel));
+        _presenters.Add(new PlayerChangeWorldPresenter(_gameModel, playerModel));
         _presenters.Init();
-
+        
+        _presenters.Add(serverConnectionPresenter);
+        
         _gameModel.SceneManagementModelsCollection.Load(SceneConst.GameUiId);
-        _gameModel.SceneManagementModelsCollection.Load(_gameModel.PlayerModel.BaseLocationId); 
+
+        var enterNicknamePanelModel = _gameModel.EnterNicknamePanelModel;
+        
+        if (PlayerPrefs.GetString("nickname") == string.Empty && PlayerPrefs.GetString("id") == string.Empty)
+        {
+            enterNicknamePanelModel.Show();
+            await enterNicknamePanelModel.ConfirmAwaiter;
+            
+            playerModel.Id = Guid.NewGuid().ToString();
+            playerModel.Nickname = enterNicknamePanelModel.InputNickname;
+            
+            PlayerPrefs.SetString("nickname", enterNicknamePanelModel.InputNickname);
+            PlayerPrefs.SetString("id", playerModel.Id);
+        }
+        else
+        {
+            playerModel.Nickname = PlayerPrefs.GetString("nickname");
+            playerModel.Id = PlayerPrefs.GetString("id");
+            
+            enterNicknamePanelModel.Hide();
+        }
+
+        _gameModel.LoadingScreenModel.Show();
+        
+        var command = new LoginCommand(playerModel.Id, playerModel.Nickname);
+        command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
     }
 
     private void Update()
@@ -94,5 +167,8 @@ public class Startup : MonoBehaviour
 
         _updatersList.Clear();
         _fixedUpdatersList.Clear();
+        _lateUpdatersList.Clear();
+        
+        _gameModel.ServerConnectionModel.PlayerPeer.DisconnectNow(0);
     }
 }

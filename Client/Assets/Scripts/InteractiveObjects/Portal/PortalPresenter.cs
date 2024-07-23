@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Presenter;
+using ServerCore.Main.Commands;
+using UnityEngine;
 
 namespace InteractiveObjects.Portal
 {
@@ -36,10 +38,10 @@ namespace InteractiveObjects.Portal
         {
             if (_view.InteractiveObject.IsInRange)
             {
-                var fromSceneId = _gameModel.SceneManagementModelsCollection.GetModel(_view.FromSceneId).SceneId;
+                var command = new ChangeLocationCommand(_gameModel.PlayerModel.Id, _view.NextSceneId);
+                command.Write(_gameModel.ServerConnectionModel.PlayerPeer);
                 
-                _gameModel.SceneManagementModelsCollection.Unload(fromSceneId);
-                _gameModel.SceneManagementModelsCollection.Load(_view.NextSceneId);
+                Debug.Log("Send ChangeLocationCommand");
             }
         }
     }

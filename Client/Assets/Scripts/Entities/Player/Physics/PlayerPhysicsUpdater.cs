@@ -1,8 +1,7 @@
 ﻿using Cameras;
 using Input;
 using ServerCore.Main.Commands;
-using ServerCore.Main.Utilities;
-using ServerManagement.Test;
+using ServerManagement;
 using UnityEngine;
 using Updater;
 using Vector3 = UnityEngine.Vector3;
@@ -19,6 +18,7 @@ namespace Entities.Player.Physics
 
         private float _timer;
         private int _currentTick;
+        private bool _isSendWhenAfk;
 
         public PlayerPhysicsUpdater(IGameModel gameModel, PlayerModel playerModel, PlayerView playerView)
         {
@@ -33,14 +33,27 @@ namespace Entities.Player.Physics
         public void Update(float deltaTime)
         {
             _timer += deltaTime;
+
+            var currentPosition = _playerModel.Position;
             
             PhysicsUpdate(deltaTime);
 
-            if (_timer >= ServerConst.TimeBetweenTicks)
+            if (_timer >= ClientConst.TimeBetweenTicks)
             {
                 _timer = 0;
 
-                SendCommand();
+                if (!_playerModel.Position.Equals(currentPosition))
+                {
+                    SendCommand();
+                    _isSendWhenAfk = false;
+                }
+                else
+                {
+                    if (_isSendWhenAfk) return;
+                
+                    SendCommand();
+                    _isSendWhenAfk = true;
+                }
 
                 _currentTick++;
             }
@@ -63,7 +76,7 @@ namespace Entities.Player.Physics
         private void PhysicsUpdate(float deltaTime)
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
-
+            
             if (_gameModel.SkillPanelModel.IsCasting)
             {
                 return;
@@ -86,11 +99,6 @@ namespace Entities.Player.Physics
 
         private void MoveUpdate(Vector3 input, float deltaTime)
         {
-            UnityEngine.Physics.simulationMode = SimulationMode.Script;
-            _playerView.Rigidbody.isKinematic = false;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            _playerView.Rigidbody.angularVelocity = Vector3.zero;
-            
             var newPosition = _playerView.Position;
             var specification = _playerModel.Specification;
             float constSpeed;
@@ -115,7 +123,7 @@ namespace Entities.Player.Physics
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
                 var movementDirection = movementInput.normalized;
 
-                if (!input.z.Equals(-1) && movementDirection != Vector3.zero && !_playerModel.InDash.Value)
+                if (movementDirection != Vector3.zero && !_playerModel.InDash.Value)
                 {
                     var desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
                     var smoothedRotation = Quaternion.Slerp(_playerView.Rotation, desiredRotation, specification.RotationSpeed * deltaTime);
@@ -132,11 +140,6 @@ namespace Entities.Player.Physics
             {
                 _playerModel.CurrentSpeed.Value = 0;
             }
-            
-            UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
-            UnityEngine.Physics.simulationMode = SimulationMode.Update;
-            _playerView.Rigidbody.isKinematic = true;
-            _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
     }
 }

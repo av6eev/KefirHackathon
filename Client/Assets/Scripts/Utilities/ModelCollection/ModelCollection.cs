@@ -88,6 +88,18 @@ namespace Utilities.ModelCollection
             return Collection[key];
         }
 
+        public bool TryGetModel(TKey key, out TValue value)
+        {
+            if (Collection.TryGetValue(key, out var data))
+            {
+                value = data;
+                return true;
+            }
+
+            value = default;
+            return false;
+        }
+        
         public IEnumerable<TValue> GetModels()
         {
             foreach (var element in Collection.Values)

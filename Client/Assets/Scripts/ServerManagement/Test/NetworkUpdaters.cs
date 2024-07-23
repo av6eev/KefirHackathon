@@ -8,7 +8,7 @@ namespace ServerManagement.Test
     {
         public UpdatersList UpdatersList = new();
 
-        private void FixedUpdate()
+        private void Update()
         {
             UpdatersList.Update(Time.fixedDeltaTime);
         }

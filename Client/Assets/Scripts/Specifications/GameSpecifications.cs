@@ -1,6 +1,7 @@
 ﻿using Awaiter;
 using Cameras.Specification;
 using DeBuff.Specification;
+using Dialogs.Specification;
 using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
@@ -29,6 +30,7 @@ namespace Specifications
         public ISpecificationsCollection<BaseDemandSpecification> DemandSpecifications { get; } = new SpecificationsCollection<BaseDemandSpecification>();
         public ISpecificationsCollection<BaseRewardSpecification> RewardSpecifications { get; } = new SpecificationsCollection<BaseRewardSpecification>();
         public ISpecificationsCollection<QuestSpecification> QuestSpecifications { get; } = new SpecificationsCollection<QuestSpecification>();
+        public ISpecificationsCollection<DialogSpecification> DialogSpecifications { get; } = new SpecificationsCollection<DialogSpecification>();
 
         public readonly CustomAwaiter LoadAwaiter = new();
         
@@ -47,10 +49,11 @@ namespace Specifications
             await new LoadSpecificationsWrapper<EnemySpecification>(loadObjectsModel, "enemies", EnemySpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<SkillDeckSpecification>(loadObjectsModel, "skill_decks", SkillDeckSpecifications).LoadAwaiter;
             await new LoadSpecificationsWrapper<DeBuffSpecification>(loadObjectsModel, "de_buffs", DeBuffSpecifications).LoadAwaiter;
+            await new LoadSpecificationsWrapper<QuestSpecification>(loadObjectsModel, "quests", QuestSpecifications).LoadAwaiter;
+            await new LoadAssetsSpecificationsWrapper<DialogSpecification>(loadObjectsModel, "dialogs", DialogSpecifications).LoadAwaiter;
             await new LoadAssetsSpecificationsWrapper<BaseDemandSpecification>(loadObjectsModel, "demands", DemandSpecifications).LoadAwaiter;
             await new LoadAssetsSpecificationsWrapper<BaseRewardSpecification>(loadObjectsModel, "rewards", RewardSpecifications).LoadAwaiter;
-            await new LoadSpecificationsWrapper<QuestSpecification>(loadObjectsModel, "quests", QuestSpecifications).LoadAwaiter;
-            
+
             LoadAwaiter.Complete();
         }
     }

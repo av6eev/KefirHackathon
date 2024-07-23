@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.annulusgames.debug-ui": "https://github.com/AnnulusGames/DebugUI.git?path=src/DebugUI/Assets/DebugUI",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.20",
     "com.unity.ai.navigation": "1.1.5",
@@ -15,8 +16,8 @@
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.2",
-    "space_adventure_lib": "https://github.com/av6eev/SpaceAdventureLib.git",
     "server.core": "file:../../ServerCore/Main",
+    "space_adventure_lib": "https://github.com/av6eev/SpaceAdventureLib.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

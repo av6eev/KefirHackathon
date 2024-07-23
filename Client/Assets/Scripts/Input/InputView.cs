@@ -8,6 +8,7 @@ namespace Input
     {
         public event Action<Vector2> OnMoved; 
         public event Action<Vector2> OnMouseMove;
+        public event Action<Vector2> OnMousePositionChange;
         public event Action OnInteracted;
         public event Action OnEscaped;
         public event Action<bool> OnRun; 
@@ -16,7 +17,9 @@ namespace Input
         public event Action OnSkill1Toggled; 
         public event Action OnSkill2Toggled; 
         public event Action OnSkill3Toggled;
-        public event Action OnAnyKey; 
+        public event Action OnAnyKey;
+        public event Action OnDebugPanelToggled;
+        public event Action OnFriendsPanelToggled; 
 
         public InputActionAsset PlayerInputAsset;
 
@@ -26,6 +29,7 @@ namespace Input
             
             PlayerInputAsset["Movement"].performed += OnMoveInput;
             PlayerInputAsset["MouseDelta"].performed += OnMouseMoveInput;
+            PlayerInputAsset["MousePosition"].performed += OnMousePositionInput;
             PlayerInputAsset["Interact"].performed += OnInteractPerformedInput;
             PlayerInputAsset["Escape"].performed += OnEscapeInput;
             PlayerInputAsset["Run"].performed += OnRunInputPerformed;
@@ -33,6 +37,8 @@ namespace Input
             PlayerInputAsset["Attack"].performed += OnAttackInput;
             PlayerInputAsset["Dash"].performed += OnDashInput;
             PlayerInputAsset["Any"].performed += OnAnyKeyInput;
+            PlayerInputAsset["DebugPanel"].performed += OnDebugPanelInput;
+            PlayerInputAsset["FriendsPanel"].performed += OnFriendsPanelInput;
             
             PlayerInputAsset["Skill1"].performed += OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed += OnSkill2InputPerformed;
@@ -45,6 +51,7 @@ namespace Input
             
             PlayerInputAsset["Movement"].performed -= OnMoveInput;
             PlayerInputAsset["MouseDelta"].performed -= OnMouseMoveInput;
+            PlayerInputAsset["MousePosition"].performed -= OnMousePositionInput;
             PlayerInputAsset["Interact"].performed -= OnInteractPerformedInput;
             PlayerInputAsset["Escape"].performed -= OnEscapeInput;
             PlayerInputAsset["Run"].performed -= OnRunInputPerformed;
@@ -52,13 +59,18 @@ namespace Input
             PlayerInputAsset["Attack"].performed -= OnAttackInput;
             PlayerInputAsset["Dash"].performed -= OnDashInput;
             PlayerInputAsset["Any"].performed -= OnAnyKeyInput;
+            PlayerInputAsset["DebugPanel"].performed -= OnDebugPanelInput;
+            PlayerInputAsset["FriendsPanel"].performed -= OnFriendsPanelInput;
 
             PlayerInputAsset["Skill1"].performed -= OnSkill1InputPerformed;
             PlayerInputAsset["Skill2"].performed -= OnSkill2InputPerformed;
             PlayerInputAsset["Skill3"].performed -= OnSkill3InputPerformed;
         }
 
-        private void OnAnyKeyInput(InputAction.CallbackContext obj) => OnAnyKey?.Invoke();
+        private void OnFriendsPanelInput(InputAction.CallbackContext ctx) => OnFriendsPanelToggled?.Invoke();
+        private void OnDebugPanelInput(InputAction.CallbackContext ctx) => OnDebugPanelToggled?.Invoke();
+        private void OnMousePositionInput(InputAction.CallbackContext ctx) => OnMousePositionChange?.Invoke(ctx.ReadValue<Vector2>());
+        private void OnAnyKeyInput(InputAction.CallbackContext ctx) => OnAnyKey?.Invoke();
         private void OnDashInput(InputAction.CallbackContext ctx) => OnDash?.Invoke();
         private void OnAttackInput(InputAction.CallbackContext ctx) => OnAttack?.Invoke();
         private void OnRunInputPerformed(InputAction.CallbackContext ctx) => OnRun?.Invoke(true);

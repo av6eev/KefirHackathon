@@ -20,12 +20,12 @@ namespace Entities
         public ReactiveField<bool> IsAttack { get; } = new();
         public ReactiveField<bool> IsSimpleAttack { get; } = new();
         public ReactiveField<bool> InTarget { get; } = new();
+        public ReactiveField<bool> IsDied { get; } = new(false);
+        public ReactiveField<bool> IsSelected { get; } = new();
         public ReactiveField<float> CurrentSpeed { get; } = new();
         public ReactiveField<IEntityModel> Target { get; } = new(null);
         public ReactiveField<Quaternion> NextRotation { get; } = new();
 
-        public ReactiveField<bool> IsDied { get; } = new(false);
-        
         public ModelCollection<EntityResourceType, EntityResource> Resources { get; } = new();
         
         protected EntityModel(EntitySpecification specification, IEntityModel target)

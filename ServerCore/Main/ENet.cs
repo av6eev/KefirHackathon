@@ -250,6 +250,11 @@ namespace ServerCore.Main
             }
         }
 
+        internal void ThrowIfNotCreated() {
+            if (nativePacket == IntPtr.Zero)
+                throw new InvalidOperationException("Packet not created");
+        }
+        
         public bool IsSet
         {
             get { return nativePacket != IntPtr.Zero; }
@@ -847,6 +852,27 @@ namespace ServerCore.Main
             return Native.enet_peer_send(nativePeer, channelID, packet.NativeData) == 0;
         }
 
+        internal void ThrowIfNotCreated() {
+            if (nativePeer == IntPtr.Zero)
+                throw new InvalidOperationException("Peer not created");
+        }
+        
+        public bool Receive(out byte channelID, out Packet packet) {
+            ThrowIfNotCreated();
+
+            IntPtr nativePacket = Native.enet_peer_receive(nativePeer, out channelID);
+
+            if (nativePacket != IntPtr.Zero) {
+                packet = new Packet(nativePacket);
+
+                return true;
+            }
+
+            packet = default(Packet);
+
+            return false;
+        }
+        
         public void Ping()
         {
             CheckCreated();
@@ -956,6 +982,9 @@ namespace ServerCore.Main
         private const string nativeLibrary = "enet";
 #endif
 
+        [DllImport(nativeLibrary, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr enet_peer_receive(IntPtr peer, out byte channelID);
+        
         [DllImport(nativeLibrary, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int enet_initialize();
 

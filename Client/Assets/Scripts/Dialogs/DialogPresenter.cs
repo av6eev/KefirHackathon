@@ -30,15 +30,23 @@ namespace Dialogs
 
             var component = _loadObjectModel.Result.GetComponent<T>();
             View = Object.Instantiate(component, _collectionView.ContentRoot);
+
+            if (View.ExitButton != null)
+            {
+                View.ExitButton.onClick.AddListener(HandleClose);
+            }
             
-            View.ExitButton.onClick.AddListener(HandleClose);
             AfterInit();
         }
 
         public void Dispose()
         {
             _model.OnClose -= HandleClose;
-            View.ExitButton.onClick.RemoveListener(HandleClose);
+            
+            if (View.ExitButton != null)
+            {
+                View.ExitButton.onClick.RemoveListener(HandleClose);
+            }
 
             Object.Destroy(View.gameObject);
             _gameModel.LoadObjectsModel.Unload(_loadObjectModel);
@@ -46,7 +54,7 @@ namespace Dialogs
             AfterDispose();
         }
 
-        private void HandleClose()
+        protected void HandleClose()
         {
             _model.IsOpened = false;
             _gameModel.DialogsCollection.Remove(_model);

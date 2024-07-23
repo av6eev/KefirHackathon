@@ -1,22 +1,28 @@
-﻿namespace ServerCore.Main.Commands
+﻿using ServerCore.Main.Utilities;
+
+namespace ServerCore.Main.Commands
 {
     public class LoginCommand : BaseCommand
     {
-        public override string Id => "LoginCommand";
+        public override string Id => CommandConst.Login;
+
         public string PlayerId;
+        public string PlayerNickname;
 
-        public LoginCommand()
-        {
-        }
-
-        public LoginCommand(string playerId)
+        public LoginCommand(string playerId, string playerNickname)
         {
             PlayerId = playerId;
+            PlayerNickname = playerNickname;
         }
-    
+
+        public LoginCommand(Protocol protocol) : base(protocol)
+        {
+        }
+
         public override void Read(Protocol protocol)
         {
             protocol.Get(out PlayerId);
+            protocol.Get(out PlayerNickname);
         }
 
         public override void Write(Peer peer)
@@ -26,6 +32,7 @@
             
             protocol.Add(Id);
             protocol.Add(PlayerId);
+            protocol.Add(PlayerNickname);
 
             packet.Create(protocol.Stream.GetBuffer());
 

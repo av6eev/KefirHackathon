@@ -5,14 +5,20 @@ using Entities.Characters.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
+using GameScenes.GameUI.DebugPanel;
+using GameScenes.GameUI.EnterNicknamePanel;
 using Input;
 using Inventory.Collection;
 using Item.ItemPlaceholder;
 using Loader.Object;
 using Loader.Scene;
+using LoadingScreen;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
+using ServerCore.Main.Specifications;
+using ServerCore.Main.Users;
+using ServerCore.Main.World;
 using ServerManagement.Test;
 using Skills.SkillPanel;
 using Specifications;
@@ -36,10 +42,15 @@ public class GameModel : IGameModel
     public IItemPlaceholderModel ItemPlaceholderModel { get; set; }
     public IEnemiesCollection EnemiesCollection { get; set; }
     public SkillPanelModel SkillPanelModel { get; set; }
+    public DebugPanelModel DebugPanelModel { get; set; }
+    public EnterNicknamePanelModel EnterNicknamePanelModel { get; set; }
     public IDeBuffsCollection DeBuffsCollection { get; set; }
     public PlayerDialogModel PlayerDialogModel { get; set; }
     public QuestsCollection QuestsCollection { get; set; }
     public IServerConnectionModel ServerConnectionModel { get; set; }
     public CharactersCollection CharactersCollection { get; set; }
+    public WorldData WorldData { get; set; }
+    public IServerSpecifications ServerSpecifications { get; set; }
+    public ILoadingScreenModel LoadingScreenModel { get; set; }
     public bool Rerun { get; set; }
 }

@@ -19,8 +19,11 @@ namespace Input
         public void Init()
         {
             _view.Initialize();
+
+            _model.IsEnable.OnChanged += HandleStateChange;
             
             _view.OnMouseMove += HandleMouseMoveInput;
+            _view.OnMousePositionChange += HandleMousePositionInput;
             _view.OnMoved += HandleMoveInput;
             _view.OnRun += HandleRunInput;
             _view.OnInteracted += HandleInteractInput;
@@ -28,6 +31,8 @@ namespace Input
             _view.OnAttack += HandleAttackInput;
             _view.OnDash += HandleDashInput;
             _view.OnAnyKey += HandleAnyKeyInput;
+            _view.OnDebugPanelToggled += HandleDebugPanelInput;
+            _view.OnFriendsPanelToggled += HandleFriendsPanelInput;
 
             _view.OnSkill1Toggled += HandleSkill1Input;
             _view.OnSkill2Toggled += HandleSkill2Input;
@@ -38,7 +43,10 @@ namespace Input
         {
             _view.Dispose();
             
+            _model.IsEnable.OnChanged -= HandleStateChange;
+            
             _view.OnMouseMove -= HandleMouseMoveInput;
+            _view.OnMousePositionChange -= HandleMousePositionInput;
             _view.OnMoved -= HandleMoveInput;
             _view.OnRun -= HandleRunInput;
             _view.OnInteracted -= HandleInteractInput;
@@ -46,10 +54,43 @@ namespace Input
             _view.OnAttack -= HandleAttackInput;
             _view.OnDash -= HandleDashInput;
             _view.OnAnyKey -= HandleAnyKeyInput;
-
+            _view.OnDebugPanelToggled -= HandleDebugPanelInput;
+            _view.OnFriendsPanelToggled -= HandleFriendsPanelInput;
+            
             _view.OnSkill1Toggled -= HandleSkill1Input;
             _view.OnSkill2Toggled -= HandleSkill2Input;
             _view.OnSkill3Toggled -= HandleSkill3Input;
+        }
+
+        private void HandleStateChange(bool newValue, bool oldValue)
+        {
+            var playerActionMap = _view.PlayerInputAsset.FindActionMap("Player");
+
+            if (newValue)
+            {
+                playerActionMap.Enable();
+                Debug.Log("enabled");
+            }
+            else
+            {
+                Debug.Log("disabled");
+                playerActionMap.Disable();
+            }
+        }
+
+        private void HandleFriendsPanelInput()
+        {
+            _model.ToggleFriendsPanel();
+        }
+
+        private void HandleDebugPanelInput()
+        {
+            _model.ToggleDebugPanel();
+        }
+
+        private void HandleMousePositionInput(Vector2 newPosition)
+        {
+            _model.MousePosition = newPosition;
         }
 
         private void HandleAnyKeyInput()

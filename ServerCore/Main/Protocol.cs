@@ -12,13 +12,14 @@ namespace ServerCore.Main
         public BinaryWriter Writer;
         public BinaryReader Reader;
         public MemoryStream Stream;
-
+        
         public Protocol(byte[] buffer = null)
         {
             if (buffer != null)
             {
                 Stream = new MemoryStream(buffer);
                 Reader = new BinaryReader(Stream);
+                Reader.BaseStream.Seek(0, SeekOrigin.Begin);
             }
             else
             {

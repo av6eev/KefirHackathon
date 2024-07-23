@@ -1,7 +1,7 @@
 ﻿using Presenter;
 using ServerCore.Main;
+using ServerCore.Main.Utilities;
 using ServerManagement.Test.Player;
-using ServerManagement.Test.World;
 using Updater;
 
 namespace ServerManagement.Test
@@ -13,7 +13,7 @@ namespace ServerManagement.Test
         private readonly NetworkUpdaters _networkUpdaters;
         private IUpdater _playerConnectionUpdater;
         private IUpdater _worldConnectionUpdater;
-        
+
         public ServerConnectionPresenter(GameModel gameModel, ServerConnectionModel model, NetworkUpdaters networkUpdaters)
         {
             _gameModel = gameModel;
@@ -25,27 +25,23 @@ namespace ServerManagement.Test
         {
             _model.OnPlayerConnect += HandlePlayerConnect;
             _model.OnPlayerDisconnect += HandlePlayerDisconnect;
-            _model.OnWorldConnect += HandleWorldConnect;
-            _model.OnWorldDisconnect += HandleWorldDisconnect;
         }
         
         public void Dispose()
         {
             _model.OnPlayerConnect -= HandlePlayerConnect;
             _model.OnPlayerDisconnect -= HandlePlayerDisconnect;
-            _model.OnWorldConnect -= HandleWorldConnect;
-            _model.OnWorldDisconnect -= HandleWorldDisconnect;
         }
 
         private void HandlePlayerConnect()
         {
             var address = new Address();
-            address.SetHost(ServerConnectionConst.Ip);
-            address.Port = ServerConnectionConst.PlayerPort;
+            address.SetHost(ServerConst.LocalIp);
+            address.Port = ServerConst.PlayerPort;
 
             _model.PlayerHost = new Host();
             _model.PlayerHost.Create();
-            _model.PlayerPeer = _model.PlayerHost.Connect(address);
+            _model.PlayerPeer = _model.PlayerHost.Connect(address, ServerConst.MaxChannels);
 
             _playerConnectionUpdater = new ServerPlayerConnectionUpdater(_gameModel);
             _networkUpdaters.UpdatersList.Add(_playerConnectionUpdater);
@@ -56,27 +52,6 @@ namespace ServerManagement.Test
             _model.PlayerHost.Dispose();
             
             _networkUpdaters.UpdatersList.Remove(_playerConnectionUpdater);
-        }
-        
-        private void HandleWorldConnect()
-        {
-            var address = new Address();
-            address.SetHost(ServerConnectionConst.Ip);
-            address.Port = ServerConnectionConst.WorldPort;
-
-            _model.WorldHost = new Host();
-            _model.WorldHost.Create();
-            _model.WorldPeer = _model.WorldHost.Connect(address);
-            
-            _worldConnectionUpdater = new ServerWorldConnectionUpdater(_gameModel);
-            _networkUpdaters.UpdatersList.Add(_worldConnectionUpdater);
-        }
-
-        private void HandleWorldDisconnect()
-        {
-            _model.WorldHost.Dispose();
-            
-            _networkUpdaters.UpdatersList.Remove(_worldConnectionUpdater);
         }
     }
 }

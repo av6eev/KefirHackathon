@@ -1,6 +1,8 @@
 ﻿using GameScenes.Arena;
 using GameScenes.GameUI;
 using GameScenes.Hub;
+using GameScenes.TestConnection;
+using GameScenes.TestServerPortal;
 using Presenter;
 using SceneManagement;
 using Specification.Scene;
@@ -35,6 +37,12 @@ namespace LocationBuilder
                     break;
                 case SceneConst.ArenaId:
                     _presenters.Add(new ArenaScenePresenter(_gameModel, (ArenaSceneView)sceneView));
+                    break;
+                case SceneConst.TestConnectionId:
+                    _presenters.Add(new TestConnectionScenePresenter(_gameModel, (TestConnectionSceneView)sceneView));
+                    break;
+                case SceneConst.TestServerPortalId:
+                    _presenters.Add(new TestServerPortalScenePresenter(_gameModel, (TestServerPortalSceneView)sceneView));
                     break;
             }
         }

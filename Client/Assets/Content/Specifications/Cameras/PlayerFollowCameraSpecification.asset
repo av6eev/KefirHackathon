@@ -15,11 +15,11 @@ MonoBehaviour:
   Specification:
     _id: player_follow_camera
     StateType: 1
-    Offset: {x: 0, y: 5, z: -5}
-    InitialRotation: {x: 30, y: 0, z: 0}
-    HorizontalSensitivity: 0
-    PositionSmoothTime: 0.05
-    RotationSmoothTime: 0.05
+    Offset: {x: 4, y: 8, z: -4}
+    InitialRotation: {x: 25, y: 0, z: 0}
+    HorizontalSensitivity: 1
+    PositionSmoothTime: 0.2
+    RotationSmoothTime: 0.1
     FreeLookPositionSmoothTime: 0
     FreeLookRotationSmoothTime: 0
     FieldOfView: 0

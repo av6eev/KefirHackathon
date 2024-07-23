@@ -17,7 +17,7 @@ MonoBehaviour:
     WalkSpeed: 4
     RunSpeed: 5.6
     DashSpeed: 7
-    RotationSpeed: 4
+    RotationSpeed: 10
     AttackDistance: 1
     MaxHealth: 100
     BaseDamage: 50

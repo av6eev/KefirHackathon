@@ -18,7 +18,7 @@ namespace Entities.Characters
         private readonly PresentersList _presenters = new();
         private ILoadObjectModel<GameObject> _loadObjectModel;
         private IUpdater _updater;
-
+        
         public CharacterPresenter(IGameModel gameModel, CharacterModel model, Transform root)
         {
             _gameModel = gameModel;
@@ -34,7 +34,10 @@ namespace Entities.Characters
             var component = _loadObjectModel.Result.GetComponent<PlayerView>();
             _view = Object.Instantiate(component, _root);
             
+            _view.NicknameText.text = _model.ServerData.PlayerNickname.Value;
+
             _presenters.Add(new CharacterAnimatorPresenter(_gameModel, _model, _view));
+            _presenters.Add(new CharacterSelectPresenter(_gameModel, _model, _view));
             _presenters.Init();
             
             _updater = new CharacterPhysicsUpdater(_model, _view);
@@ -43,12 +46,13 @@ namespace Entities.Characters
 
         public void Dispose()
         {
+            _gameModel.UpdatersList.Remove(_updater);
+            
             _presenters.Dispose();
             _presenters.Clear();
 
-            _gameModel.UpdatersList.Remove(_updater);
-
-            //TODO: dispose
+            Object.Destroy(_view.gameObject);
+            _gameModel.LoadObjectsModel.Unload(_loadObjectModel);
         }
     }
 }

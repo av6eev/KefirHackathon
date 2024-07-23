@@ -1,5 +1,6 @@
 ﻿using Cameras.Specification;
 using DeBuff.Specification;
+using Dialogs.Specification;
 using Entities.Enemy.Specification;
 using Entities.Specification;
 using Inventory.Specification;
@@ -26,5 +27,6 @@ namespace Specifications
         ISpecificationsCollection<BaseDemandSpecification> DemandSpecifications { get; }
         ISpecificationsCollection<BaseRewardSpecification> RewardSpecifications { get; }
         ISpecificationsCollection<QuestSpecification> QuestSpecifications { get; }
+        ISpecificationsCollection<DialogSpecification> DialogSpecifications { get; }
     }
 }

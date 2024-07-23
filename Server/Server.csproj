@@ -8,11 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CsvHelper" Version="33.0.1" />
       <PackageReference Include="ENet-CSharp" Version="2.4.8" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ServerCore\ServerCore.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Utilities\" />
+      <Folder Include="World\" />
     </ItemGroup>
 
 </Project>
