@@ -26,7 +26,10 @@ namespace Entities.Characters.Physics
         {
             _timer += deltaTime;
 
-            UpdatePhysics(deltaTime);
+            if (_playerView != null)
+            {
+                UpdatePhysics(deltaTime);
+            }
             
             if (_timer >= ClientConst.TimeBetweenTicks)
             {

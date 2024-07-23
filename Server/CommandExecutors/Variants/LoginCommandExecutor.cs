@@ -1,6 +1,7 @@
-﻿using ServerCore.Main;
+﻿using Server.Services;
+using Server.Services.Friends;
+using ServerCore.Main;
 using ServerCore.Main.Commands;
-using ServerCore.Main.Users;
 
 namespace Server.CommandExecutors.Variants;
 
@@ -15,17 +16,23 @@ public class LoginCommandExecutor : CommandExecutor<LoginCommand>
         var playerId = Command.PlayerId;
         var serverData = new CharacterServerData
         {
-            PlayerId = { Value = playerId }
-        };
-        var user = new UserData
-        {
-            Peer = Peer,
             PlayerId = { Value = playerId },
-            WorldId = "hub",
-            CurrentLocationId = { Value = "test_connection" }
+            PlayerNickname = { Value = Command.PlayerNickname }
         };
-                
-        GameModel.WorldsCollection.Worlds[user.WorldId].CharacterDataCollection.Add(user.PlayerId.Value, serverData);
-        GameModel.UsersCollection.Add(user);
+        
+        var userModel = GameModel.UsersCollection.Add(Peer, playerId, Command.PlayerNickname);
+        
+        if (GameModel.WorldsCollection.Worlds.TryGetValue(userModel.WorldId, out var worldData))
+        {
+            worldData.CharacterDataCollection.Add(userModel.PlayerId, serverData);
+            
+            Console.WriteLine($"Connect user: {userModel.PlayerId} to world: {worldData.Guid}");
+        }
+        else
+        {
+            Console.WriteLine($"No world with id {userModel.WorldId} was found!");
+        }
+        
+        GameModel.ServicesCollection.Get<FriendsServiceModel>(ServiceType.Friends).Add(userModel);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Reactive.Event;
 using Reactive.Field;
 using UnityEngine;
 
@@ -14,14 +15,17 @@ namespace Input
         public event Action OnDash;
         public event Action<int> OnSkillUse;
         public event Action OnAnyKey;
+        public event Action OnDebugPanelToggle;
+        public event Action OnFriendsPanelToggle;
 
-        public ReactiveField<bool> IsRun { get; } = new();
-        public ReactiveField<Vector2> Direction { get; } = new();
+        public ReactiveField<bool> IsEnable { get; } = new(true);
         public Vector2 MouseDelta { get; set; }
-
+        public Vector2 MousePosition { get; set; }
+        public ReactiveField<Vector2> Direction { get; } = new();
+        public ReactiveField<bool> IsRun { get; } = new();
         private readonly Dictionary<int, bool> _slotStates = new();
         public ReactiveField<int> CurrentActiveSlot { get; } = new (-1);
-        
+
         public void SetSlotState(int index)
         {
             if (CurrentActiveSlot.Value != -1)
@@ -43,6 +47,16 @@ namespace Input
             OnSlotStateChanged?.Invoke(index, _slotStates[index]);
         }
 
+        public void Enable()
+        {
+            IsEnable.Value = true;
+        }
+        
+        public void Disable()
+        {
+            IsEnable.Value = false;
+        }
+        
         public void UseSkill(int index)
         {
             OnSkillUse?.Invoke(index);
@@ -71,6 +85,16 @@ namespace Input
         public void AnyKeyInput()
         {
             OnAnyKey?.Invoke();
+        }
+
+        public void ToggleDebugPanel()
+        {
+            OnDebugPanelToggle?.Invoke();
+        }
+
+        public void ToggleFriendsPanel()
+        {
+            OnFriendsPanelToggle?.Invoke();
         }
     }
 }

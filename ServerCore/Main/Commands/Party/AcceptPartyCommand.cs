@@ -7,22 +7,22 @@ namespace ServerCore.Main.Commands.Party
         public override string Id => CommandConst.AcceptParty;
 
         public string UserId;
-        public string PartyId;
+        public string InviteId;
 
         public AcceptPartyCommand(Protocol protocol) : base(protocol)
         {
         }
 
-        public AcceptPartyCommand(string userId, string partyId)
+        public AcceptPartyCommand(string userId, string inviteId)
         {
             UserId = userId;
-            PartyId = partyId;
+            InviteId = inviteId;
         }
     
         public override void Read(Protocol protocol)
         {
             protocol.Get(out UserId);
-            protocol.Get(out PartyId);
+            protocol.Get(out InviteId);
         }
 
         public override void Write(Peer peer)
@@ -32,7 +32,7 @@ namespace ServerCore.Main.Commands.Party
             
             protocol.Add(Id);
             protocol.Add(UserId);
-            protocol.Add(PartyId);
+            protocol.Add(InviteId);
 
             packet.Create(protocol.Stream.GetBuffer());
 

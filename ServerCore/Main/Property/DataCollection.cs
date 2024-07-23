@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using ServerCore.Main.Utilities.Logger;
 
 namespace ServerCore.Main.Property
 {
@@ -14,7 +16,8 @@ namespace ServerCore.Main.Property
         public List<T> Collection { get; } = new();
 
         public bool IsDirty { get; set; }
-        
+        public bool IsNew { get; private set; } = true;
+
         private ushort _addCount;
         private List<ushort> _removeCount = new();
 
@@ -23,8 +26,13 @@ namespace ServerCore.Main.Property
             Id = id;
         }
 
-        public void Read(Protocol protocol)
+        public Dictionary<string, object> Read(Protocol protocol)
         {
+            var result = new Dictionary<string, object>();
+            var removeData = new List<object>();
+            var addData = new Dictionary<string, object>();
+            var changeData = new List<object>();
+            
             protocol.Get(out ushort removedCount);
 
             for (var i = 0; i < removedCount; i++)
@@ -34,10 +42,13 @@ namespace ServerCore.Main.Property
                 Collection.Remove(data);
                 
                 OnRemove?.Invoke(data);
+                
+                removeData.Add(index.ToString());
             }
             
             protocol.Get(out ushort addedCount);
-
+            addData.Add("count", addedCount);
+            
             for (var i = 0; i < addedCount; i++)
             {
                 var data = new T();
@@ -54,7 +65,15 @@ namespace ServerCore.Main.Property
             {
                 protocol.Get(out ushort index);
                 Collection[index].Read(protocol);
+                
+                changeData.Add(index);
             }
+            
+            result.Add("remove", removeData);
+            result.Add("change", changeData);
+            result.Add("add", addData);
+
+            return result;
         }
 
         public void WriteAll(Protocol protocol)
@@ -142,7 +161,8 @@ namespace ServerCore.Main.Property
         {
             Collection.Add(data);
             _addCount++;
-            IsDirty = true;
+            
+            data.ChangeIsNew(false);
             
             OnAdd?.Invoke(data);
         }
@@ -155,6 +175,11 @@ namespace ServerCore.Main.Property
             
             OnRemove?.Invoke(data);
         }
+
+        public void ChangeIsNew(bool state)
+        {
+            IsNew = state;
+        }
     }
     
     public class DataCollection<TKey, TValue> : IServerData where TValue : IServerData, new()
@@ -166,6 +191,7 @@ namespace ServerCore.Main.Property
         public Dictionary<TKey, TValue> Collection { get; } = new();
 
         public bool IsDirty { get; set; }
+        public bool IsNew { get; private set; } = true;
 
         private List<TKey> _addIds = new();
         private List<TKey> _removeIds = new();
@@ -175,8 +201,13 @@ namespace ServerCore.Main.Property
             Id = id;
         }
 
-        public void Read(Protocol protocol)
+        public Dictionary<string, object> Read(Protocol protocol)
         {
+            var result = new Dictionary<string, object>();
+            var removeData = new List<object>();
+            var addData = new List<object>();
+            var changeData = new List<object>();
+            
             protocol.Get(out ushort removedCount);
 
             for (var i = 0; i < removedCount; i++)
@@ -185,6 +216,8 @@ namespace ServerCore.Main.Property
                 Collection.Remove(index);
                 
                 OnRemove?.Invoke(index);
+                
+                removeData.Add(index.ToString());
             }
             
             protocol.Get(out ushort addedCount);
@@ -195,10 +228,12 @@ namespace ServerCore.Main.Property
 
                 var data = new TValue();
                 
-                Collection.Add(index, data);
+                Collection.Add(index,data);
                 Collection[index].Read(protocol);
-                
+            
                 OnAdd?.Invoke(data);
+            
+                addData.Add(index.ToString());
             }
             
             protocol.Get(out ushort changedCount);
@@ -206,14 +241,17 @@ namespace ServerCore.Main.Property
             for (var i = 0; i < changedCount; i++)
             {
                 protocol.Get(out TKey index);
-                
+
                 Collection[index].Read(protocol);
                 
-                // if (Collection.TryGetValue(index, out var data))
-                // {
-                    // data.Read(protocol);
-                // }
+                changeData.Add(index.ToString());
             }
+            
+            result.Add("remove", removeData);
+            result.Add("change", changeData);
+            result.Add("add", addData);
+
+            return result;
         }
 
         public void WriteAll(Protocol protocol)
@@ -246,7 +284,7 @@ namespace ServerCore.Main.Property
                 protocol.Add(element);
                 Collection[element].Write(protocol);
             }
-            
+
             ushort changedDataCount = 0;
             var changedDataset = new Dictionary<TKey, IServerData>();
 
@@ -263,6 +301,7 @@ namespace ServerCore.Main.Property
                 foreach (var data in changedDataset)
                 {
                     protocol.Add(data.Key);
+                    
                     data.Value.Write(protocol);
                 }
             }
@@ -301,7 +340,8 @@ namespace ServerCore.Main.Property
         {
             Collection.Add(key, data);
             _addIds.Add(key);
-            IsDirty = true;
+            
+            data.ChangeIsNew(false);
             
             OnAdd?.Invoke(data);
         }
@@ -313,6 +353,11 @@ namespace ServerCore.Main.Property
             IsDirty = true;
             
             OnRemove?.Invoke(key);
+        }
+
+        public void ChangeIsNew(bool state)
+        {
+            IsNew = state;
         }
     }
 }

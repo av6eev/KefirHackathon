@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47165c6091f4274947a3cc2fdf5739b, type: 3}
+  m_Name: CharacterSelectActionsDialogSpecification
+  m_EditorClassIdentifier: 
+  Specification:
+    _id: character_select_actions_dialog
+    PrefabId: character_select_actions_dialog
+    Buttons:
+    - ActionId: party_invite
+      DescriptionText: Invite in party
+      Width: 130
+      Height: 20
+      Color: {r: 1, g: 1, b: 1, a: 0}
+      TextColor: {r: 1, g: 1, b: 1, a: 1}
+      FontSize: 14
+      Font: {fileID: 11400000, guid: f26ae038a1250e74d953043b29d36683, type: 2}
+    - ActionId: friend_invite
+      DescriptionText: Add to friends
+      Width: 130
+      Height: 20
+      Color: {r: 1, g: 1, b: 1, a: 0}
+      TextColor: {r: 1, g: 1, b: 1, a: 1}
+      FontSize: 14
+      Font: {fileID: 11400000, guid: f26ae038a1250e74d953043b29d36683, type: 2}
+    ButtonPrefab: {fileID: 2198583835160061297, guid: 15a677541fc8c284ab46d7c58b21da53,
+      type: 3}

@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "f15f5eb5-fd90-4d3d-82e2-00bbf24bdc9f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Attack",
                     "type": "Button",
                     "id": "34ffa641-e0c8-4684-8c00-3f669d35a0f6",
@@ -117,6 +126,24 @@
                     "name": "Any",
                     "type": "Button",
                     "id": "43a71f23-8cef-4315-9f11-86d71866c4cd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugPanel",
+                    "type": "Button",
+                    "id": "91fff9d6-cb6b-4c93-8f55-c100952e662a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FriendsPanel",
+                    "type": "Button",
+                    "id": "708c5f18-da66-4b41-bee0-4f03f3bf0b3b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -308,6 +335,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Any",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d8ec478-e6f2-4b78-b5f1-ec6c6bf380fa",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "300fa6dd-14db-4880-bf88-0bf3dd3d848c",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aea5fe87-8b50-4410-93b8-66b586094c03",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FriendsPanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

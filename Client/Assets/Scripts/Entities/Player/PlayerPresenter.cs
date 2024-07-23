@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cameras;
 using Entities.Player.Animator;
+using Entities.Player.Friends;
 using Entities.Player.Physics;
 using Entities.Player.Target;
 using Loader.Object;
@@ -35,7 +36,8 @@ namespace Entities.Player
 
             var component = _loadObjectModel.Result.GetComponent<PlayerView>();
             _view = Object.Instantiate(component, _root);
-            
+            _view.NicknameText.text = _model.Nickname;
+
             _gameModel.CameraModel.ChangeState(CameraStateType.PlayerFollow, _view.Root);
             
             _presenters.Add(new PlayerTargetPresenter(_gameModel, _model, _view));
@@ -43,10 +45,12 @@ namespace Entities.Player
             _presenters.Add(new PlayerDashPresenter(_gameModel, _model, _view));
             _presenters.Add(new EnemyChangePresenter(_model));
             _presenters.Add(new PlayerKillCountChangePresenter(_model));
-            _presenters.Add(new PlayerChangeLocationPresenter(_gameModel, _model));
+            _presenters.Add(new PlayerPartyRequestPresenter(_gameModel, _model));
+            _presenters.Add(new PlayerFriendsRequestPresenter(_gameModel, _model));
 
             _updaters.Add(new PlayerPhysicsUpdater(_gameModel, _model, _view));
             _updaters.Add(new PlayerInfoUpdater(_model, _view));
+            _updaters.Add(new PlayerCanvasViewUpdater(_view, _gameModel.CameraModel));
             
             _presenters.Init();
 
@@ -67,6 +71,8 @@ namespace Entities.Player
             }
             
             _updaters.Clear();
+            
+            Object.Destroy(_view.gameObject);
         }
     }
 }

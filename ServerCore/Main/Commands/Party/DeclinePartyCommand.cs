@@ -6,23 +6,23 @@ namespace ServerCore.Main.Commands.Party
     {
         public override string Id => CommandConst.DeclineParty;
 
-        public string PartyId;
+        public string InviteId;
         public string UserId;
     
         public DeclinePartyCommand(Protocol protocol) : base(protocol)
         {
         }
 
-        public DeclinePartyCommand(string userId, string partyId)
+        public DeclinePartyCommand(string userId, string inviteId)
         {
-            PartyId = partyId;
+            InviteId = inviteId;
             UserId = userId;
         }
     
         public override void Read(Protocol protocol)
         {
             protocol.Get(out UserId);
-            protocol.Get(out PartyId);
+            protocol.Get(out InviteId);
         }
 
         public override void Write(Peer peer)
@@ -32,7 +32,7 @@ namespace ServerCore.Main.Commands.Party
             
             protocol.Add(Id);
             protocol.Add(UserId);
-            protocol.Add(PartyId);
+            protocol.Add(InviteId);
 
             packet.Create(protocol.Stream.GetBuffer());
 

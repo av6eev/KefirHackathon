@@ -1,9 +1,7 @@
 ﻿using Cameras;
 using Input;
 using ServerCore.Main.Commands;
-using ServerCore.Main.Utilities;
 using ServerManagement;
-using ServerManagement.Test;
 using UnityEngine;
 using Updater;
 using Vector3 = UnityEngine.Vector3;
@@ -78,7 +76,7 @@ namespace Entities.Player.Physics
         private void PhysicsUpdate(float deltaTime)
         {
             var input = new Vector3(_inputModel.Direction.Value.x, 0, _inputModel.Direction.Value.y);
-
+            
             if (_gameModel.SkillPanelModel.IsCasting)
             {
                 return;
@@ -101,11 +99,6 @@ namespace Entities.Player.Physics
 
         private void MoveUpdate(Vector3 input, float deltaTime)
         {
-            // UnityEngine.Physics.simulationMode = SimulationMode.Script;
-            // _playerView.Rigidbody.isKinematic = false;
-            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            // _playerView.Rigidbody.angularVelocity = Vector3.zero;
-            
             var newPosition = _playerView.Position;
             var specification = _playerModel.Specification;
             float constSpeed;
@@ -128,7 +121,6 @@ namespace Entities.Player.Physics
                 _playerModel.CurrentSpeed.Value = Mathf.Lerp(_playerModel.CurrentSpeed.Value, constSpeed, .1f);
                 
                 var movementInput = Quaternion.Euler(0, _cameraModel.CurrentEulerAngles.y, 0) * input;
-                // var movementInput = input;
                 var movementDirection = movementInput.normalized;
 
                 if (movementDirection != Vector3.zero && !_playerModel.InDash.Value)
@@ -148,11 +140,6 @@ namespace Entities.Player.Physics
             {
                 _playerModel.CurrentSpeed.Value = 0;
             }
-            
-            // UnityEngine.Physics.Simulate(ServerConst.TimeBetweenTicks);
-            // UnityEngine.Physics.simulationMode = SimulationMode.Update;
-            // _playerView.Rigidbody.isKinematic = true;
-            // _playerView.Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
     }
 }

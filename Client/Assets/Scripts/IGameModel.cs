@@ -1,14 +1,17 @@
 ﻿using Cameras;
 using DeBuff.Collection;
 using Dialogs.Collection;
+using Entities.Characters.Collection;
 using Entities.Enemy.Collection;
 using Entities.Player;
 using Entities.Player.Dialog;
+using GameScenes.GameUI.DebugPanel;
 using Input;
 using Inventory.Collection;
 using Item.ItemPlaceholder;
 using Loader.Object;
 using Loader.Scene;
+using LoadingScreen;
 using Quest.Collection;
 using Save.Single.Collection;
 using SceneManagement.Collection;
@@ -38,11 +41,14 @@ public interface IGameModel : IBaseGameModel
     IItemPlaceholderModel ItemPlaceholderModel { get; }
     IEnemiesCollection EnemiesCollection { get; }
     SkillPanelModel SkillPanelModel { get; }
+    DebugPanelModel DebugPanelModel { get; }
     IDeBuffsCollection DeBuffsCollection { get; }
     PlayerDialogModel PlayerDialogModel { get; }
+    CharactersCollection CharactersCollection { get; }
     QuestsCollection QuestsCollection { get; }
     IServerConnectionModel ServerConnectionModel { get; }
     WorldData WorldData { get; }
     // UserData UserData { get; }
     IServerSpecifications ServerSpecifications { get; }
+    ILoadingScreenModel LoadingScreenModel { get; }
 }

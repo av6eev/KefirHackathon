@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Presenter;
 using ServerCore.Main;
-using UnityEngine;
 
 namespace Entities.Characters.Collection
 {
@@ -22,24 +21,31 @@ namespace Entities.Characters.Collection
         
         public void Init()
         {
-            foreach (var model in _model.GetModels())
+            foreach (var model in _gameModel.WorldData.CharacterDataCollection.Collection)
             {
-                HandleAdd(model.ServerData);
+                HandleAdd(model.Value);
             }
             
-            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnAdd += HandleAdd;
-            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnRemove += HandleRemove;
+            _gameModel.WorldData.CharacterDataCollection.OnAdd += HandleAdd;
+            _gameModel.WorldData.CharacterDataCollection.OnRemove += HandleRemove;
         }
 
         public void Dispose()
         {
-            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnAdd -= HandleAdd;
-            // _gameModel.UserData.CurrentLocation.Value.WorldData.CharacterDataCollection.OnRemove -= HandleRemove;
+            foreach (var model in _model.GetModels())
+            {
+                HandleRemove(model.ServerData.PlayerId.Value);
+            }
+            
+            _model.Clear();
+            
+            _gameModel.WorldData.CharacterDataCollection.OnAdd -= HandleAdd;
+            _gameModel.WorldData.CharacterDataCollection.OnRemove -= HandleRemove;
         }
 
         private void HandleAdd(CharacterServerData serverData)
         {
-            if (serverData.PlayerId.Value == _gameModel.PlayerModel.Id)
+            if (serverData.PlayerId.Value == _gameModel.PlayerModel.Id || string.IsNullOrEmpty(serverData.PlayerId.Value))
             {
                 return;
             }
@@ -58,8 +64,6 @@ namespace Entities.Characters.Collection
             }
 
             _presenters.Remove(playerId);
-            
-            Debug.Log($"removed: {playerId}");
         }
     }
 }

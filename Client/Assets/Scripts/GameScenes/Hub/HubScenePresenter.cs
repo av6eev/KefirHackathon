@@ -1,5 +1,6 @@
 ﻿using Entities;
 using InteractiveObjects.Portal;
+using LoadingScreen;
 using SceneManagement;
 
 namespace GameScenes.Hub
@@ -29,7 +30,7 @@ namespace GameScenes.Hub
                 _gameModel.PlayerDialogModel.Add("И кем я был...");
             }
             
-            Presenters.Add(new PortalPresenter(_gameModel, _view.PortalView));
+            Presenters.Add(LoadingScreenMessageConst.PortalPresenter, new PortalPresenter(_gameModel, _view.PortalView));
         }
 
         protected override void AfterDispose()

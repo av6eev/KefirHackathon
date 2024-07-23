@@ -1,7 +1,6 @@
 ﻿using Entities.Animation;
-using Entities.Player.Animator;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Entities
@@ -14,8 +13,11 @@ namespace Entities
         public Rigidbody Rigidbody;
         public Transform Root;
         public EntityType Type;
-        public Image HealthBar;
+        public TextMeshProUGUI NicknameText;
         public GameObject WeaponSlot;
+        public GameObject HealthBarRoot;
+        public Image HealthBar;
+        public Image SelectedToolTip;
         public Animator EntityAnimatorController;
         public EntityAnimationEventsView EntityAnimationEvents;
         public LayerMask EnemyLayer;

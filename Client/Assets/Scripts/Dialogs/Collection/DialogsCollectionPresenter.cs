@@ -1,4 +1,8 @@
-﻿using Presenter;
+﻿using Entities.Characters.Dialogs.Panel;
+using Entities.Characters.Dialogs.Select.Actions;
+using Entities.Player.Dialog.Friends;
+using Entities.Player.Dialog.Party;
+using Presenter;
 
 namespace Dialogs.Collection
 {
@@ -35,6 +39,18 @@ namespace Dialogs.Collection
             
             switch (model)
             {
+                case CharacterSelectDialogModel dialogModel:
+                    presenter = new CharacterSelectDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
+                case CharacterSelectActionsDialogModel dialogModel:
+                    presenter = new CharacterSelectActionsDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
+                case PlayerPartyDecisionDialogModel dialogModel:
+                    presenter = new PlayerPartyDecisionDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
+                case PlayerFriendDecisionDialogModel dialogModel:
+                    presenter = new PlayerFriendDecisionDialogPresenter(_gameModel, dialogModel, _view);
+                    break;
             }
 
             if (presenter != null)

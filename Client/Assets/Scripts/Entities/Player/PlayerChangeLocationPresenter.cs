@@ -15,23 +15,21 @@ namespace Entities.Player
         
         public void Init()
         {
-            _gameModel.UserData.CurrentLocationId.Changed += HandleChangeLocation;
+            _model.UserData.CurrentLocationId.Changed += HandleChangeLocation;
         }
 
         public void Dispose()
         {
-            _gameModel.UserData.CurrentLocationId.Changed -= HandleChangeLocation;
+            _model.UserData.CurrentLocationId.Changed -= HandleChangeLocation;
         }
 
         private void HandleChangeLocation()
         {
-            var oldSceneId = _gameModel.SceneManagementModelsCollection.GetModel(_model.CurrentLocationId).SceneId;
-            var newLocationId = _gameModel.UserData.CurrentLocationId.Value;
-            
-            _gameModel.SceneManagementModelsCollection.Unload(oldSceneId);
-            _gameModel.SceneManagementModelsCollection.Load(newLocationId);
-
-            _model.CurrentLocationId = newLocationId;
+            if (!string.IsNullOrEmpty(_model.CurrentLocationId))
+            {
+                var oldSceneId = _gameModel.SceneManagementModelsCollection.GetModel(_model.CurrentLocationId).SceneId;
+                _gameModel.SceneManagementModelsCollection.Unload(oldSceneId);    
+            }
         }
     }
 }

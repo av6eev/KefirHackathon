@@ -10,5 +10,10 @@
         public const string AcceptParty = "AcceptPartyCommand";
         public const string DeclineParty = "DeclinePartyCommand";
         public const string KickFromParty = "KickFromPartyCommand";
+        public const string LeaveParty = "LeavePartyCommand";
+        public const string InviteFriend = "InviteFriendCommand";
+        public const string RemoveFriend = "RemoveFriendCommand";
+        public const string AcceptFriend = "AcceptFriendCommand";
+        public const string DeclineFriend = "DeclineFriendCommand";
     }
 }
