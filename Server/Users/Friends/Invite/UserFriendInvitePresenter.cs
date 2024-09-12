@@ -61,7 +61,9 @@ public class UserFriendInvitePresenter : IPresenter
             invitedUser.FriendsCollection.AddFriend(fromUser.PlayerNickname);
             
             fromUser.UserData.FriendsData.Friends.Add(invitedUser.PlayerNickname);
+            fromUser.UserData.FriendsData.OnlineFriends.Add(invitedUser.PlayerNickname);
             invitedUser.UserData.FriendsData.Friends.Add(fromUser.PlayerNickname);
+            invitedUser.UserData.FriendsData.OnlineFriends.Add(fromUser.PlayerNickname);
             
             Logger.Instance.Log($"User: {invitedUser.PlayerNickname} accepted invite and now friends with user: {fromUser.PlayerNickname}!");
         }
@@ -70,6 +72,6 @@ public class UserFriendInvitePresenter : IPresenter
             Logger.Instance.Log($"User: {invitedUser.PlayerNickname} declined friend invite from user: {fromUser.PlayerNickname}!");
         }
         
-        invitedUser.FriendsCollection.RemoveInvite(_model.InviteId);
+        // invitedUser.FriendsCollection.RemoveInvite(_model.InviteId);
     }
 }

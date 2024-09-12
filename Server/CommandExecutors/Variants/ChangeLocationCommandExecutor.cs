@@ -36,10 +36,7 @@ public class ChangeLocationCommandExecutor : CommandExecutor<ChangeLocationComma
         {
             GameModel.WorldsCollection.Worlds[userModel.WorldId].CharacterDataCollection.Remove(userModel.PlayerId);
             Console.WriteLine($"Remove user: {userModel.PlayerId} from world: {userModel.WorldId}");
-        }
-
-        if (!string.IsNullOrEmpty(userModel.CurrentLocationId))
-        {
+            
             GameModel.WorldsCollection.Worlds[newWorld.Guid].CharacterDataCollection.Add(userModel.PlayerId, characterServerData);
             Console.WriteLine($"Add user: {userModel.PlayerId} to world: {newWorld.Guid}");
         }

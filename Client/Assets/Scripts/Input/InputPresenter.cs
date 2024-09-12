@@ -69,11 +69,9 @@ namespace Input
             if (newValue)
             {
                 playerActionMap.Enable();
-                Debug.Log("enabled");
             }
             else
             {
-                Debug.Log("disabled");
                 playerActionMap.Disable();
             }
         }
